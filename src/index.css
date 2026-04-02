@@ -49,13 +49,9 @@
   }
   
   body {
-    @apply bg-[#010101] text-white antialiased cursor-none;
+    @apply bg-[#010101] text-white antialiased;
     font-family: 'Inter Tight', sans-serif;
     overflow-x: hidden;
-  }
-  
-  a, button, [role="button"], input, textarea, select {
-    cursor: none !important;
   }
 }
 
