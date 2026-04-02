@@ -1,73 +1,67 @@
-# React + TypeScript + Vite
+# ⚡ Qazi Farhan Ahmad | Software Engineering Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![React](https://img.shields.io/badge/React_19-20232a?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev)
+[![GSAP](https://img.shields.io/badge/GSAP_3-88CE02?style=for-the-badge&logo=greensock&logoColor=white)](https://greensock.com/gsap/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_3-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![Vite](https://img.shields.io/badge/Vite_6-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
 
-Currently, two official plugins are available:
+A high-end, professionally branded software engineering portfolio designed to showcase a curated collection of full-stack and frontend projects. This portfolio features a minimalist dark aesthetic, immersive GSAP-driven interactions, and a custom developer-themed identity.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+### ✨ &nbsp;Key Highlights
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-   **"Terminal Q" Branding**: A custom-designed developer identity featuring a terminal prompt `>` and cursor integration across the navigation and footer.
+-   **Interactive Scroll Tracker**: A premium 8px-thick progress bar in the "Selected Work" section that synchronizes with horizontal project scrolling.
+-   **Liquid Custom Cursor**: A smooth, dual-layered mouse follower (inner dot + outer ring) with `mix-blend-difference` for perfect visibility and interactive scaling.
+-   **Dynamic Project Showcase**: A horizontally-scrolling gallery of 10+ professional projects, featuring live iframe previews and glassmorphism cards.
+-   **Performance Optimized**: Built with **React 19** and **Vite 6** for near-instant load times and 60fps animations.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🎨 &nbsp;Tech Stack & Tools
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Component | Technology |
+| :--- | :--- |
+| **Framework** | React 19 (Hooks, Context) |
+| **Animations** | GSAP (ScrollTrigger) + Framer Motion |
+| **Styling** | Tailwind CSS (Glassmorphism, Custom Gradients) |
+| **Icons & Assets** | Lucide React + Custom SVGs |
+| **Build Tool** | Vite 6 |
+| **Deployment** | Netlify |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🚀 &nbsp;Quick Start
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1.  **Clone the Repository**:
+    ```bash
+    git clone https://github.com/Qaziaaaa/portfolio.git
+    cd portfolio
+    ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+2.  **Install Dependencies**:
+    ```bash
+    npm install
+    ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3.  **Run Development Server**:
+    ```bash
+    npm run dev
+    ```
+
+4.  **Build for Production**:
+    ```bash
+    npm run build
+    ```
+
+---
+
+### 🌍 &nbsp;Live Experience
+View the live portfolio here: **[portfolio-qazi.netlify.app](https://portfolio-qazi.netlify.app)**
+
+---
+
+<div align="center">
+  <b>"Crafting digital experiences with precision and passion."</b>
+</div>
