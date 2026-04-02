@@ -14,19 +14,76 @@ interface Project {
 }
 
 const projects: Project[] = [
-  { id: 1, link: 'https://qazis.netlify.app' },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-  { id: 7 },
-  { id: 8 },
-  { id: 9 },
-  { id: 10 },
-  { id: 11 },
-  { id: 12 },
-  { id: 13 }
+  { 
+    id: 1, 
+    link: 'https://hiking-app-puce.vercel.app/',
+    title: 'Hikescape Full-Stack App',
+    description: 'A comprehensive MERN stack application for hiking enthusiasts with authentication and maps.',
+    tags: ['MERN', 'Full Stack', 'Cloudinary']
+  },
+  { 
+    id: 2, 
+    link: 'https://agencyxai.netlify.app',
+    title: 'Agency X AI',
+    description: 'A modern AI agency landing page with sophisticated animations and glassmorphism.',
+    tags: ['Next.js', 'AI', 'Framer Motion']
+  },
+  { 
+    id: 3, 
+    link: 'https://qbulids.netlify.app',
+    title: 'QBuilds Architecture',
+    description: 'High-end architectural portfolio featuring immersive visual storytelling.',
+    tags: ['React', 'GSAP', 'Architecture']
+  },
+  { 
+    id: 4, 
+    link: 'https://vertexdesignlab.netlify.app',
+    title: 'Vertex Design Lab',
+    description: 'A creative studio website focused on minimalist and geometric design principles.',
+    tags: ['Portfolio', 'Design', 'Vite']
+  },
+  { 
+    id: 5, 
+    link: 'https://marketingz.netlify.app',
+    title: 'MarketingZ Agency',
+    description: 'A bold, high-conversion marketing agency landing page.',
+    tags: ['Marketing', 'SEO', 'Tailwind CSS']
+  },
+  { 
+    id: 6, 
+    link: 'https://landingpagesaas.netlify.app',
+    title: 'SaaS Launchpad',
+    description: 'Highly optimized SaaS landing page with interactive pricing and feature grids.',
+    tags: ['SaaS', 'UI/UX', 'React']
+  },
+  { 
+    id: 7, 
+    link: 'https://ecommercestoreqazi.netlify.app',
+    title: 'Elite Commerce',
+    description: 'A fast, modern e-commerce storefront with integrated shopping features.',
+    tags: ['E-commerce', 'Redux', 'Vite']
+  },
+  { 
+    id: 8, 
+    link: 'https://oliipop.netlify.app',
+    title: 'Oliipop Creative',
+    description: 'Visually stunning personal brand portfolio for creative professionals.',
+    tags: ['Branding', 'Portfolio', 'React']
+  },
+  { 
+    id: 9, 
+    link: 'https://gamingbench.netlify.app',
+    title: 'Gaming Bench',
+    description: 'A community-focused gaming hardware reviews and benchmarks platform.',
+    tags: ['Hardware', 'Gaming', 'Tailwind']
+  },
+  { 
+    id: 10, 
+    link: 'https://porfolio-qazi.netlify.app',
+    title: 'Portfolio V1',
+    description: 'The first iteration of my personal dev portfolio, showcasing my early work.',
+    tags: ['First Edition', 'Portfolio', 'React']
+  }
 ];
 
 const ProjectCard = ({ project }: { project: Project }) => {
@@ -55,7 +112,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       href={project.link}
       target={hasLink ? "_blank" : undefined}
       rel={hasLink ? "noopener noreferrer" : undefined}
-      className={`work-card group relative flex-shrink-0 w-[65vw] md:w-[45vw] lg:w-[35vw] h-[55vh] md:h-[60vh] rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 block bg-[#050505] border border-white/5 hover:border-white/20`}
+      className={`work-card group relative flex-shrink-0 w-[90vw] sm:w-[72vw] md:w-[45vw] lg:w-[35vw] h-[48vh] sm:h-[52vh] md:h-[60vh] rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 block bg-[#050505] border border-white/5 hover:border-white/20`}
       style={{
         transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
         transition: 'transform 0.3s ease-out',
@@ -152,23 +209,32 @@ const Work = () => {
 
     mm.add('(min-width: 768px)', () => {
       const cards = container.querySelectorAll('.work-card');
-      const totalWidth = Array.from(cards).reduce((acc, card) => acc + (card as HTMLElement).offsetWidth + 48, 0);
+      const totalWidth = Array.from(cards).reduce((acc, card) => acc + (card as HTMLElement).offsetWidth + 64, 0);
 
-      const scrollTrigger = gsap.to(container, {
-        x: () => -(totalWidth - window.innerWidth + 100),
-        ease: 'none',
+      // Main horizontal scroll timeline
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: () => `+=${totalWidth}`,
+          end: () => `+=${totalWidth * 0.8}`, // Reduced distance to make it feel faster
           pin: true,
-          scrub: 1,
+          scrub: 0.5, // Faster scrub for better responsiveness
           invalidateOnRefresh: true,
         }
       });
 
-      if (scrollTrigger.scrollTrigger) {
-        triggersRef.current.push(scrollTrigger.scrollTrigger);
+      // Horizontal movement and progress bar sync
+      tl.to(container, {
+        x: () => -(totalWidth - window.innerWidth + 100),
+        ease: 'none',
+      }, 0)
+      .to('.work-progress-bar', {
+        scaleX: 1,
+        ease: 'none',
+      }, 0);
+
+      if (tl.scrollTrigger) {
+        triggersRef.current.push(tl.scrollTrigger);
       }
     });
 
@@ -185,10 +251,23 @@ const Work = () => {
     <section
       id="work"
       ref={sectionRef}
-      className="relative bg-[#010101] min-h-screen"
+      className="relative bg-[#010101] min-h-screen pt-12"
     >
+      {/* Scroll Progress Tracker (Desktop only) */}
+      <div className="hidden md:block absolute top-[85px] left-0 right-0 z-50 w-full px-4 sm:px-6 lg:px-8 pointer-events-none">
+        <div className="w-full h-[6px] bg-white/10 rounded-full overflow-hidden">
+          <div 
+            className="work-progress-bar h-full bg-white origin-left shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+            style={{ 
+              transform: 'scaleX(0)',
+              willChange: 'transform'
+            }}
+          />
+        </div>
+      </div>
+
       {/* Section Header */}
-      <div className="w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+      <div className="w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white tracking-tight mb-4 overflow-hidden">
           {titleText.split('').map((char, index) => (
             <span
@@ -208,7 +287,7 @@ const Work = () => {
       {/* Projects Container */}
       <div
         ref={containerRef}
-        className="flex gap-8 md:gap-16 px-4 sm:px-8 lg:px-12 pb-20 md:pb-32 md:flex-nowrap flex-wrap justify-center w-full min-w-max"
+        className="flex gap-6 sm:gap-8 md:gap-16 px-4 sm:px-8 lg:px-12 pb-20 md:pb-32 md:flex-nowrap flex-wrap justify-center md:justify-start w-full md:min-w-max"
       >
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />

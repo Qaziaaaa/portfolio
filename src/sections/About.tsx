@@ -186,21 +186,21 @@ const About = () => {
             </div>
 
             {/* Stats Cards */}
-            <div className="stat-card stat-card-1 absolute -top-4 -right-4 md:top-8 md:-right-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 md:p-6">
+            <div className="stat-card stat-card-1 absolute -top-2 -right-2 sm:-top-4 sm:-right-4 md:top-8 md:-right-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-6 max-w-[10rem] sm:max-w-none">
               <div className="text-2xl md:text-3xl font-semibold text-white">
                 <CountUp end={stats[0].value} suffix={stats[0].suffix} />
               </div>
               <div className="text-xs md:text-sm text-white/60 mt-1">{stats[0].label}</div>
             </div>
 
-            <div className="stat-card stat-card-2 absolute -bottom-4 -left-4 md:bottom-20 md:-left-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 md:p-6">
+            <div className="stat-card stat-card-2 absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 md:bottom-20 md:-left-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-6 max-w-[10rem] sm:max-w-none">
               <div className="text-2xl md:text-3xl font-semibold text-white">
                 <CountUp end={stats[1].value} suffix={stats[1].suffix} />
               </div>
               <div className="text-xs md:text-sm text-white/60 mt-1">{stats[1].label}</div>
             </div>
 
-            <div className="stat-card stat-card-3 absolute bottom-8 -right-4 md:bottom-0 md:-right-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 md:p-6">
+            <div className="stat-card stat-card-3 absolute bottom-6 -right-2 sm:bottom-8 sm:-right-4 md:bottom-0 md:-right-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-6 max-w-[10rem] sm:max-w-none">
               <div className="text-2xl md:text-3xl font-semibold text-white">
                 <CountUp end={stats[2].value} suffix={stats[2].suffix} />
               </div>

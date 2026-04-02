@@ -199,13 +199,13 @@ const Contact = () => {
         </div>
 
         {/* Alternative Contact */}
-        <div className="contact-email">
+        <div className="contact-email px-2 sm:px-0">
           <a
             href="mailto:qazithekingston@gmail.com"
-            className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors group"
+            className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors group max-w-full"
           >
             <Mail className="w-4 h-4" />
-            <span className="relative">
+            <span className="relative break-all text-sm sm:text-base">
               Or email me at qazithekingston@gmail.com
               <span className="absolute -bottom-1 left-1/2 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full group-hover:left-0" />
             </span>

@@ -226,7 +226,7 @@ const Hero = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-[3] w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+      <div className="relative z-[3] w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 sm:pb-20">
         <div className="max-w-4xl">
           {/* Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white leading-[1.1] tracking-tight mb-6">
@@ -251,23 +251,23 @@ const Hero = () => {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4 w-full sm:w-auto">
             <button
               onClick={scrollToWork}
-              className="hero-cta-primary px-8 py-4 bg-white text-black font-medium rounded-full hover:scale-105 transition-transform duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+              className="hero-cta-primary w-full sm:w-auto px-8 py-4 bg-white text-black font-medium rounded-full hover:scale-105 transition-transform duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
             >
               View My Work
             </button>
             <button
               onClick={scrollToContact}
-              className="hero-cta-secondary px-8 py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300"
+              className="hero-cta-secondary w-full sm:w-auto px-8 py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300"
             >
               Get in Touch
             </button>
             <a
               href="/resume.pdf"
               download
-              className="hero-cta-download px-8 py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center"
+              className="hero-cta-download w-full sm:w-auto px-8 py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center"
             >
               Download CV
             </a>

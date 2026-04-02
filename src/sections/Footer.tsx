@@ -149,7 +149,18 @@ const Footer = () => {
         {/* Top Section */}
         <div className="text-center mb-12">
           {/* Brand */}
-          <h3 className="footer-brand text-3xl md:text-4xl font-semibold text-white mb-4 tracking-tight">
+          <h3 className="footer-brand inline-flex items-center gap-3 text-3xl md:text-4xl font-semibold text-white mb-4 tracking-tight">
+            <span
+              aria-hidden="true"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm"
+            >
+              <svg viewBox="0 0 40 40" fill="none" className="h-7 w-7">
+                <circle cx="20" cy="20" r="14" stroke="white" strokeWidth="2.5" />
+                <path d="M16 16L20 20L16 24" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <line x1="22" y1="24" x2="26" y2="24" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M28 28L34 34" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+              </svg>
+            </span>
             PORTFOLIO
           </h3>
 
@@ -193,7 +204,7 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="footer-copyright flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/10">
           <p className="text-xs text-white/40">
-            &copy; {new Date().getFullYear()} Portfolio. All rights reserved.
+            &copy; {new Date().getFullYear()} Qazi Farhan. All rights reserved.
           </p>
 
           <div className="flex gap-6">

@@ -64,8 +64,19 @@ const Navigation = () => {
               scrollToSection('hero');
               window.dispatchEvent(new Event('triggerHeroAnimation'));
             }}
-            className="nav-logo text-xl font-semibold tracking-tight text-white hover:opacity-80 transition-opacity"
+            className="nav-logo inline-flex items-center gap-2 text-xl font-semibold tracking-tight text-white hover:opacity-80 transition-opacity"
           >
+            <span
+              aria-hidden="true"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm"
+            >
+              <svg viewBox="0 0 40 40" fill="none" className="h-6 w-6">
+                <circle cx="20" cy="20" r="14" stroke="white" strokeWidth="2.5" />
+                <path d="M16 16L20 20L16 24" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <line x1="22" y1="24" x2="26" y2="24" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M28 28L34 34" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+              </svg>
+            </span>
             PORTFOLIO
           </button>
 

@@ -45,11 +45,17 @@
   
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
   
   body {
-    @apply bg-[#010101] text-white antialiased;
+    @apply bg-[#010101] text-white antialiased cursor-none;
     font-family: 'Inter Tight', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  a, button, [role="button"], input, textarea, select {
+    cursor: none !important;
   }
 }
 
