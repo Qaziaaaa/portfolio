@@ -13,7 +13,6 @@ A high-end, professionally branded software engineering portfolio designed to sh
 
 -   **"Terminal Q" Branding**: A custom-designed developer identity featuring a terminal prompt `>` and cursor integration across the navigation and footer.
 -   **Interactive Scroll Tracker**: A premium 8px-thick progress bar in the "Selected Work" section that synchronizes with horizontal project scrolling.
--   **Liquid Custom Cursor**: A smooth, dual-layered mouse follower (inner dot + outer ring) with `mix-blend-difference` for perfect visibility and interactive scaling.
 -   **Dynamic Project Showcase**: A horizontally-scrolling gallery of 10+ professional projects, featuring live iframe previews and glassmorphism cards.
 -   **Performance Optimized**: Built with **React 19** and **Vite 6** for near-instant load times and 60fps animations.
 
