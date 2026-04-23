@@ -7,7 +7,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const triggersRef = useRef<ScrollTrigger[]>([]);
 
   useEffect(() => {
     const section = sectionRef.current;

@@ -131,7 +131,6 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
 
 const Skills = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const triggersRef = useRef<ScrollTrigger[]>([]);
 
   useEffect(() => {
     const section = sectionRef.current;

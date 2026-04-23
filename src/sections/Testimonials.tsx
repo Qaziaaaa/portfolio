@@ -45,7 +45,6 @@ const Testimonials = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const triggersRef = useRef<ScrollTrigger[]>([]);
 
   useEffect(() => {
     const section = sectionRef.current;

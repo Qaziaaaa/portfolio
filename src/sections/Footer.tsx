@@ -7,7 +7,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
   const footerRef = useRef<HTMLElement>(null);
-  const triggersRef = useRef<ScrollTrigger[]>([]);
 
   useEffect(() => {
     const footer = footerRef.current;

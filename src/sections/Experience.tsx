@@ -100,7 +100,6 @@ const ExperienceCard = ({ exp }: { exp: any }) => {
 
 const Experience = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
-    const triggersRef = useRef<ScrollTrigger[]>([]);
 
     useEffect(() => {
         const section = sectionRef.current;

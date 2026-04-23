@@ -55,7 +55,6 @@ const CountUp = ({ end, suffix, duration = 1.5 }: { end: number; suffix: string;
 
 const About = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const triggersRef = useRef<ScrollTrigger[]>([]);
 
   useEffect(() => {
     const section = sectionRef.current;
