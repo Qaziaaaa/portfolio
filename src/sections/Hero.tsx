@@ -41,7 +41,25 @@ const Hero = () => {
     let animationId: number;
     let frameCount = 0;
 
+    let isVisible = true;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          animate();
+        }
+      },
+      { threshold: 0 }
+    );
+    
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
+    }
+
     const animate = () => {
+      if (!isVisible) return;
+
       frameCount++;
       // Render every 2nd frame for performance (30fps)
       if (frameCount % 2 === 0) {
@@ -93,77 +111,65 @@ const Hero = () => {
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationId);
+      observer.disconnect();
     };
   }, []);
 
-  // GSAP entrance animations
+  // GSAP entrance animations — desktop only
   useEffect(() => {
-    const tl = gsap.timeline({ delay: 0.5 });
+    const mm = gsap.matchMedia();
 
-    // Headline words animation
-    tl.fromTo('.hero-word',
-      {
-        opacity: 0,
-        y: 40,
-        clipPath: 'inset(100% 0 0 0)'
-      },
-      {
-        opacity: 1,
-        y: 0,
-        clipPath: 'inset(0% 0 0 0)',
-        duration: 0.8,
-        stagger: 0.12,
-        ease: 'expo.out'
-      }
-    )
-      .fromTo('.hero-subheadline',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' },
-        '-=0.4'
-      )
-      .fromTo('.hero-description',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' },
-        '-=0.5'
-      )
-      .fromTo('.hero-cta-primary',
-        { opacity: 0, scale: 0.9, y: 20 },
-        { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' },
-        '-=0.3'
-      )
-      .fromTo('.hero-cta-secondary',
-        { opacity: 0, scale: 0.9, y: 20 },
-        { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' },
-        '-=0.4'
-      )
-      .fromTo('.hero-cta-download',
-        { opacity: 0, scale: 0.9, y: 20 },
-        { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' },
-        '-=0.4'
-      )
-      .fromTo('.hero-scroll-indicator',
-        { opacity: 0 },
-        { opacity: 1, duration: 0.5, ease: 'smooth' },
-        '-=0.2'
-      );
+    mm.add('(min-width: 1024px)', () => {
+      const tl = gsap.timeline({ delay: 0.5 });
 
-    // Floating shapes animation
-    gsap.fromTo('.floating-shape',
-      { opacity: 0, rotateX: 90, z: -200 },
-      {
-        opacity: 1,
-        rotateX: 0,
-        z: 50,
-        duration: 1,
-        stagger: 0.15,
-        delay: 0.8,
-        ease: 'expo.out'
-      }
-    );
+      // Headline words animation
+      tl.fromTo('.hero-word',
+        {
+          opacity: 0,
+          y: 40,
+          clipPath: 'inset(100% 0 0 0)'
+        },
+        {
+          opacity: 1,
+          y: 0,
+          clipPath: 'inset(0% 0 0 0)',
+          duration: 0.8,
+          stagger: 0.12,
+          ease: 'expo.out'
+        }
+      )
+        .fromTo('.hero-subheadline',
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' },
+          '-=0.4'
+        )
+        .fromTo('.hero-description',
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' },
+          '-=0.5'
+        )
+        .fromTo('.hero-cta-primary',
+          { opacity: 0, scale: 0.9, y: 20 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' },
+          '-=0.3'
+        )
+        .fromTo('.hero-cta-secondary',
+          { opacity: 0, scale: 0.9, y: 20 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' },
+          '-=0.4'
+        )
+        .fromTo('.hero-cta-download',
+          { opacity: 0, scale: 0.9, y: 20 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' },
+          '-=0.4'
+        )
+        .fromTo('.hero-scroll-indicator',
+          { opacity: 0 },
+          { opacity: 1, duration: 0.5, ease: 'smooth' },
+          '-=0.2'
+        );
 
-    const handleRestartAnimation = () => {
-      tl.restart();
-
+      // Floating shapes animation
       gsap.fromTo('.floating-shape',
         { opacity: 0, rotateX: 90, z: -200 },
         {
@@ -176,12 +182,33 @@ const Hero = () => {
           ease: 'expo.out'
         }
       );
-    };
 
-    window.addEventListener('triggerHeroAnimation', handleRestartAnimation);
+      const handleRestartAnimation = () => {
+        tl.restart();
+
+        gsap.fromTo('.floating-shape',
+          { opacity: 0, rotateX: 90, z: -200 },
+          {
+            opacity: 1,
+            rotateX: 0,
+            z: 50,
+            duration: 1,
+            stagger: 0.15,
+            delay: 0.8,
+            ease: 'expo.out'
+          }
+        );
+      };
+
+      window.addEventListener('triggerHeroAnimation', handleRestartAnimation);
+
+      return () => {
+        window.removeEventListener('triggerHeroAnimation', handleRestartAnimation);
+      };
+    });
 
     return () => {
-      window.removeEventListener('triggerHeroAnimation', handleRestartAnimation);
+      mm.revert();
     };
   }, []);
 
@@ -226,14 +253,15 @@ const Hero = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-[3] w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 sm:pb-20">
-        <div className="max-w-4xl">
+      {/* Main Content — Centered */}
+      <div className="relative z-[3] w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 sm:pb-20 flex items-center justify-center">
+        <div className="max-w-3xl text-center">
           {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white leading-[1.1] tracking-tight mb-6">
+          <h1 className="text-[9vw] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold text-white leading-[1.08] tracking-tight mb-6 whitespace-nowrap">
             {['Qazi', 'Farhan', 'Ahmad'].map((word, index) => (
               <span
                 key={index}
-                className="hero-word inline-block mr-[0.25em]"
+                className="hero-word inline-block mr-[0.25em] last:mr-0"
               >
                 {word}
               </span>
@@ -241,17 +269,17 @@ const Hero = () => {
           </h1>
 
           {/* Subheadline */}
-          <p className="hero-subheadline text-xl sm:text-2xl md:text-3xl text-white/80 font-light mb-6 max-w-2xl">
+          <p className="hero-subheadline text-xl sm:text-2xl md:text-3xl text-white/80 font-light mb-6">
             MERN Stack Developer
           </p>
 
           {/* Description */}
-          <p className="hero-description text-base sm:text-lg text-white/60 max-w-xl mb-10 leading-relaxed">
+          <p className="hero-description text-base sm:text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed">
             I build scalable, full-stack applications and seamless digital experiences that help businesses grow and connect with their audience.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-3 sm:gap-4">
             <button
               onClick={scrollToWork}
               className="hero-cta-primary w-full sm:w-auto px-8 py-4 bg-white text-black font-medium rounded-full hover:scale-105 transition-transform duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"

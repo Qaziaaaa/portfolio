@@ -13,93 +13,99 @@ const Footer = () => {
     const footer = footerRef.current;
     if (!footer) return;
 
-    // Border line draw animation
-    const borderTrigger = ScrollTrigger.create({
-      trigger: footer,
-      start: 'top 90%',
-      onEnter: () => {
-        gsap.fromTo('.footer-border',
-          { scaleX: 0 },
-          { scaleX: 1, duration: 0.8, ease: 'expo.out' }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(borderTrigger);
+    const mm = gsap.matchMedia();
 
-    // Brand name animation
-    const brandTrigger = ScrollTrigger.create({
-      trigger: footer,
-      start: 'top 85%',
-      onEnter: () => {
-        gsap.fromTo('.footer-brand',
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out', delay: 0.2 }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(brandTrigger);
+    mm.add('(min-width: 1024px)', () => {
+      // Border line draw animation
+      const borderTrigger = ScrollTrigger.create({
+        trigger: footer,
+        start: 'top 90%',
+        onEnter: () => {
+          gsap.fromTo('.footer-border',
+            { scaleX: 0 },
+            { scaleX: 1, duration: 0.8, ease: 'expo.out' }
+          );
+        },
+        once: true
+      });
 
-    // Tagline animation
-    const taglineTrigger = ScrollTrigger.create({
-      trigger: footer,
-      start: 'top 80%',
-      onEnter: () => {
-        gsap.fromTo('.footer-tagline',
-          { opacity: 0 },
-          { opacity: 1, duration: 0.4, ease: 'smooth', delay: 0.4 }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(taglineTrigger);
+      // Brand name animation
+      const brandTrigger = ScrollTrigger.create({
+        trigger: footer,
+        start: 'top 85%',
+        onEnter: () => {
+          gsap.fromTo('.footer-brand',
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out', delay: 0.2 }
+          );
+        },
+        once: true
+      });
 
-    // Navigation links animation
-    const navTrigger = ScrollTrigger.create({
-      trigger: footer,
-      start: 'top 75%',
-      onEnter: () => {
-        gsap.fromTo('.footer-nav-link',
-          { opacity: 0, y: 15 },
-          { opacity: 1, y: 0, duration: 0.4, stagger: 0.08, ease: 'expo.out', delay: 0.5 }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(navTrigger);
+      // Tagline animation
+      const taglineTrigger = ScrollTrigger.create({
+        trigger: footer,
+        start: 'top 80%',
+        onEnter: () => {
+          gsap.fromTo('.footer-tagline',
+            { opacity: 0 },
+            { opacity: 1, duration: 0.4, ease: 'smooth', delay: 0.4 }
+          );
+        },
+        once: true
+      });
 
-    // Social icons animation
-    const socialTrigger = ScrollTrigger.create({
-      trigger: footer,
-      start: 'top 70%',
-      onEnter: () => {
-        gsap.fromTo('.footer-social',
-          { scale: 0 },
-          { scale: 1, duration: 0.3, stagger: 0.08, ease: 'elastic.out(1, 0.5)', delay: 0.8 }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(socialTrigger);
+      // Navigation links animation
+      const navTrigger = ScrollTrigger.create({
+        trigger: footer,
+        start: 'top 75%',
+        onEnter: () => {
+          gsap.fromTo('.footer-nav-link',
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.4, stagger: 0.08, ease: 'expo.out', delay: 0.5 }
+          );
+        },
+        once: true
+      });
 
-    // Copyright animation
-    const copyrightTrigger = ScrollTrigger.create({
-      trigger: footer,
-      start: 'top 65%',
-      onEnter: () => {
-        gsap.fromTo('.footer-copyright',
-          { opacity: 0 },
-          { opacity: 1, duration: 0.4, ease: 'smooth', delay: 1.2 }
-        );
-      },
-      once: true
+      // Social icons animation
+      const socialTrigger = ScrollTrigger.create({
+        trigger: footer,
+        start: 'top 70%',
+        onEnter: () => {
+          gsap.fromTo('.footer-social',
+            { scale: 0 },
+            { scale: 1, duration: 0.3, stagger: 0.08, ease: 'elastic.out(1, 0.5)', delay: 0.8 }
+          );
+        },
+        once: true
+      });
+
+      // Copyright animation
+      const copyrightTrigger = ScrollTrigger.create({
+        trigger: footer,
+        start: 'top 65%',
+        onEnter: () => {
+          gsap.fromTo('.footer-copyright',
+            { opacity: 0 },
+            { opacity: 1, duration: 0.4, ease: 'smooth', delay: 1.2 }
+          );
+        },
+        once: true
+      });
+
+      return () => {
+        borderTrigger.kill();
+        brandTrigger.kill();
+        taglineTrigger.kill();
+        navTrigger.kill();
+        socialTrigger.kill();
+        copyrightTrigger.kill();
+      };
     });
-    triggersRef.current.push(copyrightTrigger);
 
     return () => {
-      triggersRef.current.forEach(trigger => trigger.kill());
-      triggersRef.current = [];
+      mm.revert();
     };
   }, []);
 

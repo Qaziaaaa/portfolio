@@ -16,23 +16,31 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {
-    // Entrance animation
-    const tl = gsap.timeline({ delay: 0.2 });
+    const mm = gsap.matchMedia();
 
-    tl.fromTo('.nav-logo',
-      { opacity: 0, y: -20 },
-      { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }
-    )
-      .fromTo('.nav-link',
-        { opacity: 0, y: -15 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'expo.out' },
-        '-=0.4'
+    mm.add('(min-width: 1024px)', () => {
+      // Entrance animation — desktop only
+      const tl = gsap.timeline({ delay: 0.2 });
+
+      tl.fromTo('.nav-logo',
+        { opacity: 0, y: -20 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }
       )
-      .fromTo('.nav-cta',
-        { opacity: 0, scale: 0.8 },
-        { opacity: 1, scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.5)' },
-        '-=0.3'
-      );
+        .fromTo('.nav-link',
+          { opacity: 0, y: -15 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'expo.out' },
+          '-=0.4'
+        )
+        .fromTo('.nav-cta',
+          { opacity: 0, scale: 0.8 },
+          { opacity: 1, scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.5)' },
+          '-=0.3'
+        );
+    });
+
+    return () => {
+      mm.revert();
+    };
   }, []);
 
   const scrollToSection = (sectionId: string) => {

@@ -15,7 +15,7 @@ import Experience from './sections/Experience';
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-import CustomCursor from './components/CustomCursor';
+
 
 function App() {
   useEffect(() => {
@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div className="relative bg-[#010101] min-h-screen custom-scrollbar overflow-x-hidden">
-      <CustomCursor />
+
       {/* Navigation */}
       <Navigation />
 

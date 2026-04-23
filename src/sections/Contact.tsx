@@ -13,122 +13,131 @@ const Contact = () => {
     const section = sectionRef.current;
     if (!section) return;
 
-    // Background gradient animation
-    const bgTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 80%',
-      onEnter: () => {
-        gsap.fromTo('.contact-bg',
-          { opacity: 0 },
-          { opacity: 1, duration: 1, ease: 'smooth' }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(bgTrigger);
+    const mm = gsap.matchMedia();
 
-    // Floating shapes animation
-    const shapesTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 75%',
-      onEnter: () => {
-        gsap.fromTo('.contact-shape',
-          { y: 50, opacity: 0, rotate: () => gsap.utils.random(-30, 30) },
-          {
-            y: 0,
-            opacity: 1,
-            rotate: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'expo.out',
-            delay: 0.1
-          }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(shapesTrigger);
+    mm.add('(min-width: 1024px)', () => {
+      const triggers: ScrollTrigger[] = [];
 
-    // Headline word-by-word clip reveal
-    const headlineTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 70%',
-      onEnter: () => {
-        gsap.fromTo('.contact-word',
-          { clipPath: 'inset(0 100% 0 0)' },
-          {
-            clipPath: 'inset(0 0% 0 0)',
-            duration: 0.7,
-            stagger: 0.15,
-            ease: 'expo.out',
-            delay: 0.3
-          }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(headlineTrigger);
+      // Background gradient animation
+      const bgTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 80%',
+        onEnter: () => {
+          gsap.fromTo('.contact-bg',
+            { opacity: 0 },
+            { opacity: 1, duration: 1, ease: 'smooth' }
+          );
+        },
+        once: true
+      });
+      triggers.push(bgTrigger);
 
-    // Subheadline animation
-    const subheadlineTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 65%',
-      onEnter: () => {
-        gsap.fromTo('.contact-subheadline',
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out', delay: 1.2 }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(subheadlineTrigger);
+      // Floating shapes animation
+      const shapesTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 75%',
+        onEnter: () => {
+          gsap.fromTo('.contact-shape',
+            { y: 50, opacity: 0, rotate: () => gsap.utils.random(-30, 30) },
+            {
+              y: 0,
+              opacity: 1,
+              rotate: 0,
+              duration: 0.8,
+              stagger: 0.1,
+              ease: 'expo.out',
+              delay: 0.1
+            }
+          );
+        },
+        once: true
+      });
+      triggers.push(shapesTrigger);
 
-    // CTA button animation
-    const ctaTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 60%',
-      onEnter: () => {
-        gsap.fromTo('.contact-cta',
-          { scale: 0.8, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 0.5, ease: 'elastic.out(1, 0.5)', delay: 1.4 }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(ctaTrigger);
+      // Headline word-by-word clip reveal
+      const headlineTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 70%',
+        onEnter: () => {
+          gsap.fromTo('.contact-word',
+            { clipPath: 'inset(0 100% 0 0)' },
+            {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 0.7,
+              stagger: 0.15,
+              ease: 'expo.out',
+              delay: 0.3
+            }
+          );
+        },
+        once: true
+      });
+      triggers.push(headlineTrigger);
 
-    // Email link animation
-    const emailTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 55%',
-      onEnter: () => {
-        gsap.fromTo('.contact-email',
-          { opacity: 0 },
-          { opacity: 1, duration: 0.4, ease: 'smooth', delay: 1.6 }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(emailTrigger);
+      // Subheadline animation
+      const subheadlineTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 65%',
+        onEnter: () => {
+          gsap.fromTo('.contact-subheadline',
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out', delay: 1.2 }
+          );
+        },
+        once: true
+      });
+      triggers.push(subheadlineTrigger);
 
-    // Scroll-based parallax for shapes
-    const parallaxTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: 1,
-      onUpdate: (self) => {
-        const progress = self.progress;
-        gsap.set('.contact-shape-1', { rotate: progress * 45, y: progress * -50 });
-        gsap.set('.contact-shape-2', { rotate: -progress * 30, y: progress * -30 });
-        gsap.set('.contact-shape-3', { rotate: progress * 20, y: progress * -40 });
-      }
+      // CTA button animation
+      const ctaTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 60%',
+        onEnter: () => {
+          gsap.fromTo('.contact-cta',
+            { scale: 0.8, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.5, ease: 'elastic.out(1, 0.5)', delay: 1.4 }
+          );
+        },
+        once: true
+      });
+      triggers.push(ctaTrigger);
+
+      // Email link animation
+      const emailTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 55%',
+        onEnter: () => {
+          gsap.fromTo('.contact-email',
+            { opacity: 0 },
+            { opacity: 1, duration: 0.4, ease: 'smooth', delay: 1.6 }
+          );
+        },
+        once: true
+      });
+      triggers.push(emailTrigger);
+
+      // Scroll-based parallax for shapes
+      const parallaxTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          gsap.set('.contact-shape-1', { rotate: progress * 45, y: progress * -50 });
+          gsap.set('.contact-shape-2', { rotate: -progress * 30, y: progress * -30 });
+          gsap.set('.contact-shape-3', { rotate: progress * 20, y: progress * -40 });
+        }
+      });
+      triggers.push(parallaxTrigger);
+
+      return () => {
+        triggers.forEach(trigger => trigger.kill());
+      };
     });
-    triggersRef.current.push(parallaxTrigger);
 
     return () => {
-      triggersRef.current.forEach(trigger => trigger.kill());
-      triggersRef.current = [];
+      mm.revert();
     };
   }, []);
 

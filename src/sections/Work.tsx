@@ -15,6 +15,13 @@ interface Project {
 
 const projects: Project[] = [
   { 
+    id: 0, 
+    link: 'https://cssuop.org',
+    title: 'CSSUOP',
+    description: 'Official website for the Computer Science Student Union of the University of the Punjab.',
+    tags: ['Organization', 'Full Stack', 'Next.js']
+  },
+  { 
     id: 1, 
     link: 'https://hiking-app-puce.vercel.app/',
     title: 'Hikescape Full-Stack App',
@@ -37,52 +44,10 @@ const projects: Project[] = [
   },
   { 
     id: 4, 
-    link: 'https://vertexdesignlab.netlify.app',
-    title: 'Vertex Design Lab',
-    description: 'A creative studio website focused on minimalist and geometric design principles.',
-    tags: ['Portfolio', 'Design', 'Vite']
-  },
-  { 
-    id: 5, 
-    link: 'https://marketingz.netlify.app',
-    title: 'MarketingZ Agency',
-    description: 'A bold, high-conversion marketing agency landing page.',
-    tags: ['Marketing', 'SEO', 'Tailwind CSS']
-  },
-  { 
-    id: 6, 
-    link: 'https://landingpagesaas.netlify.app',
-    title: 'SaaS Launchpad',
-    description: 'Highly optimized SaaS landing page with interactive pricing and feature grids.',
-    tags: ['SaaS', 'UI/UX', 'React']
-  },
-  { 
-    id: 7, 
     link: 'https://ecommercestoreqazi.netlify.app',
-    title: 'Elite Commerce',
+    title: 'Carry Fashion Ecommerce',
     description: 'A fast, modern e-commerce storefront with integrated shopping features.',
     tags: ['E-commerce', 'Redux', 'Vite']
-  },
-  { 
-    id: 8, 
-    link: 'https://oliipop.netlify.app',
-    title: 'Oliipop Creative',
-    description: 'Visually stunning personal brand portfolio for creative professionals.',
-    tags: ['Branding', 'Portfolio', 'React']
-  },
-  { 
-    id: 9, 
-    link: 'https://gamingbench.netlify.app',
-    title: 'Gaming Bench',
-    description: 'A community-focused gaming hardware reviews and benchmarks platform.',
-    tags: ['Hardware', 'Gaming', 'Tailwind']
-  },
-  { 
-    id: 10, 
-    link: 'https://porfolio-qazi.netlify.app',
-    title: 'Portfolio V1',
-    description: 'The first iteration of my personal dev portfolio, showcasing my early work.',
-    tags: ['First Edition', 'Portfolio', 'React']
   }
 ];
 
@@ -132,6 +97,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
           )}
           <iframe
             src={project.link}
+            loading="lazy"
             className={`w-full h-full border-none transition-opacity duration-1000 ${loading ? 'opacity-0' : 'opacity-100'}`}
             onLoad={() => setLoading(false)}
             style={{ pointerEvents: 'none', width: '125%', height: '125%', scale: '0.8', transformOrigin: 'top left' }}
@@ -179,35 +145,35 @@ const Work = () => {
     const container = containerRef.current;
     if (!section || !container) return;
 
-    // Title animation
-    const titleTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 80%',
-      onEnter: () => {
-        gsap.fromTo('.work-title-char',
-          { opacity: 0, y: 100, rotateX: 90 },
-          {
-            opacity: 1,
-            y: 0,
-            rotateX: 0,
-            duration: 0.8,
-            stagger: 0.03,
-            ease: 'expo.out'
-          }
-        );
-        gsap.fromTo('.work-subtitle',
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.6, delay: 0.4, ease: 'expo.out' }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(titleTrigger);
-
-    // Horizontal scroll for desktop
+    // Horizontal scroll and animations for desktop
     const mm = gsap.matchMedia();
 
     mm.add('(min-width: 768px)', () => {
+      // Title animation (desktop only)
+      const titleTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 80%',
+        onEnter: () => {
+          gsap.fromTo('.work-title-char',
+            { opacity: 0, y: 100, rotateX: 90 },
+            {
+              opacity: 1,
+              y: 0,
+              rotateX: 0,
+              duration: 0.8,
+              stagger: 0.03,
+              ease: 'expo.out'
+            }
+          );
+          gsap.fromTo('.work-subtitle',
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.6, delay: 0.4, ease: 'expo.out' }
+          );
+        },
+        once: true
+      });
+      triggersRef.current.push(titleTrigger);
+
       const cards = container.querySelectorAll('.work-card');
       const totalWidth = Array.from(cards).reduce((acc, card) => acc + (card as HTMLElement).offsetWidth + 64, 0);
 

@@ -61,99 +61,108 @@ const About = () => {
     const section = sectionRef.current;
     if (!section) return;
 
-    // Section label typewriter effect
-    const labelTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 80%',
-      onEnter: () => {
-        gsap.fromTo('.about-label',
-          { opacity: 0, width: 0 },
-          { opacity: 1, width: 'auto', duration: 0.6, ease: 'none' }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(labelTrigger);
+    const mm = gsap.matchMedia();
 
-    // Headline word animation
-    const headlineTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 75%',
-      onEnter: () => {
-        gsap.fromTo('.about-word',
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'expo.out', delay: 0.2 }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(headlineTrigger);
+    mm.add('(min-width: 1024px)', () => {
+      const triggers: ScrollTrigger[] = [];
 
-    // Image animation
-    const imageTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 70%',
-      onEnter: () => {
-        gsap.fromTo('.about-image',
-          { x: -100, rotate: -5, opacity: 0 },
-          { x: 0, rotate: -2, opacity: 1, duration: 1, ease: 'expo.out', delay: 0.4 }
-        );
-        gsap.fromTo('.about-image-overlay',
-          { scaleY: 1, transformOrigin: 'top' },
-          { scaleY: 0, duration: 0.8, ease: 'expo.out', delay: 0.4 }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(imageTrigger);
+      // Section label typewriter effect
+      const labelTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 80%',
+        onEnter: () => {
+          gsap.fromTo('.about-label',
+            { opacity: 0, width: 0 },
+            { opacity: 1, width: 'auto', duration: 0.6, ease: 'none' }
+          );
+        },
+        once: true
+      });
+      triggers.push(labelTrigger);
 
-    // Paragraphs animation
-    const paragraphsTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 65%',
-      onEnter: () => {
-        gsap.fromTo('.about-paragraph',
-          { opacity: 0, y: 25 },
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'expo.out', delay: 0.8 }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(paragraphsTrigger);
+      // Headline word animation
+      const headlineTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 75%',
+        onEnter: () => {
+          gsap.fromTo('.about-word',
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'expo.out', delay: 0.2 }
+          );
+        },
+        once: true
+      });
+      triggers.push(headlineTrigger);
 
-    // Stats cards animation
-    const statsTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 60%',
-      onEnter: () => {
-        gsap.fromTo('.stat-card',
-          { scale: 0, rotateX: 45, z: -100 },
-          { scale: 1, rotateX: 0, z: 0, duration: 0.6, stagger: 0.15, ease: 'elastic.out(1, 0.5)', delay: 1 }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(statsTrigger);
+      // Image animation
+      const imageTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 70%',
+        onEnter: () => {
+          gsap.fromTo('.about-image',
+            { x: -100, rotate: -5, opacity: 0 },
+            { x: 0, rotate: -2, opacity: 1, duration: 1, ease: 'expo.out', delay: 0.4 }
+          );
+          gsap.fromTo('.about-image-overlay',
+            { scaleY: 1, transformOrigin: 'top' },
+            { scaleY: 0, duration: 0.8, ease: 'expo.out', delay: 0.4 }
+          );
+        },
+        once: true
+      });
+      triggers.push(imageTrigger);
 
-    // Parallax effect on scroll
-    const parallaxTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: 1,
-      onUpdate: (self) => {
-        const progress = self.progress;
-        gsap.set('.about-image', { y: progress * -50 });
-        gsap.set('.stat-card-1', { y: progress * 30 });
-        gsap.set('.stat-card-2', { y: progress * -20 });
-        gsap.set('.stat-card-3', { y: progress * 40 });
-      }
+      // Paragraphs animation
+      const paragraphsTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 65%',
+        onEnter: () => {
+          gsap.fromTo('.about-paragraph',
+            { opacity: 0, y: 25 },
+            { opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'expo.out', delay: 0.8 }
+          );
+        },
+        once: true
+      });
+      triggers.push(paragraphsTrigger);
+
+      // Stats cards animation
+      const statsTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 60%',
+        onEnter: () => {
+          gsap.fromTo('.stat-card',
+            { scale: 0, rotateX: 45, z: -100 },
+            { scale: 1, rotateX: 0, z: 0, duration: 0.6, stagger: 0.15, ease: 'elastic.out(1, 0.5)', delay: 1 }
+          );
+        },
+        once: true
+      });
+      triggers.push(statsTrigger);
+
+      // Parallax effect on scroll
+      const parallaxTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          gsap.set('.about-image', { y: progress * -50 });
+          gsap.set('.stat-card-1', { y: progress * 30 });
+          gsap.set('.stat-card-2', { y: progress * -20 });
+          gsap.set('.stat-card-3', { y: progress * 40 });
+        }
+      });
+      triggers.push(parallaxTrigger);
+
+      return () => {
+        triggers.forEach(trigger => trigger.kill());
+      };
     });
-    triggersRef.current.push(parallaxTrigger);
 
     return () => {
-      triggersRef.current.forEach(trigger => trigger.kill());
-      triggersRef.current = [];
+      mm.revert();
     };
   }, []);
 
@@ -180,9 +189,11 @@ const About = () => {
               <img
                 src="https://i.postimg.cc/B6kHGPZM/a-make-the-background.jpg"
                 alt="About portrait"
+                loading="lazy"
+                decoding="async"
                 className="w-full aspect-[4/5] object-cover"
               />
-              <div className="about-image-overlay absolute inset-0 bg-[#010101]" />
+              <div className="about-image-overlay absolute inset-0 bg-[#010101] hidden lg:block" />
             </div>
 
             {/* Stats Cards */}

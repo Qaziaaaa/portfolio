@@ -106,69 +106,75 @@ const Experience = () => {
         const section = sectionRef.current;
         if (!section) return;
 
-        // Headline word animation
-        const headlineTrigger = ScrollTrigger.create({
-            trigger: section,
-            start: 'top 75%',
-            onEnter: () => {
-                gsap.fromTo('.experience-word',
-                    { opacity: 0, y: 30 },
-                    { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'expo.out' }
-                );
-            },
-            once: true
-        });
-        triggersRef.current.push(headlineTrigger);
+        const mm = gsap.matchMedia();
 
-        // 3D Cards scroll animation
-        const cards = gsap.utils.toArray('.experience-card');
-
-        cards.forEach((card: any) => {
-            ScrollTrigger.create({
-                trigger: card,
-                start: 'top bottom-=100',
-                end: 'bottom top+=100',
-                scrub: 1,
-                onUpdate: (self) => {
-                    // Only apply scroll animations if the user isn't hovering on the card
-                    // This prevents GSAP from fighting with our React state transform
-                    if (!card.matches(':hover')) {
-                        const progress = self.progress;
-                        const rotationProgress = (progress - 0.5) * 2; // -1 to 1
-
-                        gsap.to(card, {
-                            rotateX: -rotationProgress * 5, // Reduced scroll rotation to make hover pop more
-                            y: progress * -30,
-                            duration: 0.5,
-                            ease: 'power1.out',
-                            overwrite: 'auto'
-                        });
-                    }
-                }
+        mm.add('(min-width: 1024px)', () => {
+            // Headline word animation
+            const headlineTrigger = ScrollTrigger.create({
+                trigger: section,
+                start: 'top 75%',
+                onEnter: () => {
+                    gsap.fromTo('.experience-word',
+                        { opacity: 0, y: 30 },
+                        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'expo.out' }
+                    );
+                },
+                once: true
             });
 
-            // Entrance animation
-            gsap.fromTo(card,
-                { opacity: 0, y: 100, rotateX: 30, z: -200 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    rotateX: 0,
-                    z: 0,
-                    duration: 1,
-                    ease: 'expo.out',
-                    scrollTrigger: {
-                        trigger: card,
-                        start: 'top 85%',
-                        once: true
+            // 3D Cards scroll animation
+            const cards = gsap.utils.toArray('.experience-card');
+
+            cards.forEach((card: any) => {
+                ScrollTrigger.create({
+                    trigger: card,
+                    start: 'top bottom-=100',
+                    end: 'bottom top+=100',
+                    scrub: 1,
+                    onUpdate: (self) => {
+                        // Only apply scroll animations if the user isn't hovering on the card
+                        // This prevents GSAP from fighting with our React state transform
+                        if (!card.matches(':hover')) {
+                            const progress = self.progress;
+                            const rotationProgress = (progress - 0.5) * 2; // -1 to 1
+
+                            gsap.to(card, {
+                                rotateX: -rotationProgress * 5, // Reduced scroll rotation to make hover pop more
+                                y: progress * -30,
+                                duration: 0.5,
+                                ease: 'power1.out',
+                                overwrite: 'auto'
+                            });
+                        }
                     }
-                }
-            );
+                });
+
+                // Entrance animation
+                gsap.fromTo(card,
+                    { opacity: 0, y: 100, rotateX: 30, z: -200 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        rotateX: 0,
+                        z: 0,
+                        duration: 1,
+                        ease: 'expo.out',
+                        scrollTrigger: {
+                            trigger: card,
+                            start: 'top 85%',
+                            once: true
+                        }
+                    }
+                );
+            });
+
+            return () => {
+                headlineTrigger.kill();
+            };
         });
 
         return () => {
-            triggersRef.current.forEach(trigger => trigger.kill());
-            triggersRef.current = [];
+            mm.revert();
         };
     }, []);
 

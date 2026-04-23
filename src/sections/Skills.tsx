@@ -137,62 +137,71 @@ const Skills = () => {
     const section = sectionRef.current;
     if (!section) return;
 
-    // Title animation
-    const titleTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 80%',
-      onEnter: () => {
-        gsap.fromTo('.skills-title',
-          { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }
-        );
-        gsap.fromTo('.skills-subtitle',
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.6, delay: 0.2, ease: 'expo.out' }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(titleTrigger);
+    const mm = gsap.matchMedia();
 
-    // Cards animation
-    const cardsTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 70%',
-      onEnter: () => {
-        gsap.fromTo('.skill-card',
-          { rotateY: -90, scale: 0.8, opacity: 0 },
-          { 
-            rotateY: 0, 
-            scale: 1, 
-            opacity: 1, 
-            duration: 0.6, 
-            stagger: 0.1,
-            ease: 'expo.out',
-            delay: 0.3
-          }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(cardsTrigger);
+    mm.add('(min-width: 1024px)', () => {
+      const triggers: ScrollTrigger[] = [];
 
-    // Scroll rotation effect
-    const scrollTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: 1,
-      onUpdate: (self) => {
-        const progress = self.progress;
-        gsap.set('.skill-card', { rotateX: 5 - progress * 5 });
-      }
+      // Title animation
+      const titleTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 80%',
+        onEnter: () => {
+          gsap.fromTo('.skills-title',
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }
+          );
+          gsap.fromTo('.skills-subtitle',
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.6, delay: 0.2, ease: 'expo.out' }
+          );
+        },
+        once: true
+      });
+      triggers.push(titleTrigger);
+
+      // Cards animation
+      const cardsTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 70%',
+        onEnter: () => {
+          gsap.fromTo('.skill-card',
+            { rotateY: -90, scale: 0.8, opacity: 0 },
+            { 
+              rotateY: 0, 
+              scale: 1, 
+              opacity: 1, 
+              duration: 0.6, 
+              stagger: 0.1,
+              ease: 'expo.out',
+              delay: 0.3
+            }
+          );
+        },
+        once: true
+      });
+      triggers.push(cardsTrigger);
+
+      // Scroll rotation effect
+      const scrollTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          gsap.set('.skill-card', { rotateX: 5 - progress * 5 });
+        }
+      });
+      triggers.push(scrollTrigger);
+
+      return () => {
+        triggers.forEach(trigger => trigger.kill());
+      };
     });
-    triggersRef.current.push(scrollTrigger);
 
     return () => {
-      triggersRef.current.forEach(trigger => trigger.kill());
-      triggersRef.current = [];
+      mm.revert();
     };
   }, []);
 

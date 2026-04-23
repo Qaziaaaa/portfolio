@@ -51,59 +51,65 @@ const Testimonials = () => {
     const section = sectionRef.current;
     if (!section) return;
 
-    // Title animation
-    const titleTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 80%',
-      onEnter: () => {
-        gsap.fromTo('.testimonials-title',
-          { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(titleTrigger);
+    const mm = gsap.matchMedia();
 
-    // Quote marks animation
-    const quotesTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 75%',
-      onEnter: () => {
-        gsap.fromTo('.quote-left',
-          { scale: 0, rotate: -45 },
-          { scale: 1, rotate: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)', delay: 0.3 }
-        );
-        gsap.fromTo('.quote-right',
-          { scale: 0, rotate: 45 },
-          { scale: 1, rotate: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)', delay: 0.4 }
-        );
-      },
-      once: true
-    });
-    triggersRef.current.push(quotesTrigger);
+    mm.add('(min-width: 1024px)', () => {
+      // Title animation
+      const titleTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 80%',
+        onEnter: () => {
+          gsap.fromTo('.testimonials-title',
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }
+          );
+        },
+        once: true
+      });
 
-    // Card animation
-    const cardTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top 70%',
-      onEnter: () => {
-        gsap.fromTo('.testimonial-card',
-          { y: 100, rotateX: 30, opacity: 0 },
-          { y: 0, rotateX: 0, opacity: 1, duration: 0.8, ease: 'expo.out', delay: 0.5 }
-        );
-        gsap.fromTo('.testimonial-avatar',
-          { scale: 0 },
-          { scale: 1, duration: 0.4, ease: 'elastic.out(1, 0.5)', delay: 0.9 }
-        );
-      },
-      once: true
+      // Quote marks animation
+      const quotesTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 75%',
+        onEnter: () => {
+          gsap.fromTo('.quote-left',
+            { scale: 0, rotate: -45 },
+            { scale: 1, rotate: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)', delay: 0.3 }
+          );
+          gsap.fromTo('.quote-right',
+            { scale: 0, rotate: 45 },
+            { scale: 1, rotate: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)', delay: 0.4 }
+          );
+        },
+        once: true
+      });
+
+      // Card animation
+      const cardTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 70%',
+        onEnter: () => {
+          gsap.fromTo('.testimonial-card',
+            { y: 100, rotateX: 30, opacity: 0 },
+            { y: 0, rotateX: 0, opacity: 1, duration: 0.8, ease: 'expo.out', delay: 0.5 }
+          );
+          gsap.fromTo('.testimonial-avatar',
+            { scale: 0 },
+            { scale: 1, duration: 0.4, ease: 'elastic.out(1, 0.5)', delay: 0.9 }
+          );
+        },
+        once: true
+      });
+
+      return () => {
+        titleTrigger.kill();
+        quotesTrigger.kill();
+        cardTrigger.kill();
+      };
     });
-    triggersRef.current.push(cardTrigger);
 
     return () => {
-      triggersRef.current.forEach(trigger => trigger.kill());
-      triggersRef.current = [];
+      mm.revert();
     };
   }, []);
 
@@ -192,6 +198,8 @@ const Testimonials = () => {
                   <img
                     src={currentTestimonial.avatar}
                     alt={currentTestimonial.name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>
