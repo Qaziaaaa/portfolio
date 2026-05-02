@@ -1,10 +1,10 @@
-import { useEffect, useRef, type KeyboardEvent } from 'react';
-import { X, Trash2, Send } from 'lucide-react';
+import { useEffect, useRef, memo, type KeyboardEvent } from 'react';
+import { X, Trash2, Send, Sparkles } from 'lucide-react';
 import { MessageBubble } from './MessageBubble';
 import { TypingIndicator } from './TypingIndicator';
 import type { ChatMessage, InitStatus } from '../../lib/chatbot/types';
 
-interface ChatPanelProps {
+interface Props {
   messages: ChatMessage[];
   status: InitStatus;
   isStreaming: boolean;
@@ -15,130 +15,153 @@ interface ChatPanelProps {
   onInputChange: (value: string) => void;
 }
 
-const SUGGESTED_PROMPT = "Ask me about Qazi's skills or projects";
+const SUGGESTIONS = [
+  "What projects has Qazi built?",
+  "What's Qazi's tech stack?",
+  "Is Qazi available for hire?",
+];
 
-/**
- * The expanded chat panel rendered when the widget is open.
- * Handles message display, input, auto-scroll, and keyboard accessibility.
- */
-export function ChatPanel({
-  messages,
-  status,
-  isStreaming,
-  onSendMessage,
-  onClearHistory,
-  onClose,
-  inputValue,
-  onInputChange,
-}: ChatPanelProps) {
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+export const ChatPanel = memo(function ChatPanel({
+  messages, status, isStreaming,
+  onSendMessage, onClearHistory, onClose,
+  inputValue, onInputChange,
+}: Props) {
+  const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to the latest message
+  // Auto-scroll — only scroll if user is near the bottom
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isStreaming]);
+    const el = scrollRef.current;
+    if (!el) return;
+    const isNearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 120;
+    if (isNearBottom) {
+      bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+  }, [messages]);
 
-  // Focus the input when the panel opens
+  // Focus input when ready
   useEffect(() => {
     if (status === 'ready') {
-      inputRef.current?.focus();
+      setTimeout(() => inputRef.current?.focus(), 50);
     }
   }, [status]);
 
-  const isDisabled = isStreaming || status === 'loading' || status !== 'ready';
+  const canSend = !isStreaming && status === 'ready' && inputValue.trim().length > 0;
 
   const handleSubmit = () => {
-    if (!inputValue.trim() || isDisabled) return;
-    onSendMessage(inputValue);
+    if (!canSend) return;
+    onSendMessage(inputValue.trim());
     onInputChange('');
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmit();
-    }
-    if (e.key === 'Escape') {
-      onClose();
-    }
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSubmit(); }
+    if (e.key === 'Escape') onClose();
   };
 
-  // Determine if the last assistant message is still empty (streaming just started)
-  const lastMessage = messages[messages.length - 1];
-  const showTypingIndicator =
-    isStreaming && lastMessage?.role === 'assistant' && lastMessage.content === '';
+  const lastMsg = messages[messages.length - 1];
+  const showTyping = isStreaming && lastMsg?.role === 'assistant' && lastMsg.content === '';
 
   return (
     <div
-      className="flex flex-col bg-[#010101] border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
-      style={{ width: 'min(380px, calc(100vw - 2rem))', height: 'min(520px, calc(100vh - 8rem))' }}
+      className="flex flex-col overflow-hidden rounded-2xl border border-white/10 shadow-[0_8px_40px_rgba(0,0,0,0.6)]"
+      style={{
+        background: 'linear-gradient(145deg, #0d0d0d 0%, #080808 100%)',
+        width: 'min(400px, calc(100vw - 1.5rem))',
+        height: 'min(560px, calc(100svh - 7rem))',
+      }}
       role="dialog"
-      aria-label="Chat with Qazi's assistant"
-      aria-modal="false"
+      aria-label="Chat with Qazi's AI assistant"
     >
-      {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 shrink-0">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" aria-hidden="true" />
-          <span className="text-sm font-medium text-white">Ask about Qazi</span>
+      {/* ── Header ── */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.08] shrink-0 bg-white/[0.02]">
+        <div className="flex items-center gap-2.5">
+          <div className="relative">
+            <div className="w-8 h-8 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
+              <Sparkles className="w-3.5 h-3.5 text-white/70" />
+            </div>
+            {status === 'ready' && (
+              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#0d0d0d]" />
+            )}
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-white leading-none">Qazi's Assistant</p>
+            <p className="text-[10px] text-white/40 mt-0.5 leading-none">
+              {status === 'loading' ? 'Initializing…' : status === 'ready' ? 'Online · Ask me anything' : 'Unavailable'}
+            </p>
+          </div>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5">
           {messages.length > 0 && (
             <button
               onClick={onClearHistory}
-              className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors"
-              aria-label="Clear chat history"
+              className="p-2 rounded-lg text-white/30 hover:text-white/70 hover:bg-white/8 transition-all"
+              aria-label="Clear chat"
               title="Clear chat"
             >
-              <Trash2 className="w-4 h-4" />
+              <Trash2 className="w-3.5 h-3.5" />
             </button>
           )}
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors"
-            aria-label="Close chat"
+            className="p-2 rounded-lg text-white/30 hover:text-white/70 hover:bg-white/8 transition-all"
+            aria-label="Close"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
-      {/* Message area */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10">
-        {/* Status states */}
+      {/* ── Messages ── */}
+      <div
+        ref={scrollRef}
+        className="flex-1 overflow-y-auto px-4 py-4 space-y-4"
+        style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.08) transparent' }}
+      >
+        {/* Loading */}
         {status === 'loading' && (
-          <div className="flex flex-col items-center justify-center h-full gap-3 text-center">
-            <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-            <p className="text-sm text-white/50">Initializing assistant…</p>
+          <div className="flex flex-col items-center justify-center h-full gap-4">
+            <div className="w-8 h-8 rounded-full border-2 border-white/10 border-t-white/60 animate-spin" />
+            <p className="text-xs text-white/40">Setting up your assistant…</p>
           </div>
         )}
 
-        {status === 'misconfigured' && (
-          <div className="flex items-center justify-center h-full">
-            <p className="text-sm text-white/50 text-center px-4">
-              Chatbot is not configured. Please set the required environment variables.
-            </p>
-          </div>
-        )}
-
-        {status === 'error' && (
-          <div className="flex items-center justify-center h-full">
-            <p className="text-sm text-white/50 text-center px-4">
-              The assistant is temporarily unavailable. Please try again later.
-            </p>
-          </div>
-        )}
-
-        {/* Empty state — suggested prompt */}
-        {status === 'ready' && messages.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-full gap-4 text-center">
-            <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-              <span className="text-lg">💬</span>
+        {/* Error states */}
+        {(status === 'misconfigured' || status === 'error') && (
+          <div className="flex flex-col items-center justify-center h-full gap-3 px-4 text-center">
+            <div className="w-10 h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
+              <span className="text-lg">⚠️</span>
             </div>
-            <div>
-              <p className="text-sm text-white/70 mb-1">Hi! I'm Qazi's assistant.</p>
-              <p className="text-xs text-white/40">{SUGGESTED_PROMPT}</p>
+            <p className="text-sm text-white/50">
+              {status === 'misconfigured'
+                ? 'Chatbot is not configured. API keys are missing.'
+                : 'Assistant is temporarily unavailable. Try again later.'}
+            </p>
+          </div>
+        )}
+
+        {/* Empty state */}
+        {status === 'ready' && messages.length === 0 && (
+          <div className="flex flex-col items-center justify-center h-full gap-5 px-2">
+            <div className="text-center">
+              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-3">
+                <Sparkles className="w-5 h-5 text-white/50" />
+              </div>
+              <p className="text-sm font-medium text-white/80 mb-1">Hi, I'm Qazi's AI assistant</p>
+              <p className="text-xs text-white/40">Ask me about his projects, skills, or availability</p>
+            </div>
+            {/* Quick suggestion chips */}
+            <div className="flex flex-col gap-2 w-full">
+              {SUGGESTIONS.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => { onInputChange(s); setTimeout(() => inputRef.current?.focus(), 0); }}
+                  className="text-left text-xs text-white/60 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/15 rounded-xl px-3 py-2.5 transition-all"
+                >
+                  {s}
+                </button>
+              ))}
             </div>
           </div>
         )}
@@ -147,48 +170,52 @@ export function ChatPanel({
         {status === 'ready' && messages.length > 0 && (
           <>
             {messages.map((msg) =>
-              // Skip empty assistant placeholder while typing indicator is shown
-              msg.role === 'assistant' && msg.content === '' && isStreaming ? null : (
-                <MessageBubble key={msg.id} message={msg} />
-              )
+              msg.role === 'assistant' && msg.content === '' && isStreaming
+                ? null
+                : <MessageBubble key={msg.id} message={msg} />
             )}
-            {showTypingIndicator && <TypingIndicator />}
+            {showTyping && <TypingIndicator />}
           </>
         )}
 
-        <div ref={messagesEndRef} aria-hidden="true" />
+        <div ref={bottomRef} />
       </div>
 
-      {/* Input area */}
+      {/* ── Input ── */}
       {(status === 'ready' || status === 'loading') && (
-        <div className="px-4 py-3 border-t border-white/10 shrink-0">
-          <div className="flex items-end gap-2">
+        <div className="px-3 pb-3 pt-2 border-t border-white/[0.08] shrink-0">
+          <div className="flex items-end gap-2 bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2 focus-within:border-white/20 transition-colors">
             <textarea
               ref={inputRef}
               value={inputValue}
-              onChange={(e) => onInputChange(e.target.value)}
+              onChange={(e) => {
+                onInputChange(e.target.value);
+                // Auto-resize
+                e.target.style.height = 'auto';
+                e.target.style.height = Math.min(e.target.scrollHeight, 96) + 'px';
+              }}
               onKeyDown={handleKeyDown}
-              placeholder="Ask a question…"
-              disabled={isDisabled}
+              placeholder="Ask anything about Qazi…"
+              disabled={status !== 'ready'}
               rows={1}
-              className="flex-1 resize-none bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-white/30 disabled:opacity-40 disabled:cursor-not-allowed transition-colors max-h-32 overflow-y-auto"
-              style={{ lineHeight: '1.5' }}
-              aria-label="Type your message"
+              className="flex-1 resize-none bg-transparent text-sm text-white placeholder-white/25 focus:outline-none disabled:opacity-40 leading-relaxed"
+              style={{ maxHeight: '96px', minHeight: '22px' }}
+              aria-label="Message input"
             />
             <button
               onClick={handleSubmit}
-              disabled={isDisabled || !inputValue.trim()}
-              className="p-2.5 rounded-xl bg-white text-black hover:bg-white/90 disabled:opacity-30 disabled:cursor-not-allowed transition-all shrink-0"
-              aria-label="Send message"
+              disabled={!canSend}
+              className="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center shrink-0 hover:bg-white/90 disabled:opacity-25 disabled:cursor-not-allowed transition-all hover:scale-105 active:scale-95"
+              aria-label="Send"
             >
-              <Send className="w-4 h-4" />
+              <Send className="w-3.5 h-3.5" />
             </button>
           </div>
-          <p className="text-[10px] text-white/20 mt-1.5 text-center">
-            Press Enter to send · Shift+Enter for new line
+          <p className="text-[9px] text-white/20 text-center mt-1.5">
+            Enter to send · Shift+Enter for new line
           </p>
         </div>
       )}
     </div>
   );
-}
+});

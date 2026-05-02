@@ -1,40 +1,24 @@
-import { useEffect, useState } from 'react';
+import { memo } from 'react';
 
-/**
- * Animated three-dot typing indicator shown while the assistant is streaming.
- * Respects `prefers-reduced-motion` — disables animation when the user prefers reduced motion.
- */
-export function TypingIndicator() {
-  const [reducedMotion, setReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(mq.matches);
-
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
-
+export const TypingIndicator = memo(function TypingIndicator() {
   return (
-    <div
-      className="flex items-center gap-1 px-4 py-3 rounded-2xl rounded-bl-sm bg-white/5 border border-white/10 w-fit"
-      aria-label="Assistant is typing"
-      role="status"
-    >
-      {[0, 1, 2].map((i) => (
-        <span
-          key={i}
-          className={`w-2 h-2 rounded-full bg-white/60 ${
-            reducedMotion ? '' : 'animate-bounce'
-          }`}
-          style={
-            reducedMotion
-              ? undefined
-              : { animationDelay: `${i * 150}ms`, animationDuration: '0.8s' }
-          }
-        />
-      ))}
+    <div className="flex gap-2.5 items-start">
+      <div className="w-6 h-6 rounded-full bg-white/10 border border-white/15 flex items-center justify-center shrink-0 mt-0.5">
+        <span className="text-[9px] font-bold text-white/70">Q</span>
+      </div>
+      <div
+        className="bg-white/[0.06] border border-white/10 rounded-2xl rounded-tl-md px-4 py-3 flex items-center gap-1.5"
+        aria-label="Assistant is typing"
+        role="status"
+      >
+        {[0, 1, 2].map((i) => (
+          <span
+            key={i}
+            className="w-1.5 h-1.5 rounded-full bg-white/50 animate-bounce"
+            style={{ animationDelay: `${i * 120}ms`, animationDuration: '0.9s' }}
+          />
+        ))}
+      </div>
     </div>
   );
-}
+});

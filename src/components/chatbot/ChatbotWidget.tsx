@@ -1,17 +1,12 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { MessageSquare, X } from 'lucide-react';
-import { ChatPanel } from './ChatPanel';
 import { useChatbot } from './useChatbot';
 
-/**
- * ChatbotWidget — the lazy-loaded root entry point for the RAG chatbot.
- *
- * Renders a fixed floating toggle button in the bottom-right corner.
- * When opened, renders the ChatPanel and triggers initialization on first open.
- *
- * This component is the default export so it can be used with React.lazy:
- *   const ChatbotWidget = React.lazy(() => import('./components/chatbot/ChatbotWidget'));
- */
+// Lazy-load the heavy ChatPanel to keep initial bundle small
+const ChatPanel = lazy(() =>
+  import('./ChatPanel').then((m) => ({ default: m.ChatPanel }))
+);
+
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -20,7 +15,7 @@ export default function ChatbotWidget() {
   const { status, messages, isStreaming, sendMessage, clearHistory, initializeIfNeeded } =
     useChatbot();
 
-  // Initialize on first open
+  // Initialize on first open only
   useEffect(() => {
     if (isOpen && !hasOpenedOnce) {
       setHasOpenedOnce(true);
@@ -28,69 +23,55 @@ export default function ChatbotWidget() {
     }
   }, [isOpen, hasOpenedOnce, initializeIfNeeded]);
 
-  const handleToggle = useCallback(() => {
-    setIsOpen((prev) => !prev);
-  }, []);
+  const handleToggle = useCallback(() => setIsOpen((p) => !p), []);
+  const handleClose = useCallback(() => setIsOpen(false), []);
 
-  const handleClose = useCallback(() => {
-    setIsOpen(false);
-  }, []);
-
-  const handleSendMessage = useCallback(
-    (text: string) => {
-      sendMessage(text);
-    },
-    [sendMessage]
-  );
-
-  const handleClearHistory = useCallback(() => {
-    clearHistory();
-  }, [clearHistory]);
-
-  // Close on Escape key when panel is open
+  // Escape key to close
   useEffect(() => {
     if (!isOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') handleClose();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') handleClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [isOpen, handleClose]);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-      {/* Chat Panel */}
+    <>
+      {/* Panel — positioned above the toggle button */}
       {isOpen && (
-        <ChatPanel
-          messages={messages}
-          status={status}
-          isStreaming={isStreaming}
-          onSendMessage={handleSendMessage}
-          onClearHistory={handleClearHistory}
-          onClose={handleClose}
-          inputValue={inputValue}
-          onInputChange={setInputValue}
-        />
+        <div className="fixed bottom-[5.5rem] right-4 sm:right-6 z-50">
+          <Suspense fallback={null}>
+            <ChatPanel
+              messages={messages}
+              status={status}
+              isStreaming={isStreaming}
+              onSendMessage={sendMessage}
+              onClearHistory={clearHistory}
+              onClose={handleClose}
+              inputValue={inputValue}
+              onInputChange={setInputValue}
+            />
+          </Suspense>
+        </div>
       )}
 
-      {/* Floating Toggle Button */}
-      <button
-        onClick={handleToggle}
-        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
-          isOpen
-            ? 'bg-white/10 border border-white/20 text-white hover:bg-white/20'
-            : 'bg-white text-black hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]'
-        }`}
-        aria-label={isOpen ? 'Close chat' : 'Open chat with Qazi\'s assistant'}
-        aria-expanded={isOpen}
-        aria-haspopup="dialog"
-      >
-        {isOpen ? (
-          <X className="w-5 h-5" />
-        ) : (
-          <MessageSquare className="w-5 h-5" />
-        )}
-      </button>
-    </div>
+      {/* Floating toggle button */}
+      <div className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50">
+        <button
+          onClick={handleToggle}
+          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 ${
+            isOpen
+              ? 'bg-white/10 border border-white/20 text-white hover:bg-white/15'
+              : 'bg-white text-black hover:scale-105 hover:shadow-[0_0_24px_rgba(255,255,255,0.15)]'
+          }`}
+          aria-label={isOpen ? 'Close assistant' : "Chat with Qazi's assistant"}
+          aria-expanded={isOpen}
+        >
+          {isOpen
+            ? <X className="w-4 h-4 sm:w-5 sm:h-5" />
+            : <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
+          }
+        </button>
+      </div>
+    </>
   );
 }
