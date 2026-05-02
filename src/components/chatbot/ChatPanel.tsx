@@ -76,8 +76,8 @@ export const ChatPanel = memo(function ChatPanel({
         // Desktop: fully rounded floating card
         'sm:rounded-2xl sm:border sm:border-white/[0.08]',
         'sm:shadow-[0_-2px_0_rgba(255,255,255,0.04),0_20px_60px_rgba(0,0,0,0.7)]',
-        // Height
-        'h-[78svh] sm:h-[520px]',
+        // Height: mobile = 78% of screen, desktop = capped to available space above toggle
+        'h-[78svh] sm:h-[min(520px,calc(100svh-6rem))]',
       ].join(' ')}
       role="dialog"
       aria-label="Chat with Qazi's AI assistant"

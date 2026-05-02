@@ -57,10 +57,10 @@ export default function ChatbotWidget() {
         <div
           className={[
             'fixed z-[999]',
-            // Mobile: bottom sheet, full width, sits above the toggle button area
+            // Mobile: bottom sheet, full width
             'bottom-0 left-0 right-0',
-            // Desktop: floating panel above toggle button
-            'sm:bottom-24 sm:right-6 sm:left-auto sm:w-[380px]',
+            // Desktop: floating panel, capped so it never overflows top of viewport
+            'sm:bottom-20 sm:right-5 sm:left-auto sm:w-[360px]',
           ].join(' ')}
         >
           <Suspense fallback={null}>
