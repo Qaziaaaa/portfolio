@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { MessageSquare, X } from 'lucide-react';
 import { useChatbot } from './useChatbot';
 
-// Lazy-load the heavy ChatPanel to keep initial bundle small
 const ChatPanel = lazy(() =>
   import('./ChatPanel').then((m) => ({ default: m.ChatPanel }))
 );
@@ -15,7 +14,6 @@ export default function ChatbotWidget() {
   const { status, messages, isStreaming, sendMessage, clearHistory, initializeIfNeeded } =
     useChatbot();
 
-  // Initialize on first open only
   useEffect(() => {
     if (isOpen && !hasOpenedOnce) {
       setHasOpenedOnce(true);
@@ -26,7 +24,6 @@ export default function ChatbotWidget() {
   const handleToggle = useCallback(() => setIsOpen((p) => !p), []);
   const handleClose = useCallback(() => setIsOpen(false), []);
 
-  // Escape key to close
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') handleClose(); };
@@ -34,54 +31,71 @@ export default function ChatbotWidget() {
     return () => window.removeEventListener('keydown', onKey);
   }, [isOpen, handleClose]);
 
+  // Prevent body scroll when chat is open on mobile
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
   return (
     <>
-      {/* Panel */}
+      {/* Backdrop — mobile only */}
       {isOpen && (
-        <>
-          {/* Mobile backdrop */}
-          <div
-            className="fixed inset-0 z-40 bg-black/60 sm:hidden"
-            onClick={handleClose}
-            aria-hidden="true"
-          />
-          <div className="fixed z-50
-            /* Mobile: full-width bottom sheet */
-            bottom-0 left-0 right-0
-            /* Desktop: floating above toggle button */
-            sm:bottom-[5.5rem] sm:left-auto sm:right-6 sm:w-auto"
-          >
-            <Suspense fallback={null}>
-              <ChatPanel
-                messages={messages}
-                status={status}
-                isStreaming={isStreaming}
-                onSendMessage={sendMessage}
-                onClearHistory={clearHistory}
-                onClose={handleClose}
-                inputValue={inputValue}
-                onInputChange={setInputValue}
-              />
-            </Suspense>
-          </div>
-        </>
+        <div
+          className="fixed inset-0 z-[998] bg-black/70 backdrop-blur-sm sm:hidden"
+          onClick={handleClose}
+          aria-hidden="true"
+        />
       )}
 
-      {/* Floating toggle button */}
-      <div className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50">
+      {/* Chat Panel */}
+      {isOpen && (
+        <div
+          className={[
+            'fixed z-[999]',
+            // Mobile: bottom sheet, full width, sits above the toggle button area
+            'bottom-0 left-0 right-0',
+            // Desktop: floating panel above toggle button
+            'sm:bottom-24 sm:right-6 sm:left-auto sm:w-[380px]',
+          ].join(' ')}
+        >
+          <Suspense fallback={null}>
+            <ChatPanel
+              messages={messages}
+              status={status}
+              isStreaming={isStreaming}
+              onSendMessage={sendMessage}
+              onClearHistory={clearHistory}
+              onClose={handleClose}
+              inputValue={inputValue}
+              onInputChange={setInputValue}
+            />
+          </Suspense>
+        </div>
+      )}
+
+      {/* Toggle button — always visible, never overlaps panel */}
+      <div className="fixed bottom-5 right-5 z-[1000]">
         <button
           onClick={handleToggle}
-          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 ${
+          className={[
+            'w-13 h-13 w-[52px] h-[52px] rounded-full flex items-center justify-center',
+            'shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-all duration-200',
+            'focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40',
             isOpen
-              ? 'bg-white/10 border border-white/20 text-white hover:bg-white/15'
-              : 'bg-white text-black hover:scale-105 hover:shadow-[0_0_24px_rgba(255,255,255,0.15)]'
-          }`}
-          aria-label={isOpen ? 'Close assistant' : "Chat with Qazi's assistant"}
+              ? 'bg-[#1a1a1a] border border-white/15 text-white/70 hover:text-white hover:border-white/30'
+              : 'bg-white text-black hover:scale-105 hover:shadow-[0_4px_32px_rgba(255,255,255,0.15)]',
+          ].join(' ')}
+          aria-label={isOpen ? 'Close chat' : "Chat with Qazi's assistant"}
           aria-expanded={isOpen}
         >
           {isOpen
-            ? <X className="w-4 h-4 sm:w-5 sm:h-5" />
-            : <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
+            ? <X className="w-5 h-5" />
+            : <MessageSquare className="w-5 h-5" />
           }
         </button>
       </div>
