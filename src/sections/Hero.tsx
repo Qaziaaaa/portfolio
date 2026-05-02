@@ -257,7 +257,7 @@ const Hero = () => {
       <div className="relative z-[3] w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 sm:pb-20 flex items-center justify-center">
         <div className="max-w-3xl text-center">
           {/* Headline */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold text-white leading-[1.08] tracking-tight mb-6 whitespace-nowrap">
+          <h1 className="text-[clamp(2.2rem,10vw,6rem)] font-semibold text-white leading-[1.08] tracking-tight mb-6 whitespace-nowrap">
             {['Qazi', 'Farhan', 'Ahmad'].map((word, index) => (
               <span
                 key={index}
@@ -269,33 +269,33 @@ const Hero = () => {
           </h1>
 
           {/* Subheadline */}
-          <p className="hero-subheadline text-xl sm:text-2xl md:text-3xl text-white/80 font-light mb-6">
+          <p className="hero-subheadline text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/80 font-light mb-4 sm:mb-6">
             Full Stack Developer &amp; AI Integrations
           </p>
 
           {/* Description */}
-          <p className="hero-description text-base sm:text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed">
+          <p className="hero-description text-sm sm:text-base md:text-lg lg:text-xl text-white/60 max-w-2xl mx-auto mb-8 sm:mb-12 leading-relaxed px-2 sm:px-0">
             I build scalable web applications, intelligent AI-powered products, and seamless digital experiences that help businesses grow, automate, and stand out.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-3 sm:gap-4">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-3 sm:gap-4 px-4 sm:px-0">
             <button
               onClick={scrollToWork}
-              className="hero-cta-primary w-full sm:w-auto px-8 py-4 bg-white text-black font-medium rounded-full hover:scale-105 transition-transform duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+              className="hero-cta-primary w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-white text-black font-medium rounded-full hover:scale-105 transition-transform duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] text-sm sm:text-base"
             >
               View My Work
             </button>
             <button
               onClick={scrollToContact}
-              className="hero-cta-secondary w-full sm:w-auto px-8 py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300"
+              className="hero-cta-secondary w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 text-sm sm:text-base"
             >
               Get in Touch
             </button>
             <a
               href="/resume.pdf"
               download
-              className="hero-cta-download w-full sm:w-auto px-8 py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center"
+              className="hero-cta-download w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center text-sm sm:text-base"
             >
               Download CV
             </a>

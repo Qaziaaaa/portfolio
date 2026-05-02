@@ -175,19 +175,19 @@ const Testimonials = () => {
 
         {/* Testimonial Card */}
         <div className="max-w-4xl mx-auto relative" style={{ perspective: '1200px' }}>
-          {/* Quote Marks */}
-          <div className="quote-left absolute -top-8 -left-4 md:-top-12 md:-left-12 text-white/10 animate-float">
-            <Quote className="w-16 h-16 md:w-24 md:h-24" />
+          {/* Quote Marks — hidden on mobile to prevent overflow */}
+          <div className="quote-left absolute -top-6 -left-2 md:-top-12 md:-left-12 text-white/10 animate-float hidden sm:block">
+            <Quote className="w-12 h-12 md:w-24 md:h-24" />
           </div>
-          <div className="quote-right absolute -bottom-8 -right-4 md:-bottom-12 md:-right-12 text-white/10 rotate-180 animate-float-delayed">
-            <Quote className="w-16 h-16 md:w-24 md:h-24" />
+          <div className="quote-right absolute -bottom-6 -right-2 md:-bottom-12 md:-right-12 text-white/10 rotate-180 animate-float-delayed hidden sm:block">
+            <Quote className="w-12 h-12 md:w-24 md:h-24" />
           </div>
 
           {/* Card */}
-          <div className="testimonial-card relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12">
+          <div className="testimonial-card relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 md:p-12">
             <div className="testimonial-content">
               {/* Quote Text */}
-              <p className="text-lg md:text-2xl text-white/90 leading-relaxed mb-8 text-center">
+              <p className="text-base sm:text-lg md:text-2xl text-white/90 leading-relaxed mb-6 sm:mb-8 text-center">
                 &ldquo;{currentTestimonial.quote}&rdquo;
               </p>
 

@@ -63,7 +63,7 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
   
   return (
     <div 
-      className="skill-card group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8 hover:bg-white/10 transition-all duration-300 cursor-pointer"
+      className="skill-card group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 sm:p-6 md:p-8 hover:bg-white/10 transition-all duration-300 cursor-pointer"
       style={{
         transform: 'perspective(800px) rotateX(5deg)',
         transformStyle: 'preserve-3d',
@@ -223,7 +223,7 @@ const Skills = () => {
 
         {/* Skills Grid */}
         <div 
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
           style={{ perspective: '800px' }}
         >
           {skills.map((skill, index) => (

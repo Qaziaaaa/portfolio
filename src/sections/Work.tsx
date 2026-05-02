@@ -77,7 +77,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       href={project.link}
       target={hasLink ? "_blank" : undefined}
       rel={hasLink ? "noopener noreferrer" : undefined}
-      className={`work-card group relative flex-shrink-0 w-[90vw] sm:w-[72vw] md:w-[45vw] lg:w-[35vw] h-[48vh] sm:h-[52vh] md:h-[60vh] rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 block bg-[#050505] border border-white/5 hover:border-white/20`}
+      className={`work-card group relative flex-shrink-0 w-[92vw] sm:w-[72vw] md:w-[45vw] lg:w-[35vw] h-[55vw] sm:h-[52vh] md:h-[60vh] rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 block bg-[#050505] border border-white/5 hover:border-white/20`}
       style={{
         transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
         transition: 'transform 0.3s ease-out',
@@ -233,8 +233,8 @@ const Work = () => {
       </div>
 
       {/* Section Header */}
-      <div className="w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white tracking-tight mb-4 overflow-hidden">
+      <div className="w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 md:py-24">
+        <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-medium text-white tracking-tight mb-3 sm:mb-4 overflow-hidden">
           {titleText.split('').map((char, index) => (
             <span
               key={index}

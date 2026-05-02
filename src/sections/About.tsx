@@ -165,7 +165,7 @@ const About = () => {
     };
   }, []);
 
-  const headlineWords = ['Building', 'Production-Ready', 'Web', 'Applications'];
+  const headlineWords = ['Building', 'Production-Ready', 'Apps'];
 
   return (
     <section
@@ -195,26 +195,28 @@ const About = () => {
               <div className="about-image-overlay absolute inset-0 bg-[#010101] hidden lg:block" />
             </div>
 
-            {/* Stats Cards */}
-            <div className="stat-card stat-card-1 absolute -top-2 -right-2 sm:-top-4 sm:-right-4 md:top-8 md:-right-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-6 max-w-[10rem] sm:max-w-none">
-              <div className="text-2xl md:text-3xl font-semibold text-white">
-                <CountUp end={stats[0].value} suffix={stats[0].suffix} />
+            {/* Stats Cards — absolute on desktop, flex row on mobile */}
+            <div className="mt-6 lg:mt-0 flex flex-row justify-around gap-3 lg:block">
+              <div className="stat-card stat-card-1 flex-1 lg:flex-none lg:absolute lg:-top-2 lg:-right-2 xl:top-8 xl:-right-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left">
+                <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
+                  <CountUp end={stats[0].value} suffix={stats[0].suffix} />
+                </div>
+                <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">{stats[0].label}</div>
               </div>
-              <div className="text-xs md:text-sm text-white/60 mt-1">{stats[0].label}</div>
-            </div>
 
-            <div className="stat-card stat-card-2 absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 md:bottom-20 md:-left-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-6 max-w-[10rem] sm:max-w-none">
-              <div className="text-2xl md:text-3xl font-semibold text-white">
-                <CountUp end={stats[1].value} suffix={stats[1].suffix} />
+              <div className="stat-card stat-card-2 flex-1 lg:flex-none lg:absolute lg:bottom-20 lg:-left-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left">
+                <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
+                  <CountUp end={stats[1].value} suffix={stats[1].suffix} />
+                </div>
+                <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">{stats[1].label}</div>
               </div>
-              <div className="text-xs md:text-sm text-white/60 mt-1">{stats[1].label}</div>
-            </div>
 
-            <div className="stat-card stat-card-3 absolute bottom-6 -right-2 sm:bottom-8 sm:-right-4 md:bottom-0 md:-right-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-6 max-w-[10rem] sm:max-w-none">
-              <div className="text-2xl md:text-3xl font-semibold text-white">
-                <CountUp end={stats[2].value} suffix={stats[2].suffix} />
+              <div className="stat-card stat-card-3 flex-1 lg:flex-none lg:absolute lg:bottom-0 lg:-right-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left">
+                <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
+                  <CountUp end={stats[2].value} suffix={stats[2].suffix} />
+                </div>
+                <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">{stats[2].label}</div>
               </div>
-              <div className="text-xs md:text-sm text-white/60 mt-1">{stats[2].label}</div>
             </div>
           </div>
 
@@ -228,7 +230,7 @@ const About = () => {
             </div>
 
             {/* Headline */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-white leading-tight tracking-tight mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-white leading-tight tracking-tight mb-6 sm:mb-8">
               {headlineWords.map((word, index) => (
                 <span key={index} className="about-word inline-block mr-[0.25em]">
                   {word}

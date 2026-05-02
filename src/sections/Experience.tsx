@@ -62,7 +62,7 @@ const ExperienceCard = ({ exp }: { exp: any }) => {
     return (
         <div
             ref={cardRef}
-            className="experience-card relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-10 hover:bg-white/10 transition-colors duration-300 transform-gpu cursor-pointer"
+            className="experience-card relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 sm:p-8 md:p-10 hover:bg-white/10 transition-colors duration-300 transform-gpu cursor-pointer"
             style={{
                 transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
                 transition: tilt.x === 0 && tilt.y === 0 ? 'transform 0.5s ease-out' : 'transform 0.1s ease-out',
@@ -72,12 +72,12 @@ const ExperienceCard = ({ exp }: { exp: any }) => {
             onMouseLeave={handleMouseLeave}
         >
             <div className="flex flex-col md:flex-row gap-6 items-start md:items-center pointer-events-none">
-                <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center shrink-0">
-                    <Icon className="w-8 h-8 text-white/80" />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/10 flex items-center justify-center shrink-0">
+                    <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white/80" />
                 </div>
                 <div className="flex-1">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                        <h3 className="text-2xl font-semibold text-white">{exp.title}</h3>
+                        <h3 className="text-lg sm:text-2xl font-semibold text-white">{exp.title}</h3>
                         <span className="text-sm font-medium text-white/50 px-3 py-1 bg-white/5 rounded-full mt-2 md:mt-0 w-fit">
                             {exp.period}
                         </span>
