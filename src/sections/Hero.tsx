@@ -257,7 +257,7 @@ const Hero = () => {
       <div className="relative z-[3] w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 sm:pb-20 flex items-center justify-center">
         <div className="max-w-3xl text-center">
           {/* Headline */}
-          <h1 className="text-[9vw] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold text-white leading-[1.08] tracking-tight mb-6">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold text-white leading-[1.08] tracking-tight mb-6 whitespace-nowrap">
             {['Qazi', 'Farhan', 'Ahmad'].map((word, index) => (
               <span
                 key={index}
