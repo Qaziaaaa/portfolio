@@ -16,38 +16,38 @@ interface Project {
 const projects: Project[] = [
   { 
     id: 0, 
-    link: 'https://cssuop.org',
-    title: 'CSSUOP',
-    description: 'Official website for the Computer Science Student Union of the University of the Punjab.',
-    tags: ['Organization', 'Full Stack', 'Next.js']
+    link: 'https://ecommerce-store-one-ochre.vercel.app/',
+    title: 'NOVA E-Commerce Platform',
+    description: 'Production-grade MERN shopping platform — Stripe payments, OTP auth, real-time stock, admin panel.',
+    tags: ['React', 'Node.js', 'MongoDB', 'Stripe']
   },
   { 
     id: 1, 
     link: 'https://hiking-app-puce.vercel.app/',
-    title: 'Hikescape Full-Stack App',
-    description: 'A comprehensive MERN stack application for hiking enthusiasts with authentication and maps.',
+    title: 'HIKI — Hiking Guide App',
+    description: 'Full-stack MERN hiking app with trail discovery, authentication, admin dashboard, and blog.',
     tags: ['MERN', 'Full Stack', 'Cloudinary']
   },
   { 
     id: 2, 
-    link: 'https://agencyxai.netlify.app',
-    title: 'Agency X AI',
-    description: 'A modern AI agency landing page with sophisticated animations and glassmorphism.',
-    tags: ['Next.js', 'AI', 'Framer Motion']
+    link: 'https://qazixcode.netlify.app/',
+    title: 'QAZI-X Portfolio',
+    description: 'Futuristic cyberpunk OS-inspired developer portfolio with cinematic animations.',
+    tags: ['React', 'TypeScript', 'Framer Motion']
   },
   { 
     id: 3, 
-    link: 'https://qbulids.netlify.app',
-    title: 'QBuilds Architecture',
-    description: 'High-end architectural portfolio featuring immersive visual storytelling.',
-    tags: ['React', 'GSAP', 'Architecture']
+    link: 'https://agencyxai.netlify.app',
+    title: 'Agency X AI',
+    description: 'Modern AI agency landing page with sophisticated animations and glassmorphism design.',
+    tags: ['Next.js', 'AI', 'Framer Motion']
   },
   { 
     id: 4, 
-    link: 'https://ecommercestoreqazi.netlify.app',
-    title: 'Carry Fashion Ecommerce',
-    description: 'A fast, modern e-commerce storefront with integrated shopping features.',
-    tags: ['E-commerce', 'Redux', 'Vite']
+    link: 'https://github.com/Qaziaaaa/Olipop-animated-site',
+    title: 'OLIPOP Animated Clone',
+    description: 'Premium parallax product page with flavor carousel, smooth scroll, and cart interactions.',
+    tags: ['React', 'Tailwind', 'Framer Motion']
   }
 ];
 

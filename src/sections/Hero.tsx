@@ -270,12 +270,12 @@ const Hero = () => {
 
           {/* Subheadline */}
           <p className="hero-subheadline text-xl sm:text-2xl md:text-3xl text-white/80 font-light mb-6">
-            MERN Stack Developer
+            Full Stack Developer · React · Node.js · TypeScript
           </p>
 
           {/* Description */}
           <p className="hero-description text-base sm:text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed">
-            I build scalable, full-stack applications and seamless digital experiences that help businesses grow and connect with their audience.
+            SE student at University of Peshawar building production-ready full-stack applications — from secure REST APIs to pixel-perfect UIs — with a focus on performance, scalability, and clean code.
           </p>
 
           {/* CTA Buttons */}

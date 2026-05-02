@@ -12,4 +12,20 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      // Proxy Jina AI requests to avoid CORS in dev
+      '/api/jina': {
+        target: 'https://api.jina.ai',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/jina/, ''),
+      },
+      // Proxy Groq requests to avoid CORS in dev
+      '/api/groq': {
+        target: 'https://api.groq.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/groq/, ''),
+      },
+    },
+  },
 });

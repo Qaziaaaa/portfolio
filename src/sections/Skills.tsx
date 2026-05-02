@@ -23,38 +23,38 @@ const skills: Skill[] = [
   {
     icon: Code2,
     title: 'Frontend Development',
-    description: 'Building responsive, interactive user interfaces with modern frameworks',
-    technologies: ['React', 'Vue', 'Next.js', 'TypeScript', 'Tailwind CSS']
+    description: 'Building responsive, performant UIs with modern React patterns and TypeScript',
+    technologies: ['React 19', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Zustand', 'TanStack Query']
   },
   {
     icon: Server,
     title: 'Backend Development',
-    description: 'Creating robust APIs and server-side solutions',
-    technologies: ['Node.js', 'Python', 'PostgreSQL', 'MongoDB', 'GraphQL']
+    description: 'Secure, scalable REST APIs with JWT auth, rate limiting, and caching',
+    technologies: ['Node.js', 'Express.js', 'REST APIs', 'JWT Auth', 'Rate Limiting', 'Caching']
   },
   {
     icon: Palette,
-    title: 'UI/UX Design',
-    description: 'Designing intuitive and visually appealing user experiences',
-    technologies: ['Figma', 'Adobe XD', 'Prototyping', 'User Research']
+    title: 'Database & Payments',
+    description: 'Data modeling, query optimization, and Stripe payment integration',
+    technologies: ['MongoDB Atlas', 'Mongoose', 'PostgreSQL', 'Stripe', 'Webhooks']
   },
   {
     icon: Sparkles,
     title: 'Animation & Motion',
-    description: 'Bringing interfaces to life with smooth animations',
-    technologies: ['GSAP', 'Framer Motion', 'Three.js', 'Lottie']
+    description: 'Bringing interfaces to life with cinematic, smooth animations',
+    technologies: ['GSAP', 'Framer Motion', 'Three.js', 'CSS Animations']
   },
   {
     icon: Zap,
-    title: 'Performance Optimization',
-    description: 'Ensuring fast load times and optimal user experience',
-    technologies: ['Core Web Vitals', 'SEO', 'Accessibility', 'Caching']
+    title: 'Performance & Security',
+    description: 'Core Web Vitals, code splitting, CSRF protection, and circuit breakers',
+    technologies: ['Core Web Vitals', 'Code Splitting', 'CSRF', 'bcrypt', 'Input Validation']
   },
   {
     icon: Cloud,
     title: 'DevOps & Deployment',
-    description: 'Streamlining deployment and infrastructure management',
-    technologies: ['Docker', 'AWS', 'Vercel', 'CI/CD', 'Kubernetes']
+    description: 'CI/CD pipelines, cloud deployment, and environment management',
+    technologies: ['Vercel', 'Render', 'Netlify', 'Cloudinary', 'Docker', 'Git']
   }
 ];
 

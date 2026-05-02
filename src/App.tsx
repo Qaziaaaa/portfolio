@@ -1,6 +1,9 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Lazy-load the chatbot widget so it doesn't impact initial page load
+const ChatbotWidget = lazy(() => import('./components/chatbot/ChatbotWidget'));
 
 import Navigation from './sections/Navigation';
 import Hero from './sections/Hero';
@@ -75,6 +78,11 @@ function App() {
 
       {/* Footer */}
       <Footer />
+
+      {/* RAG Chatbot Widget — lazy-loaded, zero impact on initial page load */}
+      <Suspense fallback={null}>
+        <ChatbotWidget />
+      </Suspense>
     </div>
   );
 }

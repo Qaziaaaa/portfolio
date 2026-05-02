@@ -171,7 +171,7 @@ const Footer = () => {
 
           {/* Tagline */}
           <p className="footer-tagline text-white/50 text-sm md:text-base">
-            Creating digital experiences that matter.
+            Full Stack Developer · Open to Internships & Freelance · Peshawar, Pakistan
           </p>
         </div>
 

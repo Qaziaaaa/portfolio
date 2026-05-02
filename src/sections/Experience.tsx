@@ -7,24 +7,24 @@ gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
     {
-        title: 'Senior MERN Stack Developer',
-        company: 'Tech Solutions Inc.',
-        period: '2022 - Present',
-        description: 'Led the development of scalable microservices, optimized MongoDB schemas, and integrated seamless frontend interfaces using React.',
-        icon: Database,
-    },
-    {
-        title: 'Full Stack Engineer',
-        company: 'Digital Agency X',
-        period: '2019 - 2022',
-        description: 'Built and maintained dynamic client web applications, spearheaded Node.js API development, and mentored junior developers.',
+        title: 'Full Stack Developer',
+        company: 'Freelance & Open Source',
+        period: '2023 - Present',
+        description: 'Designing and shipping production-grade full-stack applications independently — including a complete e-commerce platform with Stripe payments, OTP auth, real-time stock management, and an admin panel. Focused on security-first architecture, performance optimization, and clean TypeScript codebases.',
         icon: Code,
     },
     {
-        title: 'Frontend Developer',
-        company: 'Creative Web Corp',
-        period: '2017 - 2019',
-        description: 'Focused on creating pixel-perfect, responsive UI components with React and integrating tightly with backend RESTful APIs.',
+        title: 'BS Software Engineering',
+        company: 'University of Peshawar',
+        period: '2023 - Present',
+        description: 'Currently in 4th Semester, building a strong foundation in software engineering principles, data structures, algorithms, and system design. Applying academic knowledge directly to real-world projects and open source contributions.',
+        icon: Database,
+    },
+    {
+        title: 'Self-Taught Frontend Developer',
+        company: 'Independent Learning',
+        period: '2022 - 2023',
+        description: 'Mastered React, TypeScript, and modern frontend tooling through hands-on project building. Built multiple portfolio sites, agency landing pages, and UI-heavy applications — developing a strong eye for design, animation, and responsive layouts.',
         icon: Layout,
     },
 ];
@@ -177,7 +177,7 @@ const Experience = () => {
         };
     }, []);
 
-    const headlineWords = ['My', 'Professional', 'Experience'];
+    const headlineWords = ['Education', '&', 'Experience'];
 
     return (
         <section

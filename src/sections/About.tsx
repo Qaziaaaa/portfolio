@@ -11,9 +11,9 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { value: 50, suffix: '+', label: 'Projects Completed' },
-  { value: 2, suffix: '+', label: 'Years Experience' },
-  { value: 30, suffix: '+', label: 'Happy Clients' },
+  { value: 10, suffix: '+', label: 'Projects Shipped' },
+  { value: 25, suffix: '+', label: 'GitHub Repos' },
+  { value: 299, suffix: '+', label: 'Contributions' },
 ];
 
 const CountUp = ({ end, suffix, duration = 1.5 }: { end: number; suffix: string; duration?: number }) => {
@@ -165,7 +165,7 @@ const About = () => {
     };
   }, []);
 
-  const headlineWords = ['Passionate', 'About', 'Building', 'Scalable', 'Web', 'Applications'];
+  const headlineWords = ['Building', 'Production-Ready', 'Web', 'Applications'];
 
   return (
     <section
@@ -239,13 +239,13 @@ const About = () => {
             {/* Paragraphs */}
             <div className="space-y-6">
               <p className="about-paragraph text-base md:text-lg text-white/70 leading-relaxed">
-                As a MERN Stack Developer, I have a strong foundation in MongoDB, Express.js, React, and Node.js.
+                I'm Qazi Farhan Ahmad — a Frontend-focused Full Stack Developer and BS Software Engineering student (4th Semester) at the University of Peshawar, Pakistan.
               </p>
               <p className="about-paragraph text-base md:text-lg text-white/70 leading-relaxed">
-                I specialize in building robust backend architectures, dynamic frontend interfaces, and seamless user experiences from the ground up, ensuring high performance and scalability in all my projects.
+                I build end-to-end web applications with React, TypeScript, Node.js, and MongoDB — with a strong emphasis on security-first architecture, performance optimization, and clean, maintainable code.
               </p>
               <p className="about-paragraph text-base md:text-lg text-white/70 leading-relaxed">
-                I am constantly learning new technologies and best practices to deliver cutting-edge solutions tailored to business and user needs.
+                Currently seeking internships and freelance opportunities where I can contribute to real products, grow fast, and ship things that matter.
               </p>
             </div>
           </div>

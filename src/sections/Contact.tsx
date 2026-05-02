@@ -140,7 +140,7 @@ const Contact = () => {
     };
   }, []);
 
-  const headlineWords = ["Let's", 'Create', 'Something', 'Amazing', 'Together'];
+  const headlineWords = ["Open", 'to', 'Opportunities', '—', "Let's", 'Talk'];
 
   return (
     <section
@@ -181,20 +181,22 @@ const Contact = () => {
 
         {/* Subheadline */}
         <p className="contact-subheadline text-lg md:text-xl text-white/60 max-w-xl mx-auto mb-10">
-          Have a project in mind? I&apos;d love to hear about it.
+          Available for internships, freelance projects, and full-time roles. Based in Peshawar, Pakistan — open to remote work worldwide.
         </p>
 
         {/* CTA Button */}
         <div className="contact-cta mb-8 gap-4 flex flex-col md:flex-row justify-center items-center">
           <a
-            href="mailto:qazithekingston@gmail.com"
+            href="https://www.linkedin.com/in/qazi-farhan-ahmad-7a3b3432b/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-medium rounded-full hover:scale-105 transition-all duration-300 animate-pulse-glow group"
           >
-            Start a Conversation
+            Connect on LinkedIn
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </a>
           <a
-            href="https://wa.me/03141935787"
+            href="https://wa.me/923141935787"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-4 border border-white/20 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 group"
@@ -209,12 +211,14 @@ const Contact = () => {
         {/* Alternative Contact */}
         <div className="contact-email px-2 sm:px-0">
           <a
-            href="mailto:qazithekingston@gmail.com"
+            href="https://github.com/Qaziaaaa"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors group max-w-full"
           >
             <Mail className="w-4 h-4" />
             <span className="relative break-all text-sm sm:text-base">
-              Or email me at qazithekingston@gmail.com
+              github.com/Qaziaaaa · 25 repos · 299 contributions
               <span className="absolute -bottom-1 left-1/2 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full group-hover:left-0" />
             </span>
           </a>
