@@ -36,22 +36,35 @@ export default function ChatbotWidget() {
 
   return (
     <>
-      {/* Panel — positioned above the toggle button */}
+      {/* Panel */}
       {isOpen && (
-        <div className="fixed bottom-[5.5rem] right-4 sm:right-6 z-50">
-          <Suspense fallback={null}>
-            <ChatPanel
-              messages={messages}
-              status={status}
-              isStreaming={isStreaming}
-              onSendMessage={sendMessage}
-              onClearHistory={clearHistory}
-              onClose={handleClose}
-              inputValue={inputValue}
-              onInputChange={setInputValue}
-            />
-          </Suspense>
-        </div>
+        <>
+          {/* Mobile backdrop */}
+          <div
+            className="fixed inset-0 z-40 bg-black/60 sm:hidden"
+            onClick={handleClose}
+            aria-hidden="true"
+          />
+          <div className="fixed z-50
+            /* Mobile: full-width bottom sheet */
+            bottom-0 left-0 right-0
+            /* Desktop: floating above toggle button */
+            sm:bottom-[5.5rem] sm:left-auto sm:right-6 sm:w-auto"
+          >
+            <Suspense fallback={null}>
+              <ChatPanel
+                messages={messages}
+                status={status}
+                isStreaming={isStreaming}
+                onSendMessage={sendMessage}
+                onClearHistory={clearHistory}
+                onClose={handleClose}
+                inputValue={inputValue}
+                onInputChange={setInputValue}
+              />
+            </Suspense>
+          </div>
+        </>
       )}
 
       {/* Floating toggle button */}

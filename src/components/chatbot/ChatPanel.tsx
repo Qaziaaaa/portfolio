@@ -65,11 +65,13 @@ export const ChatPanel = memo(function ChatPanel({
 
   return (
     <div
-      className="flex flex-col overflow-hidden rounded-2xl border border-white/10 shadow-[0_8px_40px_rgba(0,0,0,0.6)]"
+      className="flex flex-col overflow-hidden
+        w-full rounded-t-2xl border-t border-l border-r border-white/10
+        sm:rounded-2xl sm:border sm:border-white/10 sm:w-[min(400px,calc(100vw-3rem))]
+        shadow-[0_-4px_40px_rgba(0,0,0,0.5)] sm:shadow-[0_8px_40px_rgba(0,0,0,0.6)]"
       style={{
         background: 'linear-gradient(145deg, #0d0d0d 0%, #080808 100%)',
-        width: 'min(400px, calc(100vw - 1.5rem))',
-        height: 'min(560px, calc(100svh - 7rem))',
+        height: 'min(82svh, 82vh)',
       }}
       role="dialog"
       aria-label="Chat with Qazi's AI assistant"
