@@ -71,13 +71,13 @@ export const ChatPanel = memo(function ChatPanel({
     <div
       className={[
         'flex flex-col bg-[#0c0c0c]',
-        // Mobile: bottom sheet with rounded top corners only
-        'rounded-t-2xl border-t border-l border-r border-white/[0.08]',
+        // Mobile: rounded on all sides since it floats above the toggle
+        'rounded-2xl border border-white/[0.08] mx-3 sm:mx-0',
         // Desktop: fully rounded floating card
-        'sm:rounded-2xl sm:border sm:border-white/[0.08]',
-        'sm:shadow-[0_-2px_0_rgba(255,255,255,0.04),0_20px_60px_rgba(0,0,0,0.7)]',
-        // Height: mobile = 78% of screen, desktop = capped to available space above toggle
-        'h-[78svh] sm:h-[min(520px,calc(100svh-6rem))]',
+        'sm:rounded-2xl sm:border sm:border-white/[0.08] sm:mx-0',
+        'shadow-[0_20px_60px_rgba(0,0,0,0.7)]',
+        // Height: mobile = fills space above toggle button, desktop = capped to viewport
+        'h-[calc(100svh-5.5rem)] sm:h-[min(520px,calc(100svh-6rem))]',
       ].join(' ')}
       role="dialog"
       aria-label="Chat with Qazi's AI assistant"
