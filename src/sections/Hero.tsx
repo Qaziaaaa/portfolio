@@ -256,7 +256,7 @@ const Hero = () => {
       {/* Main Content — Centered */}
       <div className="relative z-[3] w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 sm:pb-20 flex items-center justify-center">
         <div className="max-w-3xl text-center">
-          {/* Headline */}
+          {/* Headline — H1 with full name for SEO */}
           <h1 className="text-[clamp(2.2rem,10vw,6rem)] font-semibold text-white leading-[1.08] tracking-tight mb-6 whitespace-nowrap">
             {['Qazi', 'Farhan', 'Ahmad'].map((word, index) => (
               <span
