@@ -270,12 +270,12 @@ const Hero = () => {
 
           {/* Subheadline */}
           <p className="hero-subheadline text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/80 font-light mb-4 sm:mb-6">
-            Full Stack Developer &amp; AI Integrations
+            AI Web Developer &amp; MERN Stack Expert
           </p>
 
           {/* Description */}
           <p className="hero-description text-sm sm:text-base md:text-lg lg:text-xl text-white/60 max-w-2xl mx-auto mb-8 sm:mb-12 leading-relaxed px-2 sm:px-0">
-            I build scalable web applications, intelligent AI-powered products, and seamless digital experiences that help businesses grow, automate, and stand out.
+            I build high-performance websites and AI-powered web applications that help businesses grow, automate processes, and increase conversions.
           </p>
 
           {/* CTA Buttons */}
@@ -288,9 +288,9 @@ const Hero = () => {
             </button>
             <button
               onClick={scrollToContact}
-              className="hero-cta-secondary w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 text-sm sm:text-base"
+              className="hero-cta-secondary w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-white/10 border border-white/30 text-white font-medium rounded-full hover:bg-white/20 transition-all duration-300 text-sm sm:text-base"
             >
-              Get in Touch
+              Hire Me
             </button>
             <a
               href="/resume.pdf"

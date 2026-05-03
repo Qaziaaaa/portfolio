@@ -4,8 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
   Code2, 
   Server, 
-  Palette, 
-  Sparkles, 
+  Database,
+  Bot,
   Zap, 
   Cloud 
 } from 'lucide-react';
@@ -33,16 +33,16 @@ const skills: Skill[] = [
     technologies: ['Node.js', 'Express.js', 'REST APIs', 'JWT Auth', 'Rate Limiting', 'Caching']
   },
   {
-    icon: Palette,
+    icon: Database,
     title: 'Database & Payments',
     description: 'Data modeling, query optimization, and Stripe payment integration',
     technologies: ['MongoDB Atlas', 'Mongoose', 'PostgreSQL', 'Stripe', 'Webhooks']
   },
   {
-    icon: Sparkles,
-    title: 'Animation & Motion',
-    description: 'Bringing interfaces to life with cinematic, smooth animations',
-    technologies: ['GSAP', 'Framer Motion', 'Three.js', 'CSS Animations']
+    icon: Bot,
+    title: 'AI Integrations',
+    description: 'Building AI-powered chatbots, automation systems, and smart API integrations',
+    technologies: ['RAG Chatbots', 'Groq LLM', 'Jina AI', 'Genkit AI', 'OpenAI API', 'Automation']
   },
   {
     icon: Zap,

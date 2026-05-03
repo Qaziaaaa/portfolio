@@ -181,8 +181,8 @@ const Contact = () => {
         <p className="text-2xl sm:text-3xl md:text-4xl text-white/40 font-light mb-8">Let's build something great.</p>
 
         {/* Subheadline */}
-        <p className="contact-subheadline text-lg md:text-xl text-white/60 max-w-xl mx-auto mb-10">
-          Available for internships, freelance projects, and full-time roles. Based in Peshawar, Pakistan — open to remote work worldwide.
+        <p className="contact-subheadline text-base sm:text-lg md:text-xl text-white/60 max-w-xl mx-auto mb-8 sm:mb-10">
+          I'm open to internships, freelance projects, and collaboration opportunities. If you have an idea, a project, or need a developer — let's connect and build something valuable.
         </p>
 
         {/* CTA Button */}

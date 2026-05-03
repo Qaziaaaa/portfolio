@@ -171,7 +171,7 @@ const Footer = () => {
 
           {/* Tagline */}
           <p className="footer-tagline text-white/50 text-xs sm:text-sm md:text-base px-4 sm:px-0">
-            Full Stack Developer · Open to Internships & Freelance · Peshawar, Pakistan
+            Qazi Farhan Ahmad — AI Web Developer &amp; MERN Stack Expert · Peshawar, Pakistan
           </p>
         </div>
 

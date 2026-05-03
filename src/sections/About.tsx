@@ -165,7 +165,7 @@ const About = () => {
     };
   }, []);
 
-  const headlineWords = ['Building', 'Production-Ready', 'Apps'];
+  const headlineWords = ['Building', 'Solutions,', 'Not', 'Just', 'Websites'];
 
   return (
     <section
@@ -239,15 +239,26 @@ const About = () => {
             </h2>
 
             {/* Paragraphs */}
-            <div className="space-y-6">
+            <div className="space-y-5">
               <p className="about-paragraph text-base md:text-lg text-white/70 leading-relaxed">
-                I'm Qazi Farhan Ahmad — a Frontend-focused Full Stack Developer and BS Software Engineering student (4th Semester) at the University of Peshawar, Pakistan.
+                I'm Qazi Farhan Ahmad — an AI-focused Full Stack Web Developer based in Pakistan, specializing in building modern, scalable, and high-performance web applications.
               </p>
               <p className="about-paragraph text-base md:text-lg text-white/70 leading-relaxed">
-                I build end-to-end web applications with React, TypeScript, Node.js, and MongoDB — with a strong emphasis on security-first architecture, performance optimization, and clean, maintainable code.
+                I work with React, TypeScript, Node.js, and MongoDB to create production-ready systems with clean architecture, strong security, and optimized performance.
               </p>
               <p className="about-paragraph text-base md:text-lg text-white/70 leading-relaxed">
-                Currently seeking internships and freelance opportunities where I can contribute to real products, grow fast, and ship things that matter.
+                I don't just build websites — I build solutions that help businesses:
+              </p>
+              <ul className="about-paragraph space-y-2 pl-1">
+                {['Generate leads and increase conversions', 'Automate workflows with AI integrations', 'Deliver fast, reliable user experiences'].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2 text-base md:text-lg text-white/70">
+                    <span className="text-white/40 mt-1 shrink-0">▸</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="about-paragraph text-base md:text-lg text-white/70 leading-relaxed">
+                Currently open to internships and freelance opportunities where I can contribute to real-world products and grow fast.
               </p>
             </div>
           </div>

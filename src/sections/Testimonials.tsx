@@ -1,254 +1,121 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface Testimonial {
-  id: number;
-  name: string;
-  role: string;
-  company: string;
-  quote: string;
-  avatar: string;
-}
-
-const testimonials: Testimonial[] = [
+const reasons = [
   {
-    id: 1,
-    name: 'Sarah Johnson',
-    role: 'CEO',
-    company: 'TechStart Inc.',
-    quote: 'Working with this team was an absolute pleasure. They delivered beyond our expectations and the results speak for themselves. Our website conversion rate increased by 40% within the first month.',
-    avatar: '/avatar-1.jpg'
+    title: 'Clean, Scalable Code',
+    description: 'Every project is built with maintainability in mind — typed, documented, and structured for growth.',
   },
   {
-    id: 2,
-    name: 'Michael Chen',
-    role: 'Product Manager',
-    company: 'InnovateCo',
-    quote: 'The attention to detail and technical expertise is unmatched. Our conversion rates increased by 60% after the redesign. I highly recommend their services to anyone looking for top-tier development.',
-    avatar: '/avatar-2.jpg'
+    title: 'Fast & Reliable Delivery',
+    description: 'I ship on time without cutting corners. Production-ready from day one.',
   },
   {
-    id: 3,
-    name: 'Emily Rodriguez',
-    role: 'Marketing Director',
-    company: 'GrowthLabs',
-    quote: 'Professional, creative, and always on time. I couldn\'t recommend them more highly for any digital project. They understood our vision and brought it to life beautifully.',
-    avatar: '/avatar-3.jpg'
-  }
+    title: 'Modern UI/UX Design',
+    description: 'Pixel-perfect interfaces that look great and feel intuitive on every device.',
+  },
+  {
+    title: 'AI-Powered Solutions',
+    description: 'I integrate AI tools — chatbots, automation, smart APIs — to give your product a real edge.',
+  },
+  {
+    title: 'Security-First Mindset',
+    description: 'JWT auth, CSRF protection, rate limiting, input validation — security is never an afterthought.',
+  },
+  {
+    title: 'Clear Communication',
+    description: 'You always know what\'s happening. Regular updates, honest timelines, no surprises.',
+  },
 ];
 
-const Testimonials = () => {
+const WhyWorkWithMe = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
     const mm = gsap.matchMedia();
-
     mm.add('(min-width: 1024px)', () => {
-      // Title animation
-      const titleTrigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: section,
         start: 'top 80%',
         onEnter: () => {
-          gsap.fromTo('.testimonials-title',
+          gsap.fromTo('.why-title',
             { opacity: 0, y: 40 },
             { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }
           );
-        },
-        once: true
-      });
-
-      // Quote marks animation
-      const quotesTrigger = ScrollTrigger.create({
-        trigger: section,
-        start: 'top 75%',
-        onEnter: () => {
-          gsap.fromTo('.quote-left',
-            { scale: 0, rotate: -45 },
-            { scale: 1, rotate: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)', delay: 0.3 }
-          );
-          gsap.fromTo('.quote-right',
-            { scale: 0, rotate: 45 },
-            { scale: 1, rotate: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)', delay: 0.4 }
+          gsap.fromTo('.why-card',
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'expo.out', delay: 0.2 }
           );
         },
         once: true
       });
-
-      // Card animation
-      const cardTrigger = ScrollTrigger.create({
-        trigger: section,
-        start: 'top 70%',
-        onEnter: () => {
-          gsap.fromTo('.testimonial-card',
-            { y: 100, rotateX: 30, opacity: 0 },
-            { y: 0, rotateX: 0, opacity: 1, duration: 0.8, ease: 'expo.out', delay: 0.5 }
-          );
-          gsap.fromTo('.testimonial-avatar',
-            { scale: 0 },
-            { scale: 1, duration: 0.4, ease: 'elastic.out(1, 0.5)', delay: 0.9 }
-          );
-        },
-        once: true
-      });
-
-      return () => {
-        titleTrigger.kill();
-        quotesTrigger.kill();
-        cardTrigger.kill();
-      };
     });
 
-    return () => {
-      mm.revert();
-    };
+    return () => mm.revert();
   }, []);
 
-  const goToSlide = (index: number) => {
-    if (isAnimating || index === activeIndex) return;
-    setIsAnimating(true);
-
-    const direction = index > activeIndex ? 1 : -1;
-
-    gsap.to('.testimonial-content', {
-      opacity: 0,
-      x: -50 * direction,
-      duration: 0.3,
-      ease: 'power2.in',
-      onComplete: () => {
-        setActiveIndex(index);
-        gsap.fromTo('.testimonial-content',
-          { opacity: 0, x: 50 * direction },
-          { opacity: 1, x: 0, duration: 0.4, ease: 'power2.out', onComplete: () => setIsAnimating(false) }
-        );
-      }
-    });
-
-    gsap.to('.testimonial-avatar', {
-      scale: 0.8,
-      opacity: 0.5,
-      duration: 0.3,
-      onComplete: () => {
-        gsap.to('.testimonial-avatar', {
-          scale: 1,
-          opacity: 1,
-          duration: 0.4,
-          ease: 'elastic.out(1, 0.5)'
-        });
-      }
-    });
-  };
-
-  const nextSlide = () => {
-    const next = (activeIndex + 1) % testimonials.length;
-    goToSlide(next);
-  };
-
-  const prevSlide = () => {
-    const prev = (activeIndex - 1 + testimonials.length) % testimonials.length;
-    goToSlide(prev);
-  };
-
-  const currentTestimonial = testimonials[activeIndex];
-
   return (
-    <section 
-      id="testimonials" 
+    <section
+      id="testimonials"
       ref={sectionRef}
       className="relative bg-[#010101] py-20 md:py-32 overflow-hidden"
     >
       <div className="w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16 md:mb-20">
-          <h2 className="testimonials-title text-4xl sm:text-5xl md:text-6xl font-medium text-white tracking-tight">
-            What Clients Say
+        {/* Header */}
+        <div className="text-center mb-14 md:mb-16">
+          <span className="text-sm font-medium text-white/50 uppercase tracking-widest block mb-4">
+            Why Choose Me
+          </span>
+          <h2 className="why-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-white tracking-tight">
+            Why Work With Me
           </h2>
+          <p className="mt-4 text-base md:text-lg text-white/50 max-w-xl mx-auto">
+            What you get when you work with Qazi Farhan Ahmad
+          </p>
         </div>
 
-        {/* Testimonial Card */}
-        <div className="max-w-4xl mx-auto relative" style={{ perspective: '1200px' }}>
-          {/* Quote Marks — hidden on mobile to prevent overflow */}
-          <div className="quote-left absolute -top-6 -left-2 md:-top-12 md:-left-12 text-white/10 animate-float hidden sm:block">
-            <Quote className="w-12 h-12 md:w-24 md:h-24" />
-          </div>
-          <div className="quote-right absolute -bottom-6 -right-2 md:-bottom-12 md:-right-12 text-white/10 rotate-180 animate-float-delayed hidden sm:block">
-            <Quote className="w-12 h-12 md:w-24 md:h-24" />
-          </div>
-
-          {/* Card */}
-          <div className="testimonial-card relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 md:p-12">
-            <div className="testimonial-content">
-              {/* Quote Text */}
-              <p className="text-base sm:text-lg md:text-2xl text-white/90 leading-relaxed mb-6 sm:mb-8 text-center">
-                &ldquo;{currentTestimonial.quote}&rdquo;
-              </p>
-
-              {/* Author */}
-              <div className="flex flex-col items-center">
-                <div className="testimonial-avatar w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white/20 mb-4">
-                  <img
-                    src={currentTestimonial.avatar}
-                    alt={currentTestimonial.name}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                  />
+        {/* Cards grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
+          {reasons.map((reason, i) => (
+            <div
+              key={i}
+              className="why-card bg-white/[0.03] border border-white/[0.08] rounded-2xl p-5 sm:p-6 hover:bg-white/[0.06] hover:border-white/[0.14] transition-all duration-300"
+            >
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-white/40 shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="text-sm font-semibold text-white mb-1.5">{reason.title}</h3>
+                  <p className="text-sm text-white/50 leading-relaxed">{reason.description}</p>
                 </div>
-                <h4 className="text-lg md:text-xl font-medium text-white">
-                  {currentTestimonial.name}
-                </h4>
-                <p className="text-sm text-white/60">
-                  {currentTestimonial.role}, {currentTestimonial.company}
-                </p>
               </div>
             </div>
+          ))}
+        </div>
 
-            {/* Navigation */}
-            <div className="flex items-center justify-center gap-4 mt-8">
-              <button
-                onClick={prevSlide}
-                disabled={isAnimating}
-                className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors disabled:opacity-50"
-              >
-                <ChevronLeft className="w-5 h-5 text-white" />
-              </button>
-
-              {/* Dots */}
-              <div className="flex gap-2">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      index === activeIndex 
-                        ? 'w-8 bg-white' 
-                        : 'bg-white/30 hover:bg-white/50'
-                    }`}
-                  />
-                ))}
-              </div>
-
-              <button
-                onClick={nextSlide}
-                disabled={isAnimating}
-                className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors disabled:opacity-50"
-              >
-                <ChevronRight className="w-5 h-5 text-white" />
-              </button>
-            </div>
-          </div>
+        {/* CTA */}
+        <div className="text-center mt-12">
+          <p className="text-white/40 text-sm mb-4">
+            Currently open to internships, freelance projects, and collaborations.
+          </p>
+          <a
+            href="https://wa.me/923141935787"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 hover:scale-105 transition-all duration-300"
+          >
+            Let's Build Something Together
+          </a>
         </div>
       </div>
     </section>
   );
 };
 
-export default Testimonials;
+export default WhyWorkWithMe;
