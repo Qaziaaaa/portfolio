@@ -1,25 +1,19 @@
-# Qazi Farhan Ahmad — Portfolio
+# Qazi Farhan Ahmad — AI Web Developer Portfolio
 
-**Live:** [qaziahmad.vercel.app](https://qaziahmad.vercel.app)  
-**GitHub:** [github.com/Qaziaaaa](https://github.com/Qaziaaaa)  
-**LinkedIn:** [linkedin.com/in/qazi-farhan-ahmad-7a3b3432b](https://www.linkedin.com/in/qazi-farhan-ahmad-7a3b3432b/)
+> **Live:** [qaziahmad.vercel.app](https://qaziahmad.vercel.app) · **Email:** qazithekingston@gmail.com · **WhatsApp:** +92 314 1935787
 
----
-
-## About
-
-Personal portfolio for Qazi Farhan Ahmad — a Frontend-focused Full Stack Developer and BS Software Engineering student (4th Semester) at the University of Peshawar, Pakistan. Built to showcase real projects, skills, and availability for internships, freelance work, and full-time roles.
+**Qazi Farhan Ahmad** is an AI Web Developer and MERN Stack Expert based in Peshawar, Pakistan. This is his personal portfolio — built to showcase production-ready projects, technical skills, and availability for internships, freelance work, and full-time roles.
 
 ---
 
-## Features
+## What Makes This Portfolio Different
 
-- **RAG AI Chatbot** — Visitors can ask questions about Qazi's skills, projects, and experience. Powered by Jina AI embeddings (vector search) and Groq LLaMA 3.1 (streaming LLM). Fully client-side with Vercel serverless API proxies.
-- **GSAP Animations** — Scroll-triggered entrance animations, parallax effects, and 3D perspective transforms throughout all sections.
-- **Horizontal Scroll Work Section** — Live iframe previews of projects with a pinned horizontal scroll experience.
-- **3D Tilt Cards** — Mouse-tracking perspective tilt on experience and skill cards.
-- **Particle Canvas** — Animated particle network in the hero section.
-- **Fully Responsive** — Mobile-first design, works from 320px to 2560px.
+- **RAG AI Chatbot** — Visitors can ask anything about Qazi's skills, projects, and availability. Powered by Jina AI embeddings + Groq LLaMA 3.1, fully client-side with Vercel serverless proxies.
+- **GSAP Animations** — Cinematic scroll-triggered animations, parallax, and 3D perspective transforms.
+- **Live Project Previews** — Horizontal scroll section with real iframe previews of each project.
+- **"Why Work With Me" Section** — Honest value propositions replacing fake testimonials.
+- **SEO Optimized** — Schema.org Person markup, Google Search Console verified, canonical URLs.
+- **Fully Responsive** — Mobile-first, works from 320px to 2560px.
 
 ---
 
@@ -28,89 +22,50 @@ Personal portfolio for Qazi Farhan Ahmad — a Frontend-focused Full Stack Devel
 | Layer | Technologies |
 |---|---|
 | Frontend | React 19, TypeScript, Vite 7, Tailwind CSS v3 |
-| UI Components | shadcn/ui, Radix UI, Lucide React |
-| Animations | GSAP 3 + ScrollTrigger, CSS animations |
-| AI Chatbot | Jina AI (embeddings), Groq (LLaMA 3.1), in-memory vector store |
+| UI | shadcn/ui, Radix UI, Lucide React |
+| Animations | GSAP 3 + ScrollTrigger |
+| AI Chatbot | Jina AI embeddings, Groq LLaMA 3.1, in-memory vector store |
 | Deployment | Vercel (frontend + serverless API routes) |
 
 ---
 
-## Project Structure
+## Featured Projects by Qazi Farhan Ahmad
 
-```
-src/
-├── sections/          # Page sections (Hero, About, Experience, Skills, Work, Contact, Footer)
-├── components/
-│   ├── chatbot/       # RAG chatbot widget (ChatbotWidget, ChatPanel, MessageBubble, useChatbot)
-│   └── ui/            # shadcn/ui components (40+)
-├── lib/
-│   └── chatbot/       # RAG pipeline (vectorStore, jinaClient, groqClient, retriever, initializer)
-│       └── knowledge/ # Knowledge base data files (bio, skills, experience, projects, contact)
-├── hooks/             # Custom React hooks
-└── test/              # Vitest test setup
-
-api/
-├── embed.ts           # Vercel serverless: proxies Jina AI embeddings
-└── chat.ts            # Vercel serverless: proxies Groq streaming completions
-```
+| Project | Description | Stack | Live |
+|---|---|---|---|
+| **NOVA E-Commerce** | Full-stack MERN platform — Stripe, OTP auth, real-time stock, admin panel | React, Node.js, MongoDB, Stripe | [Live](https://ecommerce-store-one-ochre.vercel.app/) |
+| **xTRAI AI Agency** | AI automation platform with Framer Motion animations | React, TypeScript, Framer Motion | [Live](https://agencyxai.netlify.app) |
+| **OLIPOP Creative** | AI-enhanced product page with Genkit AI + Firebase | Next.js 15, Genkit AI, Firebase | [Live](https://oliipop.netlify.app/) |
+| **HIKI Hiking App** | Full-stack MERN hiking guide with auth and admin dashboard | MERN, Cloudinary | [Live](https://hiking-app-puce.vercel.app/) |
+| **QAZI-X Portfolio** | Futuristic cyberpunk developer portfolio | Next.js, Framer Motion | [Live](https://qazixcode.netlify.app/) |
 
 ---
 
 ## Getting Started
 
 ```bash
-# Install dependencies
 npm install
-
-# Create .env file with your API keys
-cp .env.example .env
-
-# Start dev server
+cp .env.example .env   # Add your API keys
 npm run dev
 ```
 
-### Environment Variables
-
+**Required environment variables:**
 ```env
-VITE_JINA_API_KEY=your_jina_api_key_here
-VITE_GROQ_API_KEY=your_groq_api_key_here
+VITE_JINA_API_KEY=your_jina_api_key_here   # Free at jina.ai
+VITE_GROQ_API_KEY=your_groq_api_key_here   # Free at console.groq.com
 ```
 
-Get free keys at:
-- Jina AI: [jina.ai](https://jina.ai)
-- Groq: [console.groq.com](https://console.groq.com)
+---
+
+## Contact Qazi Farhan Ahmad
+
+| Channel | Details |
+|---|---|
+| Email | qazithekingston@gmail.com |
+| WhatsApp | +92 314 1935787 |
+| LinkedIn | [linkedin.com/in/qazi-farhan-ahmad-7a3b3432b](https://www.linkedin.com/in/qazi-farhan-ahmad-7a3b3432b/) |
+| Portfolio | [qaziahmad.vercel.app](https://qaziahmad.vercel.app) |
 
 ---
 
-## Deployment (Vercel)
-
-1. Push to GitHub
-2. Import repo in Vercel
-3. Add environment variables in Vercel dashboard: `VITE_JINA_API_KEY` and `VITE_GROQ_API_KEY`
-4. Deploy
-
-The `api/` directory is automatically picked up as Vercel serverless functions.
-
----
-
-## Featured Projects
-
-| Project | Stack | Live |
-|---|---|---|
-| NOVA E-Commerce | React, Node.js, MongoDB, Stripe | [ecommerce-store-one-ochre.vercel.app](https://ecommerce-store-one-ochre.vercel.app/) |
-| xTRAI AI Agency | React, TypeScript, Framer Motion | [agencyxai.netlify.app](https://agencyxai.netlify.app) |
-| OLIPOP Creative | Next.js 15, Genkit AI, Firebase | [oliipop.netlify.app](https://oliipop.netlify.app/) |
-| HIKI Hiking App | MERN Stack, Cloudinary | [hiking-app-puce.vercel.app](https://hiking-app-puce.vercel.app/) |
-| QAZI-X Portfolio | Next.js, Framer Motion | [qazixcode.netlify.app](https://qazixcode.netlify.app/) |
-
----
-
-## Contact
-
-- **WhatsApp:** [wa.me/923141935787](https://wa.me/923141935787)
-- **LinkedIn:** [linkedin.com/in/qazi-farhan-ahmad-7a3b3432b](https://www.linkedin.com/in/qazi-farhan-ahmad-7a3b3432b/)
-- **GitHub:** [github.com/Qaziaaaa](https://github.com/Qaziaaaa)
-
----
-
-© 2025 Qazi Farhan Ahmad. MIT License.
+*Qazi Farhan Ahmad — AI Web Developer & MERN Stack Expert · Peshawar, Pakistan · Open to internships, freelance, and full-time roles.*
