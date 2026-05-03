@@ -188,7 +188,7 @@ const Contact = () => {
         {/* CTA Button */}
         <div className="contact-cta mb-8 gap-3 sm:gap-4 flex flex-col sm:flex-row justify-center items-center px-4 sm:px-0">
           <a
-            href="https://www.linkedin.com/in/qazi-farhan-ahmad-7a3b3432b/"
+            href="https://www.linkedin.com/in/qazi-farhan-ahmad/"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 bg-white text-black font-medium rounded-full hover:scale-105 transition-all duration-300 group text-sm sm:text-base"

@@ -63,7 +63,7 @@ VITE_GROQ_API_KEY=your_groq_api_key_here   # Free at console.groq.com
 |---|---|
 | Email | qazithekingston@gmail.com |
 | WhatsApp | +92 314 1935787 |
-| LinkedIn | [linkedin.com/in/qazi-farhan-ahmad-7a3b3432b](https://www.linkedin.com/in/qazi-farhan-ahmad-7a3b3432b/) |
+| LinkedIn | [linkedin.com/in/qazi-farhan-ahmad](https://www.linkedin.com/in/qazi-farhan-ahmad/) |
 | Portfolio | [qaziahmad.vercel.app](https://qaziahmad.vercel.app) |
 
 ---

@@ -116,7 +116,7 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/qazi-farhan-ahmad-7a3b3432b/', label: 'LinkedIn' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/qazi-farhan-ahmad/', label: 'LinkedIn' },
     { icon: Github, href: 'https://github.com/Qaziaaaa', label: 'GitHub' },
     {
       // Using a custom SVG component as WhatsApp isn't consistently in lucide-react across versions yet.
