@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Mail } from 'lucide-react';
+import { ArrowRight, Github } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -215,12 +215,12 @@ const Contact = () => {
             href="https://github.com/Qaziaaaa"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors group max-w-full"
+            className="inline-flex items-start sm:items-center gap-2 sm:gap-3 text-white/80 hover:text-white transition-colors group max-w-full text-left sm:text-center"
           >
-            <Mail className="w-4 h-4" />
-            <span className="relative break-all text-sm sm:text-base">
+            <Github className="w-4 h-4 sm:w-5 sm:h-5 mt-0.5 sm:mt-0 flex-shrink-0" />
+            <span className="relative text-sm sm:text-base leading-snug">
               github.com/Qaziaaaa · 25 repos · 299 contributions
-              <span className="absolute -bottom-1 left-1/2 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full group-hover:left-0" />
+              <span className="absolute -bottom-1 left-1/2 sm:left-1/2 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full group-hover:left-0" />
             </span>
           </a>
         </div>
