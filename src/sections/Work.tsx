@@ -59,7 +59,6 @@ const projects: Project[] = [
 const ProjectCard = ({ project }: { project: Project }) => {
   const cardRef = useRef<HTMLElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [loading, setLoading] = useState(true);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (!cardRef.current) return;
