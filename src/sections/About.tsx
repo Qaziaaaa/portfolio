@@ -184,21 +184,19 @@ const About = () => {
           {/* Left Column - Image & Stats */}
           <div className="relative flex flex-col items-center lg:items-start">
             {/* Main Image */}
-            <div className="about-image relative w-[85%] sm:w-[70%] lg:w-[75%] max-w-[380px] mx-auto lg:mx-0" style={{ transform: 'rotate(-2deg)' }}>
+            <div className="about-image relative w-[85%] sm:w-[70%] lg:w-[75%] max-w-[380px] mx-auto lg:mx-0">
               {/* Outer decorative glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent blur-2xl rounded-full opacity-50" />
-              
+
               {/* Premium Glass Frame */}
               <div className="relative p-2 sm:p-3 bg-white/[0.03] rounded-[2rem] border border-white/10 backdrop-blur-md shadow-2xl shadow-black/80">
-                <div className="relative rounded-[1.5rem] overflow-hidden bg-[#0c0c0c] ring-1 ring-inset ring-white/10">
+                <div className="relative rounded-[1.5rem] overflow-hidden bg-[#0c0c0c] ring-1 ring-inset ring-white/10" style={{ transform: 'translateZ(0)' }}>
                   <img
                     src="/profile.webp"
                     alt="Qazi Farhan Ahmad — AI Web Developer and MERN Stack Expert"
                     fetchPriority="high"
                     decoding="async"
-                    width="864"
-                    height="1184"
-                    className="w-full aspect-[4/4.5] object-cover object-[center_20%]"
+                    className="w-full aspect-[4/4.5] object-cover"
                   />
                   <div className="about-image-overlay absolute inset-0 bg-[#010101] hidden lg:block" />
                 </div>
