@@ -188,7 +188,7 @@ const About = () => {
               <img
                 src="/profile.webp"
                 alt="Qazi Farhan Ahmad — AI Web Developer and MERN Stack Expert"
-                loading="lazy"
+                fetchPriority="high"
                 decoding="async"
                 width="864"
                 height="1184"
