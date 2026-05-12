@@ -1,6 +1,7 @@
-import { lazy, Suspense, useEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { lazy, Suspense } from 'react';
+
+// Lazy-load GSAP to reduce initial bundle
+const GSAPProvider = lazy(() => import('./components/GSAPProvider'));
 
 // Lazy-load all sections for optimal initial bundle size
 const Navigation = lazy(() => import('./sections/Navigation'));
@@ -16,33 +17,13 @@ const Experience = lazy(() => import('./sections/Experience'));
 // Lazy-load the chatbot widget so it doesn't impact initial page load
 const ChatbotWidget = lazy(() => import('./components/chatbot/ChatbotWidget'));
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
-
 function App() {
-  useEffect(() => {
-    gsap.config({
-      nullTargetWarn: false,
-    });
-
-    gsap.defaults({
-      ease: 'expo.out',
-    });
-
-    ScrollTrigger.refresh();
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      gsap.globalTimeline.timeScale(0);
-    }
-
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, []);
-
   return (
     <div className="relative bg-[#010101] min-h-screen custom-scrollbar overflow-x-hidden">
+      <Suspense fallback={null}>
+        <GSAPProvider />
+      </Suspense>
+      
       <Suspense fallback={null}>
         <Navigation />
       </Suspense>

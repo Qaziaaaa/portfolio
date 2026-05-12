@@ -17,11 +17,27 @@ export default defineConfig({
     minify: 'terser',
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'gsap-vendor': ['gsap'],
-          'ui-components': ['lucide-react'],
-          'radix-vendor': ['@radix-ui/react-slot', '@radix-ui/react-dialog'],
+        manualChunks: (id) => {
+          // React core
+          if (id.includes('react') || id.includes('react-dom')) {
+            return 'react-vendor';
+          }
+          // GSAP
+          if (id.includes('gsap')) {
+            return 'gsap-vendor';
+          }
+          // UI components
+          if (id.includes('lucide-react')) {
+            return 'ui-components';
+          }
+          // Radix UI
+          if (id.includes('@radix-ui')) {
+            return 'radix-vendor';
+          }
+          // Split large chunks
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
         },
         chunkFileNames: 'js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
