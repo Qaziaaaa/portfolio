@@ -181,10 +181,9 @@ const About = () => {
 
       <div className="relative z-10 w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Column - Image & Stats */}
           <div className="flex flex-col items-center lg:items-start">
             {/* Shared anchor for image and stats */}
-            <div className="relative w-[85%] sm:w-[70%] lg:w-[75%] max-w-[380px] mx-auto lg:mx-0">
+            <div className="relative w-[85%] sm:w-[70%] lg:w-[75%] max-w-[380px] mx-auto lg:mx-0 lg:ml-8 xl:ml-16">
               {/* Main Image */}
               <div className="about-image relative">
                 {/* Outer decorative glow */}
