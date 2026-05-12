@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FileDown } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -140,20 +139,6 @@ const About = () => {
       });
       triggers.push(statsTrigger);
 
-      // CV button animation
-      const cvTrigger = ScrollTrigger.create({
-        trigger: section,
-        start: 'top 55%',
-        onEnter: () => {
-          gsap.fromTo('.about-cv',
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out', delay: 1.4 }
-          );
-        },
-        once: true
-      });
-      triggers.push(cvTrigger);
-
       // Parallax effect on scroll
       const parallaxTrigger = ScrollTrigger.create({
         trigger: section,
@@ -285,19 +270,6 @@ const About = () => {
               <p className="about-paragraph text-base md:text-lg text-white/70 leading-relaxed">
                 Currently open to internships and freelance opportunities where I can contribute to real-world products and grow fast.
               </p>
-
-              {/* Download CV Button */}
-              <div className="about-cv pt-4 opacity-0">
-                <a
-                  href="/CV.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-medium rounded-full hover:scale-105 transition-all duration-300 group"
-                >
-                  <FileDown className="w-5 h-5 group-hover:translate-y-0.5 transition-transform" />
-                  Download CV
-                </a>
-              </div>
             </div>
           </div>
         </div>
