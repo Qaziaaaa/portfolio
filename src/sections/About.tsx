@@ -182,48 +182,51 @@ const About = () => {
       <div className="relative z-10 w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Column - Image & Stats */}
-          <div className="relative flex flex-col items-center lg:items-start">
-            {/* Main Image */}
-            <div className="about-image relative w-[85%] sm:w-[70%] lg:w-[75%] max-w-[380px] mx-auto lg:mx-0">
-              {/* Outer decorative glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent blur-2xl rounded-full opacity-50" />
+          <div className="flex flex-col items-center lg:items-start">
+            {/* Shared anchor for image and stats */}
+            <div className="relative w-[85%] sm:w-[70%] lg:w-[75%] max-w-[380px] mx-auto lg:mx-0">
+              {/* Main Image */}
+              <div className="about-image relative">
+                {/* Outer decorative glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent blur-2xl rounded-full opacity-50" />
 
-              {/* Premium Glass Frame */}
-              <div className="relative p-2 sm:p-3 bg-white/[0.03] rounded-[2rem] border border-white/10 backdrop-blur-md shadow-2xl shadow-black/80">
-                <div className="relative rounded-[1.5rem] overflow-hidden bg-[#0c0c0c] ring-1 ring-inset ring-white/10" style={{ transform: 'translateZ(0)' }}>
-                  <img
-                    src="/profile.webp"
-                    alt="Qazi Farhan Ahmad — AI Web Developer and MERN Stack Expert"
-                    fetchPriority="high"
-                    decoding="async"
-                    className="w-full aspect-[4/4.5] object-cover"
-                  />
-                  <div className="about-image-overlay absolute inset-0 bg-[#010101] hidden lg:block" />
+                {/* Premium Glass Frame */}
+                <div className="relative p-2 sm:p-3 bg-white/[0.03] rounded-[2rem] border border-white/10 backdrop-blur-md shadow-2xl shadow-black/80">
+                  <div className="relative rounded-[1.5rem] overflow-hidden bg-[#0c0c0c] ring-1 ring-inset ring-white/10" style={{ transform: 'translateZ(0)' }}>
+                    <img
+                      src="/profile.webp"
+                      alt="Qazi Farhan Ahmad — AI Web Developer and MERN Stack Expert"
+                      fetchPriority="high"
+                      decoding="async"
+                      className="w-full aspect-[4/4.5] object-cover"
+                    />
+                    <div className="about-image-overlay absolute inset-0 bg-[#010101] hidden lg:block" />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Stats Cards — absolute on desktop, flex row on mobile */}
-            <div className="mt-6 lg:mt-0 flex flex-row justify-around gap-3 lg:block">
-              <div className="stat-card stat-card-1 flex-1 lg:flex-none lg:absolute lg:-top-2 lg:-right-2 xl:top-8 xl:-right-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left">
-                <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
-                  <CountUp end={stats[0].value} suffix={stats[0].suffix} />
+              {/* Stats Cards — absolute on desktop, flex row on mobile */}
+              <div className="mt-6 lg:mt-0 flex flex-row justify-around gap-3 lg:block">
+                <div className="stat-card stat-card-1 flex-1 lg:flex-none lg:absolute lg:-top-6 lg:-right-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left z-20">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
+                    <CountUp end={stats[0].value} suffix={stats[0].suffix} />
+                  </div>
+                  <div className="text-[10px] sm:text-xs md:text-sm text-white/80 mt-1">{stats[0].label}</div>
                 </div>
-                <div className="text-[10px] sm:text-xs md:text-sm text-white/80 mt-1">{stats[0].label}</div>
-              </div>
 
-              <div className="stat-card stat-card-2 flex-1 lg:flex-none lg:absolute lg:bottom-20 lg:-left-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left">
-                <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
-                  <CountUp end={stats[1].value} suffix={stats[1].suffix} />
+                <div className="stat-card stat-card-2 flex-1 lg:flex-none lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:-left-16 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left z-20">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
+                    <CountUp end={stats[1].value} suffix={stats[1].suffix} />
+                  </div>
+                  <div className="text-[10px] sm:text-xs md:text-sm text-white/80 mt-1">{stats[1].label}</div>
                 </div>
-                <div className="text-[10px] sm:text-xs md:text-sm text-white/80 mt-1">{stats[1].label}</div>
-              </div>
 
-              <div className="stat-card stat-card-3 flex-1 lg:flex-none lg:absolute lg:bottom-0 lg:-right-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left">
-                <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
-                  <CountUp end={stats[2].value} suffix={stats[2].suffix} />
+                <div className="stat-card stat-card-3 flex-1 lg:flex-none lg:absolute lg:-bottom-6 lg:-right-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left z-20">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
+                    <CountUp end={stats[2].value} suffix={stats[2].suffix} />
+                  </div>
+                  <div className="text-[10px] sm:text-xs md:text-sm text-white/80 mt-1">{stats[2].label}</div>
                 </div>
-                <div className="text-[10px] sm:text-xs md:text-sm text-white/80 mt-1">{stats[2].label}</div>
               </div>
             </div>
           </div>
