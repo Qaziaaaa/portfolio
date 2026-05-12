@@ -186,13 +186,13 @@ const About = () => {
             {/* Main Image */}
             <div className="about-image relative rounded-2xl overflow-hidden" style={{ transform: 'rotate(-2deg)' }}>
               <img
-                src="/about-portrait.jpg"
+                src="/about-portrait.webp"
                 alt="Qazi Farhan Ahmad — AI Web Developer and MERN Stack Expert"
                 loading="lazy"
                 decoding="async"
-                width="864"
-                height="1184"
-                className="w-full aspect-[4/5] object-cover"
+                width="600"
+                height="822"
+                className="w-full aspect-[600/822] object-cover"
               />
               <div className="about-image-overlay absolute inset-0 bg-[#010101] hidden lg:block" />
             </div>

@@ -19,9 +19,9 @@ const projects: Project[] = [
   { 
     id: 0, 
     link: 'https://ecommerce-store-one-ochre.vercel.app/',
-    image: '/project-1.jpg',
-    imageWidth: 1344,
-    imageHeight: 768,
+    image: '/project-1.webp',
+    imageWidth: 800,
+    imageHeight: 457,
     title: 'NOVA E-Commerce Platform',
     description: 'Production-grade MERN shopping platform — Stripe payments, OTP auth, real-time stock, admin panel.',
     tags: ['React', 'Node.js', 'MongoDB', 'Stripe']
@@ -29,9 +29,9 @@ const projects: Project[] = [
   { 
     id: 1, 
     link: 'https://hiking-app-puce.vercel.app/',
-    image: '/project-2.jpg',
-    imageWidth: 1344,
-    imageHeight: 768,
+    image: '/project-2.webp',
+    imageWidth: 800,
+    imageHeight: 457,
     title: 'HIKI — Hiking Guide App',
     description: 'Full-stack MERN hiking app with trail discovery, authentication, admin dashboard, and blog.',
     tags: ['MERN', 'Full Stack', 'Cloudinary']
@@ -39,7 +39,7 @@ const projects: Project[] = [
   { 
     id: 2, 
     link: 'https://qazixcode.netlify.app/',
-    image: '/project-3.jpg',
+    image: '/project-3.webp',
     imageWidth: 768,
     imageHeight: 1344,
     title: 'QAZI-X Portfolio',
@@ -49,9 +49,9 @@ const projects: Project[] = [
   { 
     id: 3, 
     link: 'https://agencyxai.netlify.app',
-    image: '/project-4.jpg',
-    imageWidth: 1344,
-    imageHeight: 768,
+    image: '/project-4.webp',
+    imageWidth: 800,
+    imageHeight: 457,
     title: 'Agency X AI',
     description: 'Modern AI agency landing page with sophisticated animations and glassmorphism design.',
     tags: ['Next.js', 'AI', 'Framer Motion']
@@ -59,9 +59,9 @@ const projects: Project[] = [
   { 
     id: 4, 
     link: 'https://github.com/Qaziaaaa/Olipop-animated-site',
-    image: '/project-5.jpg',
-    imageWidth: 1344,
-    imageHeight: 768,
+    image: '/project-5.webp',
+    imageWidth: 800,
+    imageHeight: 457,
     title: 'OLIPOP Animated Clone',
     description: 'Premium parallax product page with flavor carousel, smooth scroll, and cart interactions.',
     tags: ['React', 'Tailwind', 'Framer Motion']
