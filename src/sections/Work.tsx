@@ -60,33 +60,33 @@ const ProjectCard = ({ project }: { project: Project }) => {
       href={project.link}
       target={hasLink ? "_blank" : undefined}
       rel={hasLink ? "noopener noreferrer" : undefined}
-      className="work-card group bg-[#0c0c0c] border border-white/5 rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:border-white/10 hover:-translate-y-2 hover:shadow-2xl hover:shadow-white/[0.02] flex flex-col flex-shrink-0 w-[85vw] sm:w-[65vw] md:w-[45vw] lg:w-[30vw] min-h-[450px]"
+      className="work-card group bg-[#0c0c0c] border border-white/5 rounded-2xl p-6 transition-all duration-300 hover:border-white/10 hover:-translate-y-2 hover:shadow-2xl hover:shadow-white/[0.02] flex flex-col flex-shrink-0 w-[92vw] sm:w-[65vw] md:w-[50vw] lg:w-[38vw] xl:w-[32vw] min-h-[380px]"
     >
       {/* Wireframe Placeholder */}
-      <div className="bg-[#151515] rounded-xl p-6 sm:p-8 h-48 sm:h-56 mb-6 flex flex-col gap-4 relative overflow-hidden border border-white/[0.02] flex-shrink-0">
+      <div className="bg-[#151515] rounded-xl p-5 h-36 sm:h-44 mb-5 flex flex-col gap-3 relative overflow-hidden border border-white/[0.02] flex-shrink-0">
         {/* Animated gradient sweep effect on hover */}
         <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.03] to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
         
-        <div className="w-3/4 h-4 bg-white/5 rounded-full" />
-        <div className="w-1/2 h-4 bg-white/5 rounded-full" />
+        <div className="w-3/4 h-3 sm:h-4 bg-white/5 rounded-full" />
+        <div className="w-1/2 h-3 sm:h-4 bg-white/5 rounded-full" />
         
-        <div className="flex gap-3 mt-auto">
-          <div className="w-16 h-8 bg-white/5 rounded-md" />
-          <div className="w-16 h-8 bg-white/5 rounded-md" />
+        <div className="flex gap-2 mt-auto">
+          <div className="w-14 h-7 bg-white/5 rounded-md" />
+          <div className="w-14 h-7 bg-white/5 rounded-md" />
         </div>
       </div>
 
       <div className="flex flex-col flex-1">
-        <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
+        <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
           {project.title}
         </h3>
         
-        <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-6">
+        <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-4">
           {project.description}
         </p>
 
         {/* Button pushed to the bottom using mt-auto */}
-        <button className="w-full py-3.5 sm:py-4 bg-[#151515] group-hover:bg-white/10 text-white/80 group-hover:text-white rounded-xl transition-colors font-medium text-sm sm:text-base mt-auto">
+        <button className="w-full py-3 bg-[#151515] group-hover:bg-white/10 text-white/80 group-hover:text-white rounded-xl transition-colors font-medium text-sm sm:text-base mt-auto">
           View Details
         </button>
       </div>
