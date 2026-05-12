@@ -148,6 +148,12 @@
   }
 }
 
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @keyframes bounce-scroll {
   0%, 100% {
     transform: translateY(0);
