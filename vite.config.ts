@@ -12,6 +12,7 @@ export default defineConfig({
     },
   },
   build: {
+    target: 'esnext',
     sourcemap: true,
     cssCodeSplit: true,
     minify: 'esbuild',
