@@ -86,12 +86,12 @@ const ExperienceCard = ({ exp }: { exp: ExperienceItem }) => {
                 <div className="flex-1">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
                         <h3 className="text-lg sm:text-2xl font-semibold text-white">{exp.title}</h3>
-                        <span className="text-sm font-medium text-white/50 px-3 py-1 bg-white/5 rounded-full mt-2 md:mt-0 w-fit">
+                        <span className="text-sm font-medium text-white/80 px-3 py-1 bg-white/5 rounded-full mt-2 md:mt-0 w-fit">
                             {exp.period}
                         </span>
                     </div>
                     <h4 className="text-lg text-white/70 mb-4">{exp.company}</h4>
-                    <p className="text-white/60 leading-relaxed max-w-2xl">
+                    <p className="text-white/80 leading-relaxed max-w-2xl">
                         {exp.description}
                     </p>
                 </div>
@@ -196,7 +196,7 @@ const Experience = () => {
             <div className="relative z-10 w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16 md:mb-20">
                     <div className="experience-label overflow-hidden whitespace-nowrap mb-6 inline-flex justify-center w-full">
-                        <span className="text-sm font-medium text-white/50 uppercase tracking-widest">
+                        <span className="text-sm font-medium text-white/80 uppercase tracking-widest">
                             Journey
                         </span>
                     </div>

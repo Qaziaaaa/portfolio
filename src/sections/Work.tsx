@@ -246,7 +246,7 @@ const Work = () => {
             </span>
           ))}
         </h2>
-        <p className="work-subtitle text-lg md:text-xl text-white/60 max-w-xl">
+        <p className="work-subtitle text-lg md:text-xl text-white/80 max-w-xl">
           A curated collection of recent projects
         </p>
       </div>

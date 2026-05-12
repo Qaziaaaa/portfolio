@@ -103,7 +103,7 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
       </h3>
 
       {/* Description */}
-      <p className="text-sm text-white/60 mb-6 leading-relaxed">
+      <p className="text-sm text-white/80 mb-6 leading-relaxed">
         {skill.description}
       </p>
 
@@ -216,7 +216,7 @@ const Skills = () => {
           <h2 className="skills-title text-4xl sm:text-5xl md:text-6xl font-medium text-white tracking-tight mb-4">
             Skills & Services
           </h2>
-          <p className="skills-subtitle text-lg md:text-xl text-white/60 max-w-xl mx-auto">
+          <p className="skills-subtitle text-lg md:text-xl text-white/80 max-w-xl mx-auto">
             What I bring to every project
           </p>
         </div>

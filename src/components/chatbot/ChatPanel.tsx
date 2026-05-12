@@ -87,7 +87,7 @@ export const ChatPanel = memo(function ChatPanel({
         <div className="flex items-center gap-3">
           <div className="relative shrink-0">
             <div className="w-9 h-9 rounded-xl bg-white/8 border border-white/10 flex items-center justify-center">
-              <Bot className="w-4 h-4 text-white/60" />
+              <Bot className="w-4 h-4 text-white/80" />
             </div>
             {status === 'ready' && (
               <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#0c0c0c]" />
@@ -95,7 +95,7 @@ export const ChatPanel = memo(function ChatPanel({
           </div>
           <div className="min-w-0">
             <p className="text-[13px] font-semibold text-white leading-none">Qazi's Assistant</p>
-            <p className="text-[11px] text-white/40 mt-0.5 leading-none truncate">
+            <p className="text-[11px] text-white/70 mt-0.5 leading-none truncate">
               {status === 'loading' ? 'Initializing…'
                 : status === 'ready' ? 'Ask me anything about Qazi'
                 : 'Unavailable'}
@@ -107,7 +107,7 @@ export const ChatPanel = memo(function ChatPanel({
           {messages.length > 0 && (
             <button
               onClick={onClearHistory}
-              className="p-2 rounded-lg text-white/25 hover:text-white/60 hover:bg-white/5 transition-all"
+              className="p-2 rounded-lg text-white/25 hover:text-white/80 hover:bg-white/5 transition-all"
               aria-label="Clear chat"
               title="Clear chat"
             >
@@ -116,7 +116,7 @@ export const ChatPanel = memo(function ChatPanel({
           )}
           <button
             onClick={onClose}
-            className="p-2 rounded-lg text-white/25 hover:text-white/60 hover:bg-white/5 transition-all"
+            className="p-2 rounded-lg text-white/25 hover:text-white/80 hover:bg-white/5 transition-all"
             aria-label="Close"
           >
             <X className="w-3.5 h-3.5" />
@@ -142,7 +142,7 @@ export const ChatPanel = memo(function ChatPanel({
         {(status === 'misconfigured' || status === 'error') && (
           <div className="flex flex-col items-center justify-center h-full gap-3 px-6 text-center">
             <div className="w-10 h-10 rounded-2xl bg-red-500/8 border border-red-500/15 flex items-center justify-center text-lg">⚠️</div>
-            <p className="text-xs text-white/40 leading-relaxed">
+            <p className="text-xs text-white/70 leading-relaxed">
               {status === 'misconfigured'
                 ? 'API keys are not configured. Please set environment variables.'
                 : 'Assistant is temporarily unavailable. Please try again later.'}
@@ -155,7 +155,7 @@ export const ChatPanel = memo(function ChatPanel({
           <div className="flex flex-col items-center justify-center h-full gap-5 px-2">
             <div className="text-center">
               <div className="w-11 h-11 rounded-2xl bg-white/5 border border-white/8 flex items-center justify-center mx-auto mb-3">
-                <Bot className="w-5 h-5 text-white/40" />
+                <Bot className="w-5 h-5 text-white/70" />
               </div>
               <p className="text-sm font-medium text-white/70 mb-1">Hi, I'm Qazi's assistant</p>
               <p className="text-xs text-white/35">Ask me about his work, skills, or availability</p>
@@ -168,7 +168,7 @@ export const ChatPanel = memo(function ChatPanel({
                     onInputChange(s);
                     setTimeout(() => inputRef.current?.focus(), 0);
                   }}
-                  className="text-left text-xs text-white/50 bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.07] hover:border-white/[0.12] rounded-xl px-3.5 py-2.5 transition-all leading-relaxed"
+                  className="text-left text-xs text-white/80 bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.07] hover:border-white/[0.12] rounded-xl px-3.5 py-2.5 transition-all leading-relaxed"
                 >
                   {s}
                 </button>

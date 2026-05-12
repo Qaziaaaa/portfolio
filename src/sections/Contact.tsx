@@ -178,10 +178,10 @@ const Contact = () => {
             </span>
           ))}
         </h2>
-        <p className="text-2xl sm:text-3xl md:text-4xl text-white/40 font-light mb-8">Let's build something great.</p>
+        <p className="text-2xl sm:text-3xl md:text-4xl text-white/70 font-light mb-8">Let's build something great.</p>
 
         {/* Subheadline */}
-        <p className="contact-subheadline text-base sm:text-lg md:text-xl text-white/60 max-w-xl mx-auto mb-8 sm:mb-10">
+        <p className="contact-subheadline text-base sm:text-lg md:text-xl text-white/80 max-w-xl mx-auto mb-8 sm:mb-10">
           I'm open to internships, freelance projects, and collaboration opportunities. If you have an idea, a project, or need a developer — let's connect and build something valuable.
         </p>
 
@@ -215,7 +215,7 @@ const Contact = () => {
             href="https://github.com/Qaziaaaa"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors group max-w-full"
+            className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors group max-w-full"
           >
             <Mail className="w-4 h-4" />
             <span className="relative break-all text-sm sm:text-base">

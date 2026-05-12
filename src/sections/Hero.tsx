@@ -274,7 +274,7 @@ const Hero = () => {
           </p>
 
           {/* Description */}
-          <p className="hero-description text-sm sm:text-base md:text-lg lg:text-xl text-white/60 max-w-2xl mx-auto mb-8 sm:mb-12 leading-relaxed px-2 sm:px-0">
+          <p className="hero-description text-sm sm:text-base md:text-lg lg:text-xl text-white/80 max-w-2xl mx-auto mb-8 sm:mb-12 leading-relaxed px-2 sm:px-0">
             I build high-performance websites and AI-powered web applications that help businesses grow, automate processes, and increase conversions.
           </p>
 
@@ -305,9 +305,9 @@ const Hero = () => {
 
       {/* Scroll Indicator */}
       <div className="hero-scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-[5] flex flex-col items-center gap-2">
-        <span className="text-xs text-white/50 uppercase tracking-widest">Scroll</span>
+        <span className="text-xs text-white/80 uppercase tracking-widest">Scroll</span>
         <div className="animate-[bounce-scroll_1.5s_ease-in-out_infinite]">
-          <ChevronDown className="w-5 h-5 text-white/50" />
+          <ChevronDown className="w-5 h-5 text-white/80" />
         </div>
       </div>
     </section>

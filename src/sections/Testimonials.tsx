@@ -70,13 +70,13 @@ const WhyWorkWithMe = () => {
       <div className="w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-14 md:mb-16">
-          <span className="text-sm font-medium text-white/50 uppercase tracking-widest block mb-4">
+          <span className="text-sm font-medium text-white/80 uppercase tracking-widest block mb-4">
             Why Choose Me
           </span>
           <h2 className="why-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-white tracking-tight">
             Why Work With Me
           </h2>
-          <p className="mt-4 text-base md:text-lg text-white/50 max-w-xl mx-auto">
+          <p className="mt-4 text-base md:text-lg text-white/80 max-w-xl mx-auto">
             What you get when you work with Qazi Farhan Ahmad
           </p>
         </div>
@@ -89,10 +89,10 @@ const WhyWorkWithMe = () => {
               className="why-card bg-white/[0.03] border border-white/[0.08] rounded-2xl p-5 sm:p-6 hover:bg-white/[0.06] hover:border-white/[0.14] transition-all duration-300"
             >
               <div className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-white/40 shrink-0 mt-0.5" />
+                <CheckCircle className="w-5 h-5 text-white/70 shrink-0 mt-0.5" />
                 <div>
                   <h3 className="text-sm font-semibold text-white mb-1.5">{reason.title}</h3>
-                  <p className="text-sm text-white/50 leading-relaxed">{reason.description}</p>
+                  <p className="text-sm text-white/80 leading-relaxed">{reason.description}</p>
                 </div>
               </div>
             </div>
@@ -101,7 +101,7 @@ const WhyWorkWithMe = () => {
 
         {/* CTA */}
         <div className="text-center mt-12">
-          <p className="text-white/40 text-sm mb-4">
+          <p className="text-white/70 text-sm mb-4">
             Currently open to internships, freelance projects, and collaborations.
           </p>
           <a

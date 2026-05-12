@@ -186,10 +186,12 @@ const About = () => {
             {/* Main Image */}
             <div className="about-image relative rounded-2xl overflow-hidden" style={{ transform: 'rotate(-2deg)' }}>
               <img
-                src="https://i.postimg.cc/B6kHGPZM/a-make-the-background.jpg"
+                src="/about-portrait.jpg"
                 alt="Qazi Farhan Ahmad — AI Web Developer and MERN Stack Expert"
                 loading="lazy"
                 decoding="async"
+                width="800"
+                height="1000"
                 className="w-full aspect-[4/5] object-cover"
               />
               <div className="about-image-overlay absolute inset-0 bg-[#010101] hidden lg:block" />
@@ -201,21 +203,21 @@ const About = () => {
                 <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
                   <CountUp end={stats[0].value} suffix={stats[0].suffix} />
                 </div>
-                <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">{stats[0].label}</div>
+                <div className="text-[10px] sm:text-xs md:text-sm text-white/80 mt-1">{stats[0].label}</div>
               </div>
 
               <div className="stat-card stat-card-2 flex-1 lg:flex-none lg:absolute lg:bottom-20 lg:-left-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left">
                 <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
                   <CountUp end={stats[1].value} suffix={stats[1].suffix} />
                 </div>
-                <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">{stats[1].label}</div>
+                <div className="text-[10px] sm:text-xs md:text-sm text-white/80 mt-1">{stats[1].label}</div>
               </div>
 
               <div className="stat-card stat-card-3 flex-1 lg:flex-none lg:absolute lg:bottom-0 lg:-right-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left">
                 <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
                   <CountUp end={stats[2].value} suffix={stats[2].suffix} />
                 </div>
-                <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">{stats[2].label}</div>
+                <div className="text-[10px] sm:text-xs md:text-sm text-white/80 mt-1">{stats[2].label}</div>
               </div>
             </div>
           </div>
@@ -224,7 +226,7 @@ const About = () => {
           <div>
             {/* Label */}
             <div className="about-label overflow-hidden whitespace-nowrap mb-6">
-              <span className="text-sm font-medium text-white/50 uppercase tracking-widest">
+              <span className="text-sm font-medium text-white/80 uppercase tracking-widest">
                 About Me
               </span>
             </div>
@@ -252,7 +254,7 @@ const About = () => {
               <ul className="about-paragraph space-y-2 pl-1">
                 {['Generate leads and increase conversions', 'Automate workflows with AI integrations', 'Deliver fast, reliable user experiences'].map((item, i) => (
                   <li key={i} className="flex items-start gap-2 text-base md:text-lg text-white/70">
-                    <span className="text-white/40 mt-1 shrink-0">▸</span>
+                    <span className="text-white/70 mt-1 shrink-0">▸</span>
                     <span>{item}</span>
                   </li>
                 ))}

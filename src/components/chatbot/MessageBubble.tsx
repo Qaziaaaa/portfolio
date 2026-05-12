@@ -20,7 +20,7 @@ function renderInline(text: string): React.ReactNode[] {
       const display = part.replace(/^https?:\/\//, '').replace(/\/$/, '');
       return (
         <a key={i} href={part} target="_blank" rel="noopener noreferrer"
-          className="underline underline-offset-2 text-white/60 hover:text-white/90 transition-colors break-all">
+          className="underline underline-offset-2 text-white/80 hover:text-white/90 transition-colors break-all">
           {display}
         </a>
       );
@@ -87,7 +87,7 @@ export const MessageBubble = memo(function MessageBubble({ message }: Props) {
   return (
     <div className="flex gap-2 items-start">
       <div className="w-5 h-5 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
-        <span className="text-[8px] font-bold text-white/50">Q</span>
+        <span className="text-[8px] font-bold text-white/80">Q</span>
       </div>
       <div className="flex-1 min-w-0">
         <div className="bg-white/[0.05] border border-white/[0.07] rounded-2xl rounded-tl-md px-3.5 py-3 space-y-1">

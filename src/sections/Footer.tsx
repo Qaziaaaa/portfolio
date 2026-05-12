@@ -171,7 +171,7 @@ const Footer = () => {
           </h3>
 
           {/* Tagline */}
-          <p className="footer-tagline text-white/50 text-xs sm:text-sm md:text-base px-4 sm:px-0">
+          <p className="footer-tagline text-white/80 text-xs sm:text-sm md:text-base px-4 sm:px-0">
             Qazi Farhan Ahmad — AI Web Developer &amp; MERN Stack Expert · Peshawar, Pakistan
           </p>
         </div>
@@ -209,15 +209,15 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="footer-copyright flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/10">
-          <p className="text-xs text-white/40">
+          <p className="text-xs text-white/70">
             &copy; {new Date().getFullYear()} Qazi Farhan. All rights reserved.
           </p>
 
           <div className="flex gap-6">
-            <a href="#" className="text-xs text-white/40 hover:text-white/70 transition-colors">
+            <a href="#" className="text-xs text-white/70 hover:text-white/70 transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="text-xs text-white/40 hover:text-white/70 transition-colors">
+            <a href="#" className="text-xs text-white/70 hover:text-white/70 transition-colors">
               Terms of Service
             </a>
           </div>
