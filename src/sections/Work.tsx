@@ -17,6 +17,7 @@ const projects: Project[] = [
   { 
     id: 0, 
     link: 'https://ecommerce-store-one-ochre.vercel.app/',
+    image: '/project-1.jpg',
     title: 'NOVA E-Commerce Platform',
     description: 'Production-grade MERN shopping platform — Stripe payments, OTP auth, real-time stock, admin panel.',
     tags: ['React', 'Node.js', 'MongoDB', 'Stripe']
@@ -24,6 +25,7 @@ const projects: Project[] = [
   { 
     id: 1, 
     link: 'https://hiking-app-puce.vercel.app/',
+    image: '/project-2.jpg',
     title: 'HIKI — Hiking Guide App',
     description: 'Full-stack MERN hiking app with trail discovery, authentication, admin dashboard, and blog.',
     tags: ['MERN', 'Full Stack', 'Cloudinary']
@@ -31,6 +33,7 @@ const projects: Project[] = [
   { 
     id: 2, 
     link: 'https://qazixcode.netlify.app/',
+    image: '/project-3.jpg',
     title: 'QAZI-X Portfolio',
     description: 'Futuristic cyberpunk OS-inspired developer portfolio with cinematic animations.',
     tags: ['React', 'TypeScript', 'Framer Motion']
@@ -38,6 +41,7 @@ const projects: Project[] = [
   { 
     id: 3, 
     link: 'https://agencyxai.netlify.app',
+    image: '/project-4.jpg',
     title: 'Agency X AI',
     description: 'Modern AI agency landing page with sophisticated animations and glassmorphism design.',
     tags: ['Next.js', 'AI', 'Framer Motion']
@@ -45,6 +49,7 @@ const projects: Project[] = [
   { 
     id: 4, 
     link: 'https://github.com/Qaziaaaa/Olipop-animated-site',
+    image: '/project-5.jpg',
     title: 'OLIPOP Animated Clone',
     description: 'Premium parallax product page with flavor carousel, smooth scroll, and cart interactions.',
     tags: ['React', 'Tailwind', 'Framer Motion']
@@ -88,24 +93,17 @@ const ProjectCard = ({ project }: { project: Project }) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Live Preview / Iframe State */}
-      {hasLink && (
+      {/* Static Image / Background */}
+      {project.image && (
         <div className="absolute inset-0 z-0">
-          {loading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-[#050505] z-10 transition-opacity duration-500">
-              <div className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-            </div>
-          )}
-          <iframe
-            src={project.link}
+          <img
+            src={project.image}
+            alt={project.title || "Project Preview"}
             loading="lazy"
-            className={`w-full h-full border-none transition-opacity duration-1000 ${loading ? 'opacity-0' : 'opacity-100'}`}
-            onLoad={() => setLoading(false)}
-            style={{ pointerEvents: 'none', width: '125%', height: '125%', scale: '0.8', transformOrigin: 'top left' }}
-            title={`Preview of ${project.link}`}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          {/* Subtle Mask to blend iframe */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-black/10 pointer-events-none" />
+          {/* Subtle Mask to blend image */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-black/20 to-transparent pointer-events-none" />
         </div>
       )}
 
