@@ -171,7 +171,7 @@ const About = () => {
     <section
       id="about"
       ref={sectionRef}
-      className="relative bg-[#010101] py-20 md:py-32 overflow-hidden"
+      className="relative bg-[#010101] py-16 md:py-24 overflow-hidden"
     >
       {/* Background gradient mesh */}
       <div className="absolute inset-0 opacity-30">
@@ -180,11 +180,11 @@ const About = () => {
       </div>
 
       <div className="relative z-10 w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Column - Image & Stats */}
-          <div className="relative">
+          <div className="relative flex flex-col items-center lg:items-start">
             {/* Main Image */}
-            <div className="about-image relative rounded-2xl overflow-hidden" style={{ transform: 'rotate(-2deg)' }}>
+            <div className="about-image relative rounded-2xl overflow-hidden w-[85%] sm:w-[70%] lg:w-[80%] max-w-md mx-auto lg:mx-0" style={{ transform: 'rotate(-2deg)' }}>
               <img
                 src="/profile.webp"
                 alt="Qazi Farhan Ahmad — AI Web Developer and MERN Stack Expert"
