@@ -186,7 +186,7 @@ const About = () => {
             {/* Main Image */}
             <div className="about-image relative rounded-2xl overflow-hidden" style={{ transform: 'rotate(-2deg)' }}>
               <img
-                src="/about-portrait.jpg"
+                src="https://i.postimg.cc/zGNxVfJ1/about-portrait.jpg"
                 alt="Qazi Farhan Ahmad — AI Web Developer and MERN Stack Expert"
                 loading="lazy"
                 decoding="async"
