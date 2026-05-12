@@ -292,13 +292,13 @@ const Hero = () => {
             >
               Hire Me
             </button>
-            <a
-              href="/resume.pdf"
-              download
+            <button
+              onClick={scrollToContact}
               className="hero-cta-download w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center text-sm sm:text-base"
+              aria-label="Get in touch to request a resume"
             >
-              Download CV
-            </a>
+              Request Resume
+            </button>
           </div>
         </div>
       </div>

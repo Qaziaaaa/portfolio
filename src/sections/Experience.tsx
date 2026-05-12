@@ -29,7 +29,15 @@ const experiences = [
     },
 ];
 
-const ExperienceCard = ({ exp }: { exp: any }) => {
+interface ExperienceItem {
+  title: string;
+  company: string;
+  period: string;
+  description: string;
+  icon: React.ElementType;
+}
+
+const ExperienceCard = ({ exp }: { exp: ExperienceItem }) => {
     const cardRef = useRef<HTMLDivElement>(null);
     const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
@@ -122,9 +130,9 @@ const Experience = () => {
             });
 
             // 3D Cards scroll animation
-            const cards = gsap.utils.toArray('.experience-card');
+            const cards = gsap.utils.toArray('.experience-card') as HTMLElement[];
 
-            cards.forEach((card: any) => {
+            cards.forEach((card) => {
                 ScrollTrigger.create({
                     trigger: card,
                     start: 'top bottom-=100',

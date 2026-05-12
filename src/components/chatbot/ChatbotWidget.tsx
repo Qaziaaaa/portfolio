@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
+import { useState, useEffect, useCallback, useRef, lazy, Suspense } from 'react';
 import { MessageSquare, X } from 'lucide-react';
 import { useChatbot } from './useChatbot';
 
@@ -9,17 +9,17 @@ const ChatPanel = lazy(() =>
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const [hasOpenedOnce, setHasOpenedOnce] = useState(false);
+  const initializedRef = useRef(false);
 
   const { status, messages, isStreaming, sendMessage, clearHistory, initializeIfNeeded } =
     useChatbot();
 
   useEffect(() => {
-    if (isOpen && !hasOpenedOnce) {
-      setHasOpenedOnce(true);
+    if (isOpen && !initializedRef.current) {
+      initializedRef.current = true;
       initializeIfNeeded();
     }
-  }, [isOpen, hasOpenedOnce, initializeIfNeeded]);
+  }, [isOpen, initializeIfNeeded]);
 
   const handleToggle = useCallback(() => setIsOpen((p) => !p), []);
   const handleClose = useCallback(() => setIsOpen(false), []);

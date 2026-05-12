@@ -73,10 +73,11 @@ const ProjectCard = ({ project }: { project: Project }) => {
 
   return (
     <CardRoot
-      ref={cardRef as any}
+      ref={cardRef as React.Ref<HTMLAnchorElement & HTMLDivElement>}
       href={project.link}
       target={hasLink ? "_blank" : undefined}
       rel={hasLink ? "noopener noreferrer" : undefined}
+      aria-label={project.title ? `View project: ${project.title}` : undefined}
       className={`work-card group relative flex-shrink-0 w-[92vw] sm:w-[72vw] md:w-[45vw] lg:w-[35vw] h-[55vw] sm:h-[52vh] md:h-[60vh] rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 block bg-[#050505] border border-white/5 hover:border-white/20`}
       style={{
         transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,

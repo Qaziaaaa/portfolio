@@ -1,26 +1,37 @@
 import path from "path"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
-import { inspectAttr } from 'kimi-plugin-inspect-react'
 
 // https://vite.dev/config/
 export default defineConfig({
   base: './',
-  plugins: [inspectAttr(), react()],
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    sourcemap: true,
+    cssCodeSplit: true,
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'gsap-vendor': ['gsap', 'gsap/ScrollTrigger'],
+          'ui-components': ['lucide-react'],
+        },
+      },
+    },
+  },
   server: {
     proxy: {
-      // Proxy Jina AI requests to avoid CORS in dev
       '/api/jina': {
         target: 'https://api.jina.ai',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/jina/, ''),
       },
-      // Proxy Groq requests to avoid CORS in dev
       '/api/groq': {
         target: 'https://api.groq.com',
         changeOrigin: true,

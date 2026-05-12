@@ -47,11 +47,11 @@ function parseContent(text: string): React.ReactNode[] {
       );
       return;
     }
-    if (/^[•\-\*]\s/.test(t)) {
+    if (/^[•\-*]\s/.test(t)) {
       nodes.push(
         <div key={i} className="flex gap-2 items-start">
           <span className="text-white/30 shrink-0 mt-0.5 text-[10px] leading-[1.6]">▸</span>
-          <span className="text-[13px] text-white/75 leading-relaxed">{renderInline(t.replace(/^[•\-\*]\s/, ''))}</span>
+          <span className="text-[13px] text-white/75 leading-relaxed">{renderInline(t.replace(/^[•\-*]\s/, ''))}</span>
         </div>
       );
       return;

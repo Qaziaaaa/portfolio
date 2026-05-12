@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { initialize, MisconfiguredError } from '../../lib/chatbot/initializer';
 import { retrieve } from '../../lib/chatbot/retriever';
 import { buildSystemPrompt, streamCompletion } from '../../lib/chatbot/groqClient';
@@ -15,7 +15,7 @@ export function useChatbot() {
   const initAttempted = useRef(false);
   // Keep a ref to messages so sendMessage doesn't need it as a dependency
   const messagesRef = useRef<ChatMessage[]>([]);
-  messagesRef.current = messages;
+  useEffect(() => { messagesRef.current = messages; }, [messages]);
 
   const initializeIfNeeded = useCallback(async () => {
     if (initAttempted.current) return;
@@ -102,8 +102,6 @@ export function useChatbot() {
       );
       setIsStreaming(false);
     }
-  // No messages dependency — using ref instead
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const clearHistory = useCallback(() => setMessages([]), []);
