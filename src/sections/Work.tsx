@@ -60,10 +60,10 @@ const ProjectCard = ({ project }: { project: Project }) => {
       href={project.link}
       target={hasLink ? "_blank" : undefined}
       rel={hasLink ? "noopener noreferrer" : undefined}
-      className="work-card group bg-[#0c0c0c] border border-white/5 rounded-2xl p-6 transition-all duration-300 hover:border-white/10 hover:-translate-y-2 hover:shadow-2xl hover:shadow-white/[0.02] flex flex-col flex-shrink-0 w-[92vw] sm:w-[65vw] md:w-[50vw] lg:w-[38vw] xl:w-[32vw] min-h-[380px]"
+      className="work-card group bg-[#0c0c0c] border border-white/5 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:border-white/10 hover:-translate-y-2 hover:shadow-2xl hover:shadow-white/[0.02] flex flex-col flex-shrink-0 w-[90vw] sm:w-[65vw] md:w-[50vw] lg:w-[38vw] xl:w-[32vw] aspect-square sm:aspect-auto sm:min-h-[380px]"
     >
       {/* Wireframe Placeholder */}
-      <div className="bg-[#151515] rounded-xl p-5 h-36 sm:h-44 mb-5 flex flex-col gap-3 relative overflow-hidden border border-white/[0.02] flex-shrink-0">
+      <div className="bg-[#151515] rounded-xl p-4 sm:p-5 h-32 sm:h-44 mb-4 sm:mb-5 flex flex-col gap-2 sm:gap-3 relative overflow-hidden border border-white/[0.02] flex-shrink-0">
         {/* Animated gradient sweep effect on hover */}
         <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.03] to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
         
@@ -71,22 +71,22 @@ const ProjectCard = ({ project }: { project: Project }) => {
         <div className="w-1/2 h-3 sm:h-4 bg-white/5 rounded-full" />
         
         <div className="flex gap-2 mt-auto">
-          <div className="w-14 h-7 bg-white/5 rounded-md" />
-          <div className="w-14 h-7 bg-white/5 rounded-md" />
+          <div className="w-12 sm:w-14 h-6 sm:h-7 bg-white/5 rounded-md" />
+          <div className="w-12 sm:w-14 h-6 sm:h-7 bg-white/5 rounded-md" />
         </div>
       </div>
 
       <div className="flex flex-col flex-1">
-        <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+        <h3 className="text-lg sm:text-2xl font-bold text-white mb-2 line-clamp-1">
           {project.title}
         </h3>
         
-        <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-4">
+        <p className="text-white/60 text-xs sm:text-base leading-relaxed mb-3 sm:mb-4 line-clamp-2 sm:line-clamp-none">
           {project.description}
         </p>
 
         {/* Button pushed to the bottom using mt-auto */}
-        <button className="w-full py-3 bg-[#151515] group-hover:bg-white/10 text-white/80 group-hover:text-white rounded-xl transition-colors font-medium text-sm sm:text-base mt-auto">
+        <button className="w-full py-2.5 sm:py-3 bg-[#151515] group-hover:bg-white/10 text-white/80 group-hover:text-white rounded-lg sm:rounded-xl transition-colors font-medium text-xs sm:text-base mt-auto">
           View Details
         </button>
       </div>
@@ -208,10 +208,10 @@ const Work = () => {
         </p>
       </div>
 
-      {/* Projects Container (Horizontal Scroll) */}
+      {/* Projects Container (Horizontal Scroll on Desktop, Stacked on Mobile) */}
       <div
         ref={containerRef}
-        className="relative z-10 flex gap-6 sm:gap-8 md:gap-16 px-4 sm:px-8 lg:px-12 pb-20 md:pb-32 flex-nowrap md:min-w-max items-stretch"
+        className="relative z-10 flex gap-6 sm:gap-8 md:gap-16 px-4 sm:px-8 lg:px-12 pb-20 md:pb-32 flex-wrap md:flex-nowrap justify-center md:justify-start md:min-w-max items-stretch"
       >
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
