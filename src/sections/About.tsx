@@ -190,8 +190,8 @@ const About = () => {
                 alt="Qazi Farhan Ahmad — AI Web Developer and MERN Stack Expert"
                 loading="lazy"
                 decoding="async"
-                width="800"
-                height="1000"
+                width="864"
+                height="1184"
                 className="w-full aspect-[4/5] object-cover"
               />
               <div className="about-image-overlay absolute inset-0 bg-[#010101] hidden lg:block" />

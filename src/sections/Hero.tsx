@@ -47,6 +47,7 @@ const Hero = () => {
       ([entry]) => {
         isVisible = entry.isIntersecting;
         if (isVisible) {
+          cancelAnimationFrame(animationId);
           animate();
         }
       },
@@ -105,8 +106,6 @@ const Hero = () => {
 
       animationId = requestAnimationFrame(animate);
     };
-
-    animate();
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
