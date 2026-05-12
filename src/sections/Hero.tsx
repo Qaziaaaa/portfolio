@@ -28,9 +28,8 @@ const Hero = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Initialize particles — fewer on mobile for performance
-    const isMobile = window.innerWidth < 768;
-    const particleCount = isMobile ? 15 : 60;
+    // Initialize particles
+    const particleCount = window.innerWidth < 768 ? 30 : 60;
     particlesRef.current = Array.from({ length: particleCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -48,7 +47,6 @@ const Hero = () => {
       ([entry]) => {
         isVisible = entry.isIntersecting;
         if (isVisible) {
-          cancelAnimationFrame(animationId);
           animate();
         }
       },
@@ -86,8 +84,8 @@ const Hero = () => {
           ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
           ctx.fill();
 
-          // Draw connections — skip on mobile (expensive O(n²) loop)
-          if (!isMobile && i % 5 === 0) {
+          // Draw connections (only check every 5th particle for performance)
+          if (i % 5 === 0) {
             particles.slice(i + 1).forEach((other) => {
               const dx = particle.x - other.x;
               const dy = particle.y - other.y;
@@ -107,6 +105,8 @@ const Hero = () => {
 
       animationId = requestAnimationFrame(animate);
     };
+
+    animate();
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);

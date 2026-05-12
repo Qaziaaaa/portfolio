@@ -12,7 +12,7 @@ export default defineConfig({
     },
   },
   build: {
-    sourcemap: false,
+    sourcemap: true,
     cssCodeSplit: true,
     minify: 'esbuild',
     rollupOptions: {

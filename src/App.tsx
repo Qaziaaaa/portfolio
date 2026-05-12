@@ -2,10 +2,9 @@ import { lazy, Suspense, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import Navigation from './sections/Navigation';
-import Hero from './sections/Hero';
-
-// Lazy-load below-the-fold sections for optimal initial bundle size
+// Lazy-load all sections for optimal initial bundle size
+const Navigation = lazy(() => import('./sections/Navigation'));
+const Hero = lazy(() => import('./sections/Hero'));
 const Work = lazy(() => import('./sections/Work'));
 const About = lazy(() => import('./sections/About'));
 const Skills = lazy(() => import('./sections/Skills'));
@@ -44,10 +43,14 @@ function App() {
 
   return (
     <div className="relative bg-[#010101] min-h-screen custom-scrollbar overflow-x-hidden">
-      <Navigation />
+      <Suspense fallback={null}>
+        <Navigation />
+      </Suspense>
 
       <main id="main-content">
-        <Hero />
+        <Suspense fallback={null}>
+          <Hero />
+        </Suspense>
         <Suspense fallback={null}>
           <Work />
         </Suspense>
