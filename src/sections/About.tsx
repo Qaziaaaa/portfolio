@@ -197,7 +197,13 @@ const About = () => {
                       alt="Qazi Farhan Ahmad — AI Web Developer and MERN Stack Expert"
                       fetchPriority="high"
                       decoding="async"
+                      loading="eager"
                       className="w-full aspect-[4/4.5] object-cover"
+                      style={{ 
+                        width: '100%',
+                        height: 'auto',
+                        objectFit: 'cover'
+                      }}
                     />
                     <div className="about-image-overlay absolute inset-0 bg-[#010101] hidden lg:block" />
                   </div>

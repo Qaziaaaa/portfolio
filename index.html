@@ -79,6 +79,7 @@
     <link rel="preload" as="image" href="/profile.webp" type="image/webp" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -91,6 +92,20 @@
         rel="stylesheet"
       />
     </noscript>
+    
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+      /* Critical CSS for immediate rendering */
+      body{margin:0;background:#010101;color:#fff;font-family:system-ui,-apple-system,sans-serif;overflow-x:hidden}
+      .skip-link{position:absolute;top:-100%;left:50%;transform:translateX(-50%);z-index:10000;padding:8px 16px;background:#fff;color:#000;font-size:14px;font-weight:600;border-radius:0 0 8px 8px;text-decoration:none;transition:top .2s}
+      .skip-link:focus{top:0}
+      #root{min-height:100vh}
+      /* Loading skeleton for hero section */
+      .hero-skeleton{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:100vh;text-align:center;padding:2rem}
+      .hero-skeleton h1{font-size:clamp(2rem,5vw,4rem);font-weight:700;margin-bottom:1rem;animation:pulse 2s infinite}
+      .hero-skeleton p{font-size:clamp(1rem,2.5vw,1.5rem);opacity:0.8;max-width:600px;animation:pulse 2s infinite .5s}
+      @keyframes pulse{0%,100%{opacity:0.6}50%{opacity:1}}
+    </style>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
 
@@ -116,11 +131,25 @@
       .skip-link:focus {
         top: 0;
       }
+      
+      /* Font display fallback to prevent FOIT */
+      @font-face {
+        font-family: 'Inter Tight';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: local('Inter Tight'), local('Inter');
+      }
     </style>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <div id="root"></div>
+    <!-- Loading skeleton for immediate perceived performance -->
+    <div id="loading-skeleton" class="hero-skeleton">
+      <h1>Qazi Farhan Ahmad</h1>
+      <p>AI Web Developer & MERN Stack Expert</p>
+    </div>
+    <div id="root" style="display: none;"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
