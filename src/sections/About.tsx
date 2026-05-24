@@ -183,7 +183,7 @@ const About = () => {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="flex flex-col items-center lg:items-start">
             {/* Shared anchor for image and stats */}
-            <div className="relative w-[85%] sm:w-[70%] lg:w-[75%] max-w-[380px] mx-auto lg:mx-0 lg:ml-8 xl:ml-16">
+            <div className="relative w-full sm:w-[70%] lg:w-[75%] max-w-[380px] mx-auto lg:mx-0 lg:ml-8 xl:ml-16">
               {/* Main Image */}
               <div className="about-image relative">
                 {/* Outer decorative glow */}
@@ -198,7 +198,7 @@ const About = () => {
                       fetchPriority="high"
                       decoding="async"
                       loading="eager"
-                      className="w-full aspect-[4/4.5] object-cover"
+                      className="w-full aspect-[3/4] sm:aspect-[4/4.5] object-cover"
                       style={{ 
                         width: '100%',
                         height: 'auto',
