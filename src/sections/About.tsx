@@ -25,6 +25,12 @@ const CountUp = ({ end, suffix, duration = 1.5 }: { end: number; suffix: string;
     const element = countRef.current;
     if (!element || hasAnimated.current) return;
 
+    // Disable animation on mobile
+    if (window.innerWidth < 1024) {
+      setCount(end);
+      return;
+    }
+
     const trigger = ScrollTrigger.create({
       trigger: element,
       start: 'top 85%',

@@ -63,42 +63,48 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
   
   return (
     <div 
-      className="skill-card group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 sm:p-6 md:p-8 hover:bg-white/10 transition-all duration-300 cursor-pointer"
+      className="skill-card group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 sm:p-6 md:p-8 lg:hover:bg-white/10 transition-all duration-300 cursor-pointer"
       style={{
         transform: 'perspective(800px) rotateX(5deg)',
         transformStyle: 'preserve-3d',
         transition: 'all 0.3s ease'
       }}
       onMouseEnter={(e) => {
-        gsap.to(e.currentTarget, {
-          rotateX: 0,
-          y: -15,
-          z: 50,
-          duration: 0.3,
-          ease: 'power2.out'
-        });
+        // Only apply hover effects on desktop
+        if (window.innerWidth >= 1024) {
+          gsap.to(e.currentTarget, {
+            rotateX: 0,
+            y: -15,
+            z: 50,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        }
       }}
       onMouseLeave={(e) => {
-        gsap.to(e.currentTarget, {
-          rotateX: 5,
-          y: 0,
-          z: 0,
-          duration: 0.3,
-          ease: 'power2.out'
-        });
+        // Only apply hover effects on desktop
+        if (window.innerWidth >= 1024) {
+          gsap.to(e.currentTarget, {
+            rotateX: 5,
+            y: 0,
+            z: 0,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        }
       }}
     >
       {/* Icon */}
       <div className="mb-6 relative">
-        <div className="skill-icon-box w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-[10deg] transition-all duration-300">
+        <div className="skill-icon-box w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center lg:group-hover:scale-110 lg:group-hover:rotate-[10deg] transition-all duration-300">
           <Icon className="w-7 h-7 text-white" />
         </div>
         {/* Glow effect on hover */}
-        <div className="skill-glow absolute inset-0 w-14 h-14 rounded-xl bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="skill-glow absolute inset-0 w-14 h-14 rounded-xl bg-white/20 blur-xl opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Title */}
-      <h3 className="text-xl font-medium text-white mb-3 group-hover:-translate-y-1 transition-transform duration-300">
+      <h3 className="text-xl font-medium text-white mb-3 lg:group-hover:-translate-y-1 transition-transform duration-300">
         {skill.title}
       </h3>
 
@@ -112,7 +118,7 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
         {skill.technologies.map((tech, i) => (
           <span 
             key={i}
-            className="skill-tag px-3 py-1 text-xs font-medium bg-white/5 rounded-full text-white/70 border border-white/10 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
+            className="skill-tag px-3 py-1 text-xs font-medium bg-white/5 rounded-full text-white/70 border border-white/10 opacity-100 translate-y-0 lg:opacity-0 lg:translate-y-2 lg:group-hover:opacity-100 lg:group-hover:translate-y-0 transition-all duration-300"
             style={{ transitionDelay: `${i * 50}ms` }}
           >
             {tech}
@@ -122,8 +128,8 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
 
       {/* Corner accent */}
       <div className="skill-corner absolute top-0 right-0 w-20 h-20 overflow-hidden rounded-tr-2xl">
-        <div className="absolute top-0 right-0 w-[1px] h-12 bg-gradient-to-b from-white/30 to-transparent transform translate-x-[-10px] group-hover:translate-x-0 transition-transform duration-500" />
-        <div className="absolute top-0 right-0 h-[1px] w-12 bg-gradient-to-l from-white/30 to-transparent transform translate-y-[-10px] group-hover:translate-y-0 transition-transform duration-500" />
+        <div className="absolute top-0 right-0 w-[1px] h-12 bg-gradient-to-b from-white/30 to-transparent transform translate-x-[-10px] lg:group-hover:translate-x-0 transition-transform duration-500" />
+        <div className="absolute top-0 right-0 h-[1px] w-12 bg-gradient-to-l from-white/30 to-transparent transform translate-y-[-10px] lg:group-hover:translate-y-0 transition-transform duration-500" />
       </div>
     </div>
   );

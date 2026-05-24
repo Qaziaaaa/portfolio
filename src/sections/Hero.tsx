@@ -13,10 +13,13 @@ const Hero = () => {
     radius: number;
   }>>([]);
 
-  // Particle animation
+  // Particle animation — desktop only
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    // Disable particle animation on mobile
+    if (window.innerWidth < 1024) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -282,13 +285,13 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-3 sm:gap-4 px-4 sm:px-0">
             <button
               onClick={scrollToWork}
-              className="hero-cta-primary w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-white text-black font-medium rounded-full hover:scale-105 transition-transform duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] text-sm sm:text-base"
+              className="hero-cta-primary w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-white text-black font-medium rounded-full lg:hover:scale-105 transition-transform duration-300 lg:hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] text-sm sm:text-base"
             >
               View My Work
             </button>
             <button
               onClick={scrollToContact}
-              className="hero-cta-secondary w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-white/10 border border-white/30 text-white font-medium rounded-full hover:bg-white/20 transition-all duration-300 text-sm sm:text-base"
+              className="hero-cta-secondary w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-white/10 border border-white/30 text-white font-medium rounded-full lg:hover:bg-white/20 transition-all duration-300 text-sm sm:text-base"
             >
               Hire Me
             </button>
@@ -296,18 +299,18 @@ const Hero = () => {
               href="/CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="hero-cta-download w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base group"
+              className="hero-cta-download w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 border border-white/30 text-white font-medium rounded-full lg:hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base group"
               aria-label="Download CV"
             >
-              <FileDown className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-y-0.5 transition-transform" />
+              <FileDown className="w-4 h-4 sm:w-5 sm:h-5 lg:group-hover:translate-y-0.5 transition-transform" />
               Download CV
             </a>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="hero-scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-[5] flex flex-col items-center gap-2">
+      {/* Scroll Indicator — desktop only */}
+      <div className="hero-scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-[5] flex flex-col items-center gap-2 hidden lg:flex">
         <span className="text-xs text-white/80 uppercase tracking-widest">Scroll</span>
         <div className="animate-[bounce-scroll_1.5s_ease-in-out_infinite]">
           <ChevronDown className="w-5 h-5 text-white/80" />

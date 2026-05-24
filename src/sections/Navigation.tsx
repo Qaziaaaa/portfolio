@@ -72,7 +72,7 @@ const Navigation = () => {
               scrollToSection('hero');
               window.dispatchEvent(new Event('triggerHeroAnimation'));
             }}
-            className="nav-logo inline-flex items-center gap-2 text-xl font-semibold tracking-tight text-white hover:opacity-80 transition-opacity"
+            className="nav-logo inline-flex items-center gap-2 text-xl font-semibold tracking-tight text-white lg:hover:opacity-80 transition-opacity"
           >
             <span
               aria-hidden="true"
@@ -94,10 +94,10 @@ const Navigation = () => {
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="nav-link relative text-sm font-medium text-white/80 hover:text-white transition-colors group"
+                className="nav-link relative text-sm font-medium text-white/80 lg:hover:text-white transition-colors group"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-1/2 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full group-hover:left-0" />
+                <span className="absolute -bottom-1 left-1/2 w-0 h-[1px] bg-white transition-all duration-300 lg:group-hover:w-full lg:group-hover:left-0" />
               </button>
             ))}
           </div>
@@ -105,7 +105,7 @@ const Navigation = () => {
           {/* CTA Button */}
           <button
             onClick={() => scrollToSection('contact')}
-            className="nav-cta hidden md:block px-5 py-2.5 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-all duration-300 hover:scale-105"
+            className="nav-cta hidden md:block px-5 py-2.5 bg-white text-black text-sm font-medium rounded-full lg:hover:bg-white/90 transition-all duration-300 lg:hover:scale-105"
           >
             Let&apos;s Talk
           </button>
@@ -139,7 +139,7 @@ const Navigation = () => {
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="text-2xl font-medium text-white/80 hover:text-white transition-colors"
+                className="text-2xl font-medium text-white/80 lg:hover:text-white transition-colors"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {link.label}

@@ -42,6 +42,8 @@ const ExperienceCard = ({ exp }: { exp: ExperienceItem }) => {
     const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        // Only apply 3D tilt effect on desktop
+        if (window.innerWidth < 1024) return;
         if (!cardRef.current) return;
         const rect = cardRef.current.getBoundingClientRect();
         // Calculate mouse position relative to card center (-0.5 to 0.5)
@@ -52,6 +54,8 @@ const ExperienceCard = ({ exp }: { exp: ExperienceItem }) => {
     };
 
     const handleMouseLeave = () => {
+        // Only apply 3D tilt effect on desktop
+        if (window.innerWidth < 1024) return;
         // Create a smooth reset animation instead of snapping back immediately
         gsap.to(cardRef.current, {
             rotateX: 0,
@@ -70,7 +74,7 @@ const ExperienceCard = ({ exp }: { exp: ExperienceItem }) => {
     return (
         <div
             ref={cardRef}
-            className="experience-card relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 sm:p-8 md:p-10 hover:bg-white/10 transition-colors duration-300 transform-gpu cursor-pointer"
+            className="experience-card relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 sm:p-8 md:p-10 lg:hover:bg-white/10 transition-colors duration-300 transform-gpu cursor-pointer"
             style={{
                 transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
                 transition: tilt.x === 0 && tilt.y === 0 ? 'transform 0.5s ease-out' : 'transform 0.1s ease-out',
@@ -97,9 +101,9 @@ const ExperienceCard = ({ exp }: { exp: ExperienceItem }) => {
                 </div>
             </div>
 
-            {/* Subtle glow effect on hover */}
+            {/* Subtle glow effect on hover — desktop only */}
             <div
-                className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 transition-opacity duration-300 rounded-2xl pointer-events-none"
+                className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 transition-opacity duration-300 rounded-2xl pointer-events-none lg:block hidden"
                 style={{ opacity: tilt.x !== 0 || tilt.y !== 0 ? 1 : 0 }}
             />
         </div>
