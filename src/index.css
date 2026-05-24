@@ -164,6 +164,137 @@
   }
 }
 
+/* Card borders — visible on all screen sizes */
+.work-card,
+.skill-card,
+.experience-card,
+.why-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 767px) {
+  .work-card,
+  .skill-card,
+  .experience-card,
+  .why-card {
+    border: 1.5px solid rgba(255, 255, 255, 0.13);
+  }
+}
+
+/* Card shadows — layered 3D depth */
+.work-card,
+.skill-card,
+.experience-card,
+.why-card {
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    0 8px 16px rgba(0, 0, 0, 0.35),
+    0 24px 48px rgba(0, 0, 0, 0.25),
+    0 48px 80px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Work card hover — elevated + glow */
+.work-card:hover {
+  box-shadow:
+    0 0 30px rgba(255, 255, 255, 0.07),
+    0 0 60px rgba(255, 255, 255, 0.03),
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.5),
+    0 12px 24px rgba(0, 0, 0, 0.35),
+    0 32px 64px rgba(0, 0, 0, 0.25);
+}
+
+/* Skill card hover — subtle lift + glow */
+.skill-card:hover {
+  box-shadow:
+    0 0 30px rgba(255, 255, 255, 0.05),
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    0 12px 24px rgba(0, 0, 0, 0.3),
+    0 24px 48px rgba(0, 0, 0, 0.2);
+}
+
+/* Experience card hover — subtle lift */
+.experience-card:hover {
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    0 12px 24px rgba(0, 0, 0, 0.3),
+    0 24px 48px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 767px) {
+  /* Disable hover lift/zoom on all cards */
+  .work-card:hover,
+  .skill-card:hover,
+  .experience-card:hover,
+  .why-card:hover {
+    transform: none !important;
+  }
+
+  /* Keep base shadow on hover for work cards (no change) */
+  .work-card:hover {
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.5),
+      0 8px 16px rgba(0, 0, 0, 0.35),
+      0 24px 48px rgba(0, 0, 0, 0.25),
+      0 48px 80px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  /* Disable hover background shift on skill/experience cards */
+  .skill-card:hover,
+  .experience-card:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+
+  /* Work card — always show shimmer sweep */
+  .shimmer-overlay {
+    animation: shimmer 1.5s infinite !important;
+  }
+
+  /* Work card — always show button as active */
+  .card-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+  }
+
+  /* Skills — always show tags */
+  .skill-tag {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
+  /* Skills — always show icon scale/rotate */
+  .skill-icon-box {
+    transform: scale(1.1) rotate(10deg) !important;
+  }
+
+  /* Skills — always show icon glow */
+  .skill-glow {
+    opacity: 1 !important;
+  }
+
+  /* Skills — always show corner accent lines */
+  .skill-corner div:first-child {
+    transform: translateX(0) !important;
+  }
+  .skill-corner div:last-child {
+    transform: translateY(0) !important;
+  }
+
+  /* Experience — always show subtle inner glow */
+  .experience-card > div:last-child {
+    opacity: 1 !important;
+  }
+
+  .skill-card {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

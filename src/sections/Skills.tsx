@@ -90,11 +90,11 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
     >
       {/* Icon */}
       <div className="mb-6 relative">
-        <div className="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-[10deg] transition-all duration-300">
+        <div className="skill-icon-box w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-[10deg] transition-all duration-300">
           <Icon className="w-7 h-7 text-white" />
         </div>
         {/* Glow effect on hover */}
-        <div className="absolute inset-0 w-14 h-14 rounded-xl bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="skill-glow absolute inset-0 w-14 h-14 rounded-xl bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Title */}
@@ -121,7 +121,7 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
       </div>
 
       {/* Corner accent */}
-      <div className="absolute top-0 right-0 w-20 h-20 overflow-hidden rounded-tr-2xl">
+      <div className="skill-corner absolute top-0 right-0 w-20 h-20 overflow-hidden rounded-tr-2xl">
         <div className="absolute top-0 right-0 w-[1px] h-12 bg-gradient-to-b from-white/30 to-transparent transform translate-x-[-10px] group-hover:translate-x-0 transition-transform duration-500" />
         <div className="absolute top-0 right-0 h-[1px] w-12 bg-gradient-to-l from-white/30 to-transparent transform translate-y-[-10px] group-hover:translate-y-0 transition-transform duration-500" />
       </div>
