@@ -92,7 +92,6 @@ const Hero = () => {
             grid-template-columns: 1fr !important;
             padding: 44px 0 18px;
           }
-          .hero .polaroid { max-width: 260px; margin: 0 auto; }
         }
       `}</style>
     </section>

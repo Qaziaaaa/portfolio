@@ -325,8 +325,15 @@ section { padding: 54px 0; }
 .polaroid img {
   width: 100%;
   display: block;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
   background: var(--paper);
   box-shadow: 0 0 0 1px rgba(51,46,41,.06);
+}
+
+.about-polaroid .polaroid img {
+  aspect-ratio: auto;
 }
 .polaroid .cap {
   position: absolute;
