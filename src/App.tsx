@@ -19,7 +19,7 @@ const ChatbotWidget = lazy(() => import('./components/chatbot/ChatbotWidget'));
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-const Torn = () => <div className="torn" style={{ margin: '8px 0' }} />;
+const Torn = () => <div className="torn" style={{ margin: '8px auto' }} />;
 
 function App() {
   useEffect(() => {
@@ -83,6 +83,8 @@ function App() {
           <Contact />
         </Suspense>
       </main>
+
+      <Torn />
 
       <Suspense fallback={null}>
         <Footer />
