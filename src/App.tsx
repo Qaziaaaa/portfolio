@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -12,6 +13,8 @@ const Skills = lazy(() => import('./sections/Skills'));
 const Testimonials = lazy(() => import('./sections/Testimonials'));
 const Contact = lazy(() => import('./sections/Contact'));
 const Footer = lazy(() => import('./sections/Footer'));
+const Projects = lazy(() => import('./pages/Projects'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
 
 // Lazy-load the chatbot widget so it doesn't impact initial page load
 const ChatbotWidget = lazy(() => import('./components/chatbot/ChatbotWidget'));
@@ -20,6 +23,60 @@ const ChatbotWidget = lazy(() => import('./components/chatbot/ChatbotWidget'));
 gsap.registerPlugin(ScrollTrigger);
 
 const Torn = () => <div className="torn" style={{ margin: '8px auto' }} />;
+
+const Landing = () => (
+  <>
+    <Suspense fallback={null}>
+      <Hero />
+    </Suspense>
+
+    <Torn />
+
+    <Suspense fallback={null}>
+      <Work />
+    </Suspense>
+
+    <Torn />
+
+    <Suspense fallback={null}>
+      <About />
+    </Suspense>
+
+    <Torn />
+
+    <Suspense fallback={null}>
+      <Experience />
+    </Suspense>
+
+    <Torn />
+
+    <Suspense fallback={null}>
+      <Skills />
+    </Suspense>
+
+    <Torn />
+
+    <Suspense fallback={null}>
+      <Testimonials />
+    </Suspense>
+
+    <Torn />
+
+    <Suspense fallback={null}>
+      <Contact />
+    </Suspense>
+  </>
+);
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
   useEffect(() => {
@@ -37,63 +94,47 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen overflow-x-hidden">
-      <Suspense fallback={null}>
-        <Navigation />
-      </Suspense>
-
-      <main id="main-content">
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="min-h-screen overflow-x-hidden">
         <Suspense fallback={null}>
-          <Hero />
+          <Navigation />
         </Suspense>
+
+        <main id="main-content">
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route
+              path="/projects"
+              element={
+                <Suspense fallback={null}>
+                  <Projects />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <Suspense fallback={null}>
+                  <ContactPage />
+                </Suspense>
+              }
+            />
+            <Route path="*" element={<Landing />} />
+          </Routes>
+        </main>
 
         <Torn />
 
         <Suspense fallback={null}>
-          <Work />
+          <Footer />
         </Suspense>
-
-        <Torn />
 
         <Suspense fallback={null}>
-          <About />
+          <ChatbotWidget />
         </Suspense>
-
-        <Torn />
-
-        <Suspense fallback={null}>
-          <Experience />
-        </Suspense>
-
-        <Torn />
-
-        <Suspense fallback={null}>
-          <Skills />
-        </Suspense>
-
-        <Torn />
-
-        <Suspense fallback={null}>
-          <Testimonials />
-        </Suspense>
-
-        <Torn />
-
-        <Suspense fallback={null}>
-          <Contact />
-        </Suspense>
-      </main>
-
-      <Torn />
-
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
-
-      <Suspense fallback={null}>
-        <ChatbotWidget />
-      </Suspense>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 

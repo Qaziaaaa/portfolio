@@ -1,41 +1,38 @@
 import { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
-  { label: 'Work',    id: 'work'    },
-  { label: 'About',   id: 'about'   },
-  { label: 'Contact', id: 'contact' },
+  { label: 'Home',     to: '/' },
+  { label: 'Projects', to: '/projects' },
+  { label: 'Contact',  to: '/contact' },
 ];
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    setIsMobileMenuOpen(false);
-  };
-
   return (
     <>
       <header className="topbar">
         <div className="wrap">
-          <button className="brand" onClick={() => scrollTo('hero')}>
+          <Link className="brand" to="/">
             Qazi Farhan<span className="dot">.</span>
-          </button>
+          </Link>
 
           <nav className="nav">
             {navLinks.map(link => (
-              <button
-                key={link.id}
-                className={link.id === 'work' ? 'navlink active' : 'navlink'}
-                onClick={() => scrollTo(link.id)}
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.to === '/'}
+                className="navlink"
               >
                 {link.label}
-              </button>
+              </NavLink>
             ))}
-            <button className="btn" onClick={() => scrollTo('contact')}>
+            <Link className="btn" to="/contact">
               Let&apos;s Talk
-            </button>
+            </Link>
           </nav>
 
           {/* Hamburger */}
@@ -66,25 +63,29 @@ const Navigation = () => {
               navigation
             </p>
             {navLinks.map(link => (
-              <button
-                key={link.id}
-                onClick={() => scrollTo(link.id)}
-                style={{
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.to === '/'}
+                onClick={() => setIsMobileMenuOpen(false)}
+                style={({ isActive }) => ({
                   fontFamily: "'Averia Serif Libre', Georgia, serif",
-                  fontWeight: 700, fontSize: '1.6rem', color: '#332E29',
+                  fontWeight: 700, fontSize: '1.6rem',
+                  color: isActive ? '#C96F4C' : '#332E29',
                   background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', padding: '6px 0',
-                }}
+                })}
               >
                 {link.label}
-              </button>
+              </NavLink>
             ))}
-            <button
-              onClick={() => scrollTo('contact')}
+            <Link
               className="btn"
+              to="/contact"
+              onClick={() => setIsMobileMenuOpen(false)}
               style={{ marginTop: 16, alignSelf: 'flex-start', padding: '12px 24px' }}
             >
               Let&apos;s Talk
-            </button>
+            </Link>
           </div>
         </div>
       )}
