@@ -21,7 +21,6 @@ export default defineConfig({
           'react-vendor': ['react', 'react-dom'],
           'gsap-vendor': ['gsap'],
           'ui-components': ['lucide-react'],
-          'radix-vendor': ['@radix-ui/react-slot', '@radix-ui/react-dialog'],
         },
         chunkFileNames: 'js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
