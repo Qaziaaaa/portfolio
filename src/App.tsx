@@ -14,6 +14,7 @@ const Testimonials = lazy(() => import('./sections/Testimonials'));
 const Contact = lazy(() => import('./sections/Contact'));
 const Footer = lazy(() => import('./sections/Footer'));
 const Projects = lazy(() => import('./pages/Projects'));
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 
 // Lazy-load the chatbot widget so it doesn't impact initial page load
@@ -109,6 +110,14 @@ function App() {
               element={
                 <Suspense fallback={null}>
                   <Projects />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/projects/:slug"
+              element={
+                <Suspense fallback={null}>
+                  <ProjectDetail />
                 </Suspense>
               }
             />
