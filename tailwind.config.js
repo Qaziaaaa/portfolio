@@ -5,62 +5,33 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        hand: ['Caveat', 'cursive'],
-        serif: ['Playfair Display', 'Georgia', 'serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        hand:  ['Caveat', 'cursive'],
+        print: ['Patrick Hand', 'cursive'],
+        serif: ['Averia Serif Libre', 'Georgia', 'serif'],
+        sans:  ['Poppins', '-apple-system', 'sans-serif'],
       },
       colors: {
-        cream: {
-          50: '#fefcf8',
-          100: '#faf8f4',
-          200: '#f5f1eb',
-          300: '#ede6db',
-          400: '#e0d5c5',
-          500: '#c9b89a',
-        },
-        terra: {
-          400: '#d4704a',
-          500: '#c4623a',
-          600: '#b05530',
-        },
-        charcoal: {
-          800: '#2d2d2d',
-          900: '#1a1a1a',
-        },
-        // Keep shadcn/ui CSS-var colors
+        cream:  { DEFAULT: '#FAF7F2', paper: '#F4ECE0', card: '#FFFCF6' },
+        coral:  { DEFAULT: '#D97757', dark: '#C96F4C' },
+        terra:  { DEFAULT: '#C96F4C', light: '#D97757' },
+        honey:  '#E0A951',
+        sage:   '#A9B89E',
+        rose:   '#ECBCA8',
+        ink:    { DEFAULT: '#332E29', soft: '#736a60' },
+        line:   '#E0D6C6',
+        // shadcn/ui vars
         border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
+        input:  "hsl(var(--input))",
+        ring:   "hsl(var(--ring))",
         background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive) / <alpha-value>)",
-          foreground: "hsl(var(--destructive-foreground) / <alpha-value>)",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
+        foreground:  "hsl(var(--foreground))",
+        primary: { DEFAULT: "hsl(var(--primary))", foreground: "hsl(var(--primary-foreground))" },
+        secondary: { DEFAULT: "hsl(var(--secondary))", foreground: "hsl(var(--secondary-foreground))" },
+        destructive: { DEFAULT: "hsl(var(--destructive) / <alpha-value>)", foreground: "hsl(var(--destructive-foreground) / <alpha-value>)" },
+        muted:   { DEFAULT: "hsl(var(--muted))", foreground: "hsl(var(--muted-foreground))" },
+        accent:  { DEFAULT: "hsl(var(--accent))", foreground: "hsl(var(--accent-foreground))" },
+        popover: { DEFAULT: "hsl(var(--popover))", foreground: "hsl(var(--popover-foreground))" },
+        card:    { DEFAULT: "hsl(var(--card))",    foreground: "hsl(var(--card-foreground))"    },
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",
@@ -70,41 +41,25 @@ module.exports = {
         xs: "calc(var(--radius) - 6px)",
       },
       boxShadow: {
-        xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        warm: "0 4px 24px rgba(0,0,0,0.08)",
-        'warm-lg': "0 8px 40px rgba(0,0,0,0.12)",
+        xs:        "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        warm:      "0 4px 24px rgba(51,46,41,.07)",
+        'warm-lg': "0 8px 40px rgba(51,46,41,.11)",
+        card:      "0 8px 22px rgba(51,46,41,.06)",
+        polaroid:  "0 9px 15px -7px rgba(51,46,41,.30), 0 2px 4px rgba(51,46,41,.18), inset 0 1px 0 rgba(255,255,255,.6)",
+        btn:       "0 6px 15px rgba(217,119,87,.3)",
+        'btn-hover': "0 10px 22px rgba(217,119,87,.38)",
       },
       keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-        "caret-blink": {
-          "0%,70%,100%": { opacity: "1" },
-          "20%,50%": { opacity: "0" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-15px)" },
-        },
-        "bounce-scroll": {
-          "0%, 100%": { transform: "translateY(0)", opacity: "0.5" },
-          "50%": { transform: "translateY(10px)", opacity: "1" },
-        },
-        shimmer: {
-          "100%": { transform: "translateX(100%)" },
-        },
+        "accordion-down": { from: { height: "0" }, to: { height: "var(--radix-accordion-content-height)" } },
+        "accordion-up":   { from: { height: "var(--radix-accordion-content-height)" }, to: { height: "0" } },
+        "caret-blink":    { "0%,70%,100%": { opacity: "1" }, "20%,50%": { opacity: "0" } },
+        shimmer:          { "100%": { transform: "translateX(100%)" } },
+        "bounce-scroll":  { "0%,100%": { transform: "translateY(0)", opacity: "0.5" }, "50%": { transform: "translateY(10px)", opacity: "1" } },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "caret-blink": "caret-blink 1.25s ease-out infinite",
-        float: "float 6s ease-in-out infinite",
-        "float-delayed": "float 5s ease-in-out infinite -2s",
+        "accordion-up":   "accordion-up 0.2s ease-out",
+        "caret-blink":    "caret-blink 1.25s ease-out infinite",
       },
     },
   },

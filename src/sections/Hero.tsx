@@ -3,153 +3,98 @@ import { gsap } from 'gsap';
 import { FileDown } from 'lucide-react';
 
 const stats = [
-  { value: '10+', label: 'Projects Shipped' },
-  { value: '25+', label: 'GitHub Repos' },
-  { value: '299+', label: 'Contributions' },
+  { value: '10+',  label: 'Projects Shipped' },
+  { value: '25+',  label: 'GitHub Repos'    },
+  { value: '299+', label: 'Contributions'   },
 ];
 
 const Hero = () => {
   useEffect(() => {
     const mm = gsap.matchMedia();
-
     mm.add('(min-width: 1024px)', () => {
-      const tl = gsap.timeline({ delay: 0.4 });
-
-      tl.fromTo('.hero-label',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }
-      )
-        .fromTo('.hero-heading',
-          { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out' },
-          '-=0.3'
-        )
-        .fromTo('.hero-badge',
-          { opacity: 0, y: 15 },
-          { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out' },
-          '-=0.4'
-        )
-        .fromTo('.hero-description',
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' },
-          '-=0.3'
-        )
-        .fromTo('.hero-ctas',
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out' },
-          '-=0.3'
-        )
-        .fromTo('.hero-stats',
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out' },
-          '-=0.2'
-        )
-        .fromTo('.hero-polaroid',
-          { opacity: 0, rotate: -4, y: 30 },
-          { opacity: 1, rotate: 2, y: 0, duration: 0.9, ease: 'expo.out' },
-          '-=0.8'
-        );
-
-      const handleRestartAnimation = () => { tl.restart(); };
-      window.addEventListener('triggerHeroAnimation', handleRestartAnimation);
-      return () => {
-        window.removeEventListener('triggerHeroAnimation', handleRestartAnimation);
-      };
+      const tl = gsap.timeline({ delay: 0.3 });
+      tl.fromTo('.hero-hi',      { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .5, ease: 'expo.out' })
+        .fromTo('.hero-h1',      { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .7, ease: 'expo.out' }, '-=.2')
+        .fromTo('.hero-tag',     { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: 'expo.out' }, '-=.3')
+        .fromTo('.hero-lead',    { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .5, ease: 'expo.out' }, '-=.3')
+        .fromTo('.hero-ctas',    { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5, ease: 'expo.out' }, '-=.2')
+        .fromTo('.hero-note',    { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .45, ease: 'expo.out' }, '-=.2')
+        .fromTo('.hero-stats',   { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .4, ease: 'expo.out' }, '-=.2')
+        .fromTo('.hero-polaroid',{ opacity: 0, rotate: 0, y: 24 }, { opacity: 1, rotate: 3.5, y: 0, duration: .9, ease: 'expo.out' }, '-=.8');
     });
-
-    return () => { mm.revert(); };
+    return () => mm.revert();
   }, []);
 
-  const scrollToWork = () => {
-    document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section
-      id="hero"
-      className="bg-cream-100 min-h-screen flex items-center pt-[72px]"
-    >
-      <div className="max-w-6xl mx-auto px-6 py-16 lg:py-24 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left — Text Content */}
+    <section id="hero" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: 0 }}>
+      <div className="wrap" style={{ width: '100%' }}>
+        <div className="hero hero-grid">
+          {/* Left */}
           <div>
-            <p className="hero-label font-hand text-terra-500 text-2xl mb-2">
-              hi, I&apos;m
-            </p>
+            <span className="hero-hi hi">hi, I&apos;m</span>
 
-            <h1 className="hero-heading font-serif text-5xl sm:text-6xl lg:text-7xl font-semibold text-charcoal-900 leading-tight mb-4">
-              Qazi Farhan Ahmad
+            <h1 className="hero-h1">
+              Qazi Farhan <span className="u">Ahmad</span>
             </h1>
 
-            <div className="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cream-400 text-charcoal-800 text-sm mb-6 bg-white/60">
-              <span className="w-2 h-2 rounded-full bg-terra-500 flex-shrink-0" />
-              AI Web Developer &amp; MERN Stack Expert
-            </div>
+            <span className="hero-tag tagline">
+              AI web apps you can actually use, built in the real world
+            </span>
 
-            <p className="hero-description text-charcoal-800/70 text-lg leading-relaxed mb-8 max-w-lg">
-              I build high-performance websites and AI-powered web applications that help businesses grow, automate, and increase conversions.
+            <p className="hero-lead lead">
+              I build high-performance websites and AI-powered web applications that help businesses grow, automate processes, and increase conversions.
             </p>
 
-            {/* CTA Buttons */}
-            <div className="hero-ctas flex flex-wrap gap-3">
-              <button
-                onClick={scrollToWork}
-                className="bg-terra-500 text-white rounded-full px-7 py-3.5 font-medium hover:bg-terra-600 transition-colors text-sm sm:text-base"
-              >
+            {/* CTA row */}
+            <div className="hero-ctas cta-row">
+              <button className="btn" onClick={() => scrollTo('work')}>
                 View My Work
               </button>
-              <button
-                onClick={scrollToContact}
-                className="border border-charcoal-900/20 text-charcoal-900 rounded-full px-7 py-3.5 font-medium hover:bg-cream-200 transition-colors text-sm sm:text-base"
-              >
+              <button className="btn ghost" onClick={() => scrollTo('contact')}>
                 Hire Me
               </button>
-              <a
-                href="/CV.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border border-charcoal-900/20 text-charcoal-900 rounded-full px-7 py-3.5 font-medium hover:bg-cream-200 transition-colors flex items-center gap-2 text-sm sm:text-base"
-                aria-label="Download CV"
-              >
-                <FileDown className="w-4 h-4" />
+              <a className="btn ghost" href="/CV.pdf" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }}>
+                <FileDown size={15} />
                 Download CV
               </a>
             </div>
 
-            {/* Stats Row */}
-            <div className="hero-stats flex gap-8 mt-10 pt-8 border-t border-cream-300">
-              {stats.map((stat) => (
-                <div key={stat.label}>
-                  <div className="font-serif text-2xl font-semibold text-charcoal-900">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs text-charcoal-800/60 mt-0.5">{stat.label}</div>
-                </div>
+            <button className="hero-note" onClick={() => scrollTo('contact')}>
+              p.s. I&apos;m open to freelance &amp; internships right now →
+            </button>
+
+            {/* Stat pills */}
+            <div className="hero-stats statstrip">
+              {stats.map(s => (
+                <span key={s.label} className="m">
+                  <b>{s.value}</b> {s.label}
+                </span>
               ))}
             </div>
           </div>
 
-          {/* Right — Polaroid Photo */}
-          <div className="hidden lg:flex justify-center items-center">
-            <div className="hero-polaroid bg-white p-3 pb-10 shadow-[0_8px_40px_rgba(0,0,0,0.12)] rotate-2 rounded-sm max-w-xs w-full">
-              <img
-                src="/profile.webp"
-                alt="Qazi Farhan Ahmad — AI Web Developer"
-                className="w-full aspect-[3/4] object-cover rounded-sm"
-                loading="eager"
-                fetchPriority="high"
-              />
-              <p className="font-hand text-charcoal-800 text-center mt-4 text-lg">
-                AI Developer 👋
-              </p>
+          {/* Right — Polaroid */}
+          <div className="hero-polaroid photo-wrap" style={{ display: 'flex' }}>
+            <div className="polaroid" style={{ width: '100%' }}>
+              <div className="sticker s2">AI Developer ✨</div>
+              <img src="/profile.webp" alt="Qazi Farhan Ahmad" loading="eager" />
+              <div className="cap">Full Stack Dev 👋</div>
             </div>
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            padding: 44px 0 18px;
+          }
+          .hero .polaroid { max-width: 260px; margin: 0 auto; }
+        }
+      `}</style>
     </section>
   );
 };
