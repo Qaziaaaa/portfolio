@@ -114,7 +114,7 @@ Implement a fully client-side RAG chatbot widget for the portfolio site. The pip
     - Jina API 500 → `EmbeddingError` propagates (Req 2.3)
     - Second call when store is populated → `embedTexts` not called again (idempotent)
 
-- [ ] 7. Checkpoint — Ensure all library unit and property tests pass
+- [~] 7. Checkpoint — Ensure all library unit and property tests pass
   - Run `npx vitest --run src/lib/chatbot` and confirm all tests pass
   - Ask the user if any questions arise before proceeding to the retriever and Groq client
 
@@ -245,7 +245,7 @@ Implement a fully client-side RAG chatbot widget for the portfolio site. The pip
     - Missing API key → configuration message visible (Req 6.5)
     - `prefers-reduced-motion: reduce` → animation classes absent on `<TypingIndicator>` (Req 8.4)
 
-- [ ] 12. Checkpoint — Ensure all component tests pass
+- [~] 12. Checkpoint — Ensure all component tests pass
   - Run `npx vitest --run src/components/chatbot` and confirm all tests pass
   - Ask the user if any questions arise before wiring everything together
 
