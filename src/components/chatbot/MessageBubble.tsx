@@ -14,13 +14,13 @@ function renderInline(text: string): React.ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*|https?:\/\/[^\s,)>\]]+)/g);
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={i} className="font-semibold text-charcoal-900">{part.slice(2, -2)}</strong>;
+      return <strong key={i} className="font-semibold text-ink">{part.slice(2, -2)}</strong>;
     }
     if (/^https?:\/\//.test(part)) {
       const display = part.replace(/^https?:\/\//, '').replace(/\/$/, '');
       return (
         <a key={i} href={part} target="_blank" rel="noopener noreferrer"
-          className="underline underline-offset-2 text-terra-500 hover:text-terra-600 transition-colors break-all">
+          className="underline underline-offset-2 text-coral hover:text-coral-dark transition-colors break-all">
           {display}
         </a>
       );
@@ -41,7 +41,7 @@ function parseContent(text: string): React.ReactNode[] {
     }
     if (/^#{1,2}\s/.test(t)) {
       nodes.push(
-        <p key={i} className="font-semibold text-charcoal-900 text-[13px] mt-1.5 mb-0.5">
+        <p key={i} className="font-semibold text-ink text-[13px] mt-1.5 mb-0.5">
           {t.replace(/^#{1,2}\s/, '')}
         </p>
       );
@@ -50,14 +50,14 @@ function parseContent(text: string): React.ReactNode[] {
     if (/^[•\-*]\s/.test(t)) {
       nodes.push(
         <div key={i} className="flex gap-2 items-start">
-          <span className="text-terra-500 shrink-0 mt-0.5 text-[10px] leading-[1.6]">▸</span>
-          <span className="text-[13px] text-charcoal-800/80 leading-relaxed">{renderInline(t.replace(/^[•\-*]\s/, ''))}</span>
+          <span className="text-coral shrink-0 mt-0.5 text-[10px] leading-[1.6]">▸</span>
+          <span className="text-[13px] leading-relaxed">{renderInline(t.replace(/^[•\-*]\s/, ''))}</span>
         </div>
       );
       return;
     }
     nodes.push(
-      <p key={i} className="text-[13px] text-charcoal-800/80 leading-relaxed">
+      <p key={i} className="text-[13px] leading-relaxed">
         {renderInline(t)}
       </p>
     );
@@ -72,11 +72,11 @@ export const MessageBubble = memo(function MessageBubble({ message }: Props) {
   if (isUser) {
     return (
       <div className="flex justify-end">
-        <div className="max-w-[78%]">
-          <div className="bg-terra-500 text-white text-[13px] font-medium px-3.5 py-2.5 rounded-2xl rounded-br-md leading-relaxed">
+        <div className="max-w-[80%]">
+          <div className="chat-bubble-user">
             {message.content}
           </div>
-          <p className="text-[9px] text-charcoal-800/30 text-right mt-1 pr-0.5">
+          <p className="chat-time text-right mt-1 pr-1">
             {relativeTime(message.timestamp)}
           </p>
         </div>
@@ -86,14 +86,12 @@ export const MessageBubble = memo(function MessageBubble({ message }: Props) {
 
   return (
     <div className="flex gap-2 items-start">
-      <div className="w-5 h-5 rounded-lg bg-terra-500/10 border border-terra-500/20 flex items-center justify-center shrink-0 mt-0.5">
-        <span className="text-[8px] font-bold text-terra-500">Q</span>
-      </div>
+      <div className="chat-avatar chat-avatar-sm shrink-0 mt-1">Q</div>
       <div className="flex-1 min-w-0">
-        <div className="bg-cream-200/60 border border-cream-300 rounded-2xl rounded-tl-md px-3.5 py-3 space-y-1">
+        <div className="chat-bubble-bot">
           {parseContent(message.content)}
         </div>
-        <p className="text-[9px] text-charcoal-800/30 mt-1 pl-0.5">
+        <p className="chat-time mt-1 pl-1">
           {relativeTime(message.timestamp)}
         </p>
       </div>

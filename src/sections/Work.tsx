@@ -73,7 +73,7 @@ const Work = () => {
           once: true,
           onEnter: () => {
             gsap.fromTo('.work-header', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' });
-            gsap.fromTo('.gcard', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.09, ease: 'expo.out', delay: 0.15 });
+            gsap.fromTo('.gcard', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.09, ease: 'expo.out', delay: 0.15, clearProps: 'transform' });
           },
         })
       );

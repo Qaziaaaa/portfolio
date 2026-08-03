@@ -38,7 +38,7 @@ const Experience = () => {
         trigger: sectionRef.current, start: 'top 78%', once: true,
         onEnter: () => {
           gsap.fromTo('.exp-header', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .6, ease: 'expo.out' });
-          gsap.fromTo('.exp-card',   { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: .55, stagger: .12, ease: 'expo.out', delay: .15 });
+          gsap.fromTo('.exp-card',   { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: .55, stagger: .12, ease: 'expo.out', delay: .15, clearProps: 'transform' });
         },
       });
     });

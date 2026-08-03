@@ -27,8 +27,8 @@ const About = () => {
         ScrollTrigger.create({
           trigger: sectionRef.current, start: 'top 75%', once: true,
           onEnter: () => {
-            gsap.fromTo('.about-polaroid', { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: .9, ease: 'expo.out' });
-            gsap.fromTo('.about-text-col', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .7, ease: 'expo.out', delay: .15 });
+            gsap.fromTo('.about-polaroid', { opacity: 0, x: -30, rotation: -3 }, { opacity: 1, x: 0, rotation: -3, duration: .9, ease: 'expo.out' });
+            gsap.fromTo('.about-text-col', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .7, ease: 'expo.out', delay: .15, clearProps: 'transform' });
           }
         })
       );

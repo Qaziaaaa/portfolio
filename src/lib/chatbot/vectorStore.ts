@@ -3,7 +3,8 @@ import type { VectorEntry } from './types';
 /**
  * Module-level singleton vector store.
  * Persists for the duration of the browser session.
- * Never written to localStorage — embeddings are re-generated on page reload.
+ * Raw vectors live only in memory; the initializer may cache the source
+ * embeddings in localStorage so a reload can skip the embedding API call.
  */
 let store: VectorEntry[] = [];
 

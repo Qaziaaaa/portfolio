@@ -52,7 +52,7 @@ const WhyWorkWithMe = () => {
         start: 'top 80%',
         onEnter: () => {
           gsap.fromTo('.why-header', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' });
-          gsap.fromTo('.why-card', { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'expo.out', delay: 0.2 });
+          gsap.fromTo('.why-card', { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'expo.out', delay: 0.2, clearProps: 'transform' });
         },
         once: true,
       });

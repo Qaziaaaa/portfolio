@@ -14,6 +14,26 @@ export default function ChatbotWidget() {
   const { status, messages, isStreaming, sendMessage, clearHistory, initializeIfNeeded } =
     useChatbot();
 
+  // Pre-warm the assistant in the background so opening the chat is instant.
+  // Runs during browser idle (fallback: a short delay) instead of on first click.
+  useEffect(() => {
+    const warm = () => initializeIfNeeded();
+    const hasIdleCallback = typeof window !== 'undefined' && 'requestIdleCallback' in window;
+    const id = hasIdleCallback
+      ? (window as unknown as {
+          requestIdleCallback(cb: () => void, opts?: { timeout: number }): number;
+        }).requestIdleCallback(warm, { timeout: 2500 })
+      : window.setTimeout(warm, 1200);
+
+    return () => {
+      if (hasIdleCallback) {
+        (window as unknown as { cancelIdleCallback?(id: number): void }).cancelIdleCallback?.(id);
+      } else {
+        window.clearTimeout(id);
+      }
+    };
+  }, [initializeIfNeeded]);
+
   useEffect(() => {
     if (isOpen && !initializedRef.current) {
       initializedRef.current = true;
@@ -23,6 +43,8 @@ export default function ChatbotWidget() {
 
   const handleToggle = useCallback(() => setIsOpen((p) => !p), []);
   const handleClose = useCallback(() => setIsOpen(false), []);
+  // Hovering the toggle also kicks off initialization (idempotent).
+  const handleWarmHover = useCallback(() => initializeIfNeeded(), [initializeIfNeeded]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -82,17 +104,13 @@ export default function ChatbotWidget() {
       <div className="fixed bottom-5 right-5 z-[1000]">
         <button
           onClick={handleToggle}
-          className={[
-            'w-[52px] h-[52px] rounded-full flex items-center justify-center',
-            'shadow-[0_4px_24px_rgba(0,0,0,0.15)] transition-all duration-200',
-            'focus:outline-none focus-visible:ring-2 focus-visible:ring-terra-500/40',
-            isOpen
-              ? 'bg-cream-200 border border-cream-400 text-charcoal-800/70 hover:text-charcoal-900 hover:border-cream-500'
-              : 'bg-terra-500 text-white hover:scale-105 hover:bg-terra-600 hover:shadow-[0_4px_32px_rgba(196,98,58,0.3)]',
-          ].join(' ')}
+          onMouseEnter={handleWarmHover}
+          onFocus={handleWarmHover}
+          className={`chat-toggle${isOpen ? ' is-open' : ''}`}
           aria-label={isOpen ? 'Close chat' : "Chat with Qazi's assistant"}
           aria-expanded={isOpen}
         >
+          <span className="chat-tape-strip" aria-hidden="true" />
           {isOpen
             ? <X className="w-5 h-5" />
             : <MessageSquare className="w-5 h-5" />
