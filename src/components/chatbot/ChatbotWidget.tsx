@@ -83,12 +83,12 @@ export default function ChatbotWidget() {
         <button
           onClick={handleToggle}
           className={[
-            'w-13 h-13 w-[52px] h-[52px] rounded-full flex items-center justify-center',
-            'shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-all duration-200',
-            'focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40',
+            'w-[52px] h-[52px] rounded-full flex items-center justify-center',
+            'shadow-[0_4px_24px_rgba(0,0,0,0.15)] transition-all duration-200',
+            'focus:outline-none focus-visible:ring-2 focus-visible:ring-terra-500/40',
             isOpen
-              ? 'bg-[#1a1a1a] border border-white/15 text-white/70 hover:text-white hover:border-white/30'
-              : 'bg-white text-black hover:scale-105 hover:shadow-[0_4px_32px_rgba(255,255,255,0.15)]',
+              ? 'bg-cream-200 border border-cream-400 text-charcoal-800/70 hover:text-charcoal-900 hover:border-cream-500'
+              : 'bg-terra-500 text-white hover:scale-105 hover:bg-terra-600 hover:shadow-[0_4px_32px_rgba(196,98,58,0.3)]',
           ].join(' ')}
           aria-label={isOpen ? 'Close chat' : "Chat with Qazi's assistant"}
           aria-expanded={isOpen}

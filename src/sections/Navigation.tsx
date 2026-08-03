@@ -10,7 +10,6 @@ const Navigation = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -19,9 +18,7 @@ const Navigation = () => {
     const mm = gsap.matchMedia();
 
     mm.add('(min-width: 1024px)', () => {
-      // Entrance animation — desktop only
       const tl = gsap.timeline({ delay: 0.2 });
-
       tl.fromTo('.nav-logo',
         { opacity: 0, y: -20 },
         { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }
@@ -38,9 +35,7 @@ const Navigation = () => {
         );
     });
 
-    return () => {
-      mm.revert();
-    };
+    return () => { mm.revert(); };
   }, []);
 
   const scrollToSection = (sectionId: string) => {
@@ -60,32 +55,22 @@ const Navigation = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-          ? 'glass border-b border-white/10'
-          : 'bg-transparent'
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled
+            ? 'bg-cream-100/95 backdrop-blur-sm border-b border-cream-300 shadow-warm'
+            : 'bg-cream-100/80 backdrop-blur-sm'
+        }`}
       >
-        <div className="w-[95%] max-w-[90rem] mx-auto h-20 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-6 h-18 flex items-center justify-between" style={{ height: '72px' }}>
           {/* Logo */}
           <button
             onClick={() => {
               scrollToSection('hero');
               window.dispatchEvent(new Event('triggerHeroAnimation'));
             }}
-            className="nav-logo inline-flex items-center gap-2 text-xl font-semibold tracking-tight text-white lg:hover:opacity-80 transition-opacity"
+            className="nav-logo font-serif text-xl font-semibold text-charcoal-900 hover:text-terra-500 transition-colors"
           >
-            <span
-              aria-hidden="true"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm"
-            >
-              <svg viewBox="0 0 40 40" fill="none" className="h-6 w-6">
-                <circle cx="20" cy="20" r="14" stroke="white" strokeWidth="2.5" />
-                <path d="M16 16L20 20L16 24" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <line x1="22" y1="24" x2="26" y2="24" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M28 28L34 34" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-              </svg>
-            </span>
-            PORTFOLIO
+            Qazi.
           </button>
 
           {/* Desktop Navigation */}
@@ -94,10 +79,10 @@ const Navigation = () => {
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="nav-link relative text-sm font-medium text-white/80 lg:hover:text-white transition-colors group"
+                className="nav-link relative text-sm font-medium text-charcoal-800 hover:text-terra-500 transition-colors group"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-1/2 w-0 h-[1px] bg-white transition-all duration-300 lg:group-hover:w-full lg:group-hover:left-0" />
+                <span className="absolute -bottom-1 left-1/2 w-0 h-[1.5px] bg-terra-500 transition-all duration-300 group-hover:w-full group-hover:left-0" />
               </button>
             ))}
           </div>
@@ -105,7 +90,7 @@ const Navigation = () => {
           {/* CTA Button */}
           <button
             onClick={() => scrollToSection('contact')}
-            className="nav-cta hidden md:block px-5 py-2.5 bg-white text-black text-sm font-medium rounded-full lg:hover:bg-white/90 transition-all duration-300 lg:hover:scale-105"
+            className="nav-cta hidden md:block bg-terra-500 text-white text-sm font-medium rounded-full px-5 py-2.5 hover:bg-terra-600 transition-colors"
           >
             Let&apos;s Talk
           </button>
@@ -113,7 +98,7 @@ const Navigation = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-white"
+            className="md:hidden p-2 text-charcoal-900"
             aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -123,31 +108,33 @@ const Navigation = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-40 md:hidden transition-all duration-500 ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-          }`}
+        className={`fixed inset-0 z-40 md:hidden transition-all duration-500 ${
+          isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+        }`}
       >
         <div
-          className="absolute inset-0 bg-black/80 backdrop-blur-xl"
+          className="absolute inset-0 bg-charcoal-900/30 backdrop-blur-sm"
           onClick={() => setIsMobileMenuOpen(false)}
         />
         <div
-          className={`absolute right-0 top-0 h-full w-[80%] max-w-sm bg-[#0a0a0a] border-l border-white/10 transform transition-transform duration-500 ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-            }`}
+          className={`absolute right-0 top-0 h-full w-[80%] max-w-sm bg-cream-100 border-l border-cream-300 shadow-warm-lg transform transition-transform duration-500 ${
+            isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
         >
           <div className="flex flex-col items-start gap-6 p-8 pt-24">
-            {navLinks.map((link, index) => (
+            <p className="font-hand text-terra-500 text-2xl mb-2">navigation</p>
+            {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="text-2xl font-medium text-white/80 lg:hover:text-white transition-colors"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="font-serif text-2xl font-semibold text-charcoal-900 hover:text-terra-500 transition-colors"
               >
                 {link.label}
               </button>
             ))}
             <button
               onClick={() => scrollToSection('contact')}
-              className="mt-4 px-6 py-3 bg-white text-black font-medium rounded-full"
+              className="mt-4 bg-terra-500 text-white font-medium rounded-full px-6 py-3 hover:bg-terra-600 transition-colors"
             >
               Let&apos;s Talk
             </button>

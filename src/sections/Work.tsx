@@ -1,96 +1,108 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowUpRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface Project {
   id: number;
-  title?: string;
-  description?: string;
-  image?: string;
-  tags?: string[];
-  link?: string;
+  title: string;
+  description: string;
+  tags: string[];
+  link: string;
+  gradient: string;
 }
 
 const projects: Project[] = [
-  { 
-    id: 0, 
+  {
+    id: 0,
     link: 'https://ecommerce-store-one-ochre.vercel.app/',
-    title: 'NOVA E-Commerce Platform',
+    title: 'NOVA E-Commerce',
     description: 'Production-grade MERN shopping platform — Stripe payments, OTP auth, real-time stock, admin panel.',
-    tags: ['React', 'Node.js', 'MongoDB', 'Stripe']
+    tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+    gradient: 'from-terra-400/20 to-cream-300',
   },
-  { 
-    id: 1, 
+  {
+    id: 1,
     link: 'https://hiking-app-puce.vercel.app/',
-    title: 'HIKI — Hiking Guide App',
+    title: 'HIKI Hiking App',
     description: 'Full-stack MERN hiking app with trail discovery, authentication, admin dashboard, and blog.',
-    tags: ['MERN', 'Full Stack', 'Cloudinary']
+    tags: ['MERN', 'Full Stack', 'Cloudinary'],
+    gradient: 'from-green-200/40 to-cream-300',
   },
-  { 
-    id: 2, 
+  {
+    id: 2,
     link: 'https://qazixcode.netlify.app/',
     title: 'QAZI-X Portfolio',
     description: 'Futuristic cyberpunk OS-inspired developer portfolio with cinematic animations.',
-    tags: ['React', 'TypeScript', 'Framer Motion']
+    tags: ['React', 'TypeScript', 'Framer Motion'],
+    gradient: 'from-purple-200/30 to-cream-300',
   },
-  { 
-    id: 3, 
+  {
+    id: 3,
     link: 'https://agencyxai.netlify.app',
     title: 'Agency X AI',
     description: 'Modern AI agency landing page with sophisticated animations and glassmorphism design.',
-    tags: ['Next.js', 'AI', 'Framer Motion']
+    tags: ['Next.js', 'AI', 'Framer Motion'],
+    gradient: 'from-blue-200/30 to-cream-300',
   },
-  { 
-    id: 4, 
+  {
+    id: 4,
     link: 'https://github.com/Qaziaaaa/Olipop-animated-site',
     title: 'OLIPOP Animated Clone',
     description: 'Premium parallax product page with flavor carousel, smooth scroll, and cart interactions.',
-    tags: ['React', 'Tailwind', 'Framer Motion']
-  }
+    tags: ['React', 'Tailwind', 'Framer Motion'],
+    gradient: 'from-yellow-200/30 to-cream-300',
+  },
 ];
 
 const ProjectCard = ({ project }: { project: Project }) => {
-  const hasLink = !!project.link;
-  const CardRoot = hasLink ? 'a' : 'div';
-
   return (
-    <CardRoot
+    <a
       href={project.link}
-      target={hasLink ? "_blank" : undefined}
-      rel={hasLink ? "noopener noreferrer" : undefined}
-      className="work-card group bg-[#0c0c0c] border border-white/5 rounded-2xl p-5 sm:p-6 transition-all duration-500 lg:hover:border-white/20 lg:hover:-translate-y-1 lg:hover:shadow-[0_0_30px_rgba(255,255,255,0.07),0_8px_40px_rgba(0,0,0,0.5)] flex flex-col flex-shrink-0 w-[90vw] sm:w-[65vw] md:w-[50vw] lg:w-[38vw] xl:w-[32vw] aspect-square sm:aspect-auto sm:min-h-[380px]"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="work-card group bg-white rounded-2xl overflow-hidden shadow-warm hover:shadow-warm-lg transition-all duration-300 hover:-translate-y-1 border border-cream-300/60 flex flex-col flex-shrink-0 w-[85vw] sm:w-[60vw] md:w-[44vw] lg:w-[36vw] xl:w-[30vw]"
     >
-      {/* Wireframe Placeholder */}
-      <div className="bg-[#151515] rounded-xl p-4 sm:p-5 h-32 sm:h-44 mb-4 sm:mb-5 flex flex-col gap-2 sm:gap-3 relative overflow-hidden border border-white/[0.02] flex-shrink-0">
-        {/* Animated gradient sweep effect on hover — desktop only */}
-        <div className="shimmer-overlay absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.03] to-transparent lg:group-hover:animate-[shimmer_1.5s_infinite]" />
-        
-        <div className="w-3/4 h-3 sm:h-4 bg-white/5 rounded-full" />
-        <div className="w-1/2 h-3 sm:h-4 bg-white/5 rounded-full" />
-        
-        <div className="flex gap-2 mt-auto">
-          <div className="w-12 sm:w-14 h-6 sm:h-7 bg-white/5 rounded-md" />
-          <div className="w-12 sm:w-14 h-6 sm:h-7 bg-white/5 rounded-md" />
-        </div>
+      {/* Gradient placeholder area */}
+      <div className={`h-44 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}>
+        <span className="font-serif text-2xl font-semibold text-charcoal-900/40 group-hover:text-charcoal-900/60 transition-colors">
+          {project.title}
+        </span>
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-terra-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
-      <div className="flex flex-col flex-1">
-        <h3 className="text-lg sm:text-2xl font-bold text-white mb-2 line-clamp-1">
+      {/* Card body */}
+      <div className="p-6 flex flex-col flex-1">
+        <h3 className="font-serif text-xl font-semibold text-charcoal-900 mb-2 group-hover:text-terra-500 transition-colors">
           {project.title}
         </h3>
-        
-        <p className="text-white/60 text-xs sm:text-base leading-relaxed mb-3 sm:mb-4 line-clamp-2 sm:line-clamp-none">
+
+        <p className="text-sm text-charcoal-800/70 leading-relaxed mb-4 flex-1">
           {project.description}
         </p>
 
-        {/* Button pushed to the bottom using mt-auto */}
-        <button className="card-btn w-full py-2.5 sm:py-3 bg-[#151515] lg:group-hover:bg-white/10 text-white/80 lg:group-hover:text-white rounded-lg sm:rounded-xl transition-colors font-medium text-xs sm:text-base mt-auto">
-          View Details
-        </button>
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.tags.map((tag, i) => (
+            <span
+              key={i}
+              className="px-3 py-1 text-xs font-medium bg-cream-200 rounded-full text-charcoal-800/70 border border-cream-300"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Link */}
+        <div className="flex items-center gap-1.5 text-terra-500 text-sm font-medium">
+          View Project
+          <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+        </div>
       </div>
-    </CardRoot>
+    </a>
   );
 };
 
@@ -104,39 +116,30 @@ const Work = () => {
     const container = containerRef.current;
     if (!section || !container) return;
 
-    // Horizontal scroll and animations for desktop
     const mm = gsap.matchMedia();
 
     mm.add('(min-width: 768px)', () => {
-      // Title animation (desktop only)
+      // Title entrance
       const titleTrigger = ScrollTrigger.create({
         trigger: section,
         start: 'top 80%',
         onEnter: () => {
-          gsap.fromTo('.work-title-char',
-            { opacity: 0, y: 100, rotateX: 90 },
-            {
-              opacity: 1,
-              y: 0,
-              rotateX: 0,
-              duration: 0.8,
-              stagger: 0.03,
-              ease: 'expo.out'
-            }
-          );
-          gsap.fromTo('.work-subtitle',
+          gsap.fromTo('.work-header',
             { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.6, delay: 0.4, ease: 'expo.out' }
+            { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }
           );
         },
-        once: true
+        once: true,
       });
       triggersRef.current.push(titleTrigger);
 
       const cards = container.querySelectorAll('.work-card');
-      const totalWidth = Array.from(cards).reduce((acc, card) => acc + (card as HTMLElement).offsetWidth + 64, 0);
+      const totalWidth = Array.from(cards).reduce(
+        (acc, card) => acc + (card as HTMLElement).offsetWidth + 64,
+        0
+      );
 
-      // Main horizontal scroll timeline
+      // Horizontal scroll timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -145,18 +148,14 @@ const Work = () => {
           pin: true,
           scrub: 0.5,
           invalidateOnRefresh: true,
-        }
+        },
       });
 
-      // Horizontal movement and progress bar sync
       tl.to(container, {
         x: () => -(totalWidth - window.innerWidth + 100),
         ease: 'none',
       }, 0)
-      .to('.work-progress-bar', {
-        scaleX: 1,
-        ease: 'none',
-      }, 0);
+        .to('.work-progress-bar', { scaleX: 1, ease: 'none' }, 0);
 
       if (tl.scrollTrigger) {
         triggersRef.current.push(tl.scrollTrigger);
@@ -164,54 +163,43 @@ const Work = () => {
     });
 
     return () => {
-      triggersRef.current.forEach(trigger => trigger.kill());
+      triggersRef.current.forEach(t => t.kill());
       triggersRef.current = [];
       mm.revert();
     };
   }, []);
 
-  const titleText = 'Selected Work';
-
   return (
-    <section id="work" ref={sectionRef} className="relative bg-[#010101] min-h-screen pt-12 overflow-hidden">
-      {/* Scroll Progress Tracker (Desktop only) */}
-      <div className="hidden md:block absolute top-[85px] left-0 right-0 z-50 w-full px-4 sm:px-6 lg:px-8 pointer-events-none">
-        <div className="w-full h-[6px] bg-white/10 rounded-full overflow-hidden">
-          <div 
-            className="work-progress-bar h-full bg-white origin-left shadow-[0_0_15px_rgba(255,255,255,0.5)]"
-            style={{ 
-              transform: 'scaleX(0)',
-              willChange: 'transform'
-            }}
+    <section
+      id="work"
+      ref={sectionRef}
+      className="bg-cream-100 min-h-screen pt-12 overflow-hidden"
+    >
+      {/* Progress bar (desktop) */}
+      <div className="hidden md:block absolute top-[85px] left-0 right-0 z-50 w-full px-6 pointer-events-none">
+        <div className="w-full h-1 bg-cream-300 rounded-full overflow-hidden">
+          <div
+            className="work-progress-bar h-full bg-terra-500 origin-left"
+            style={{ transform: 'scaleX(0)', willChange: 'transform' }}
           />
         </div>
       </div>
 
-      {/* Subtle Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30 pointer-events-none" />
-
-      {/* Section Header */}
-      <div className="relative z-10 w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 md:py-24">
-        <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-medium text-white tracking-tight mb-3 sm:mb-4 overflow-hidden">
-          {titleText.split('').map((char, index) => (
-            <span
-              key={index}
-              className="work-title-char inline-block"
-              style={{ display: char === ' ' ? 'inline' : 'inline-block' }}
-            >
-              {char === ' ' ? '\u00A0' : char}
-            </span>
-          ))}
+      {/* Section header */}
+      <div className="work-header max-w-6xl mx-auto px-6 py-10 sm:py-16">
+        <p className="font-hand text-terra-500 text-xl mb-2">selected work</p>
+        <h2 className="font-serif text-4xl sm:text-5xl font-semibold text-charcoal-900 mb-3">
+          Selected Work
         </h2>
-        <p className="work-subtitle text-lg md:text-xl text-white/80 max-w-xl">
-          A curated selection of full-stack projects focusing on user interface, modern architecture, and blazing fast performance.
+        <p className="text-charcoal-800/60 max-w-xl">
+          A curated selection of full-stack projects focusing on user interface, modern architecture, and performance.
         </p>
       </div>
 
-      {/* Projects Container (Horizontal Scroll on Desktop, Stacked on Mobile) */}
+      {/* Projects — horizontal scroll on desktop, grid on mobile */}
       <div
         ref={containerRef}
-        className="relative z-10 flex gap-6 sm:gap-8 md:gap-16 px-4 sm:px-8 lg:px-12 pb-20 md:pb-32 flex-wrap md:flex-nowrap justify-center md:justify-start md:min-w-max items-stretch"
+        className="flex gap-6 md:gap-10 px-6 md:px-12 pb-20 md:pb-32 flex-wrap md:flex-nowrap justify-center md:justify-start md:min-w-max items-stretch sm:grid sm:grid-cols-2 md:flex"
       >
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />

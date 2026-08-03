@@ -21,14 +21,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   useEffect(() => {
-    gsap.config({
-      nullTargetWarn: false,
-    });
-
-    gsap.defaults({
-      ease: 'expo.out',
-    });
-
+    gsap.config({ nullTargetWarn: false });
     ScrollTrigger.refresh();
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -42,7 +35,7 @@ function App() {
   }, []);
 
   return (
-    <div className="relative bg-[#010101] min-h-screen custom-scrollbar overflow-x-hidden">
+    <div className="bg-cream-100 min-h-screen overflow-x-hidden custom-scrollbar">
       <Suspense fallback={null}>
         <Navigation />
       </Suspense>

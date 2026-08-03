@@ -1,63 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface Stat {
-  value: number;
-  suffix: string;
-  label: string;
-}
-
-const stats: Stat[] = [
-  { value: 10, suffix: '+', label: 'Projects Shipped' },
-  { value: 25, suffix: '+', label: 'GitHub Repos' },
-  { value: 299, suffix: '+', label: 'Contributions' },
+const stats = [
+  { value: '10+', label: 'Projects Shipped' },
+  { value: '25+', label: 'GitHub Repos' },
+  { value: '299+', label: 'Contributions' },
 ];
-
-const CountUp = ({ end, suffix, duration = 1.5 }: { end: number; suffix: string; duration?: number }) => {
-  const [count, setCount] = useState(0);
-  const countRef = useRef<HTMLSpanElement>(null);
-  const hasAnimated = useRef(false);
-
-  useEffect(() => {
-    const element = countRef.current;
-    if (!element || hasAnimated.current) return;
-
-    // Disable animation on mobile
-    if (window.innerWidth < 1024) {
-      setCount(end);
-      return;
-    }
-
-    const trigger = ScrollTrigger.create({
-      trigger: element,
-      start: 'top 85%',
-      onEnter: () => {
-        if (hasAnimated.current) return;
-        hasAnimated.current = true;
-
-        gsap.to({ value: 0 }, {
-          value: end,
-          duration,
-          ease: 'expo.out',
-          onUpdate: function () {
-            setCount(Math.round(this.targets()[0].value));
-          }
-        });
-      }
-    });
-
-    return () => trigger.kill();
-  }, [end, duration]);
-
-  return (
-    <span ref={countRef}>
-      {count}{suffix}
-    </span>
-  );
-};
 
 const About = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -71,217 +22,133 @@ const About = () => {
     mm.add('(min-width: 1024px)', () => {
       const triggers: ScrollTrigger[] = [];
 
-      // Section label typewriter effect
-      const labelTrigger = ScrollTrigger.create({
-        trigger: section,
-        start: 'top 80%',
-        onEnter: () => {
-          gsap.fromTo('.about-label',
-            { opacity: 0, width: 0 },
-            { opacity: 1, width: 'auto', duration: 0.6, ease: 'none' }
-          );
-        },
-        once: true
-      });
-      triggers.push(labelTrigger);
+      triggers.push(
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top 75%',
+          onEnter: () => {
+            gsap.fromTo('.about-polaroid',
+              { opacity: 0, rotate: 0, x: -40 },
+              { opacity: 1, rotate: -2, x: 0, duration: 0.9, ease: 'expo.out' }
+            );
+          },
+          once: true,
+        }),
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top 70%',
+          onEnter: () => {
+            gsap.fromTo('.about-label',
+              { opacity: 0, y: 15 },
+              { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out' }
+            );
+            gsap.fromTo('.about-heading',
+              { opacity: 0, y: 30 },
+              { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out', delay: 0.1 }
+            );
+          },
+          once: true,
+        }),
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top 65%',
+          onEnter: () => {
+            gsap.fromTo('.about-paragraph',
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.5, stagger: 0.12, ease: 'expo.out', delay: 0.2 }
+            );
+          },
+          once: true,
+        }),
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top 60%',
+          onEnter: () => {
+            gsap.fromTo('.about-stat-card',
+              { opacity: 0, y: 20, scale: 0.95 },
+              { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.1, ease: 'expo.out', delay: 0.3 }
+            );
+          },
+          once: true,
+        })
+      );
 
-      // Headline word animation
-      const headlineTrigger = ScrollTrigger.create({
-        trigger: section,
-        start: 'top 75%',
-        onEnter: () => {
-          gsap.fromTo('.about-word',
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'expo.out', delay: 0.2 }
-          );
-        },
-        once: true
-      });
-      triggers.push(headlineTrigger);
-
-      // Image animation
-      const imageTrigger = ScrollTrigger.create({
-        trigger: section,
-        start: 'top 70%',
-        onEnter: () => {
-          gsap.fromTo('.about-image',
-            { x: -100, rotate: -5, opacity: 0 },
-            { x: 0, rotate: -2, opacity: 1, duration: 1, ease: 'expo.out', delay: 0.4 }
-          );
-          gsap.fromTo('.about-image-overlay',
-            { scaleY: 1, transformOrigin: 'top' },
-            { scaleY: 0, duration: 0.8, ease: 'expo.out', delay: 0.4 }
-          );
-        },
-        once: true
-      });
-      triggers.push(imageTrigger);
-
-      // Paragraphs animation
-      const paragraphsTrigger = ScrollTrigger.create({
-        trigger: section,
-        start: 'top 65%',
-        onEnter: () => {
-          gsap.fromTo('.about-paragraph',
-            { opacity: 0, y: 25 },
-            { opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'expo.out', delay: 0.8 }
-          );
-        },
-        once: true
-      });
-      triggers.push(paragraphsTrigger);
-
-      // Stats cards animation
-      const statsTrigger = ScrollTrigger.create({
-        trigger: section,
-        start: 'top 60%',
-        onEnter: () => {
-          gsap.fromTo('.stat-card',
-            { scale: 0, rotateX: 45, z: -100 },
-            { scale: 1, rotateX: 0, z: 0, duration: 0.6, stagger: 0.15, ease: 'elastic.out(1, 0.5)', delay: 1 }
-          );
-        },
-        once: true
-      });
-      triggers.push(statsTrigger);
-
-      // Parallax effect on scroll
-      const parallaxTrigger = ScrollTrigger.create({
-        trigger: section,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          gsap.set('.about-image', { y: progress * -50 });
-          gsap.set('.stat-card-1', { y: progress * 30 });
-          gsap.set('.stat-card-2', { y: progress * -20 });
-          gsap.set('.stat-card-3', { y: progress * 40 });
-        }
-      });
-      triggers.push(parallaxTrigger);
-
-      return () => {
-        triggers.forEach(trigger => trigger.kill());
-      };
+      return () => { triggers.forEach(t => t.kill()); };
     });
 
-    return () => {
-      mm.revert();
-    };
+    return () => { mm.revert(); };
   }, []);
-
-  const headlineWords = ['Building', 'Solutions,', 'Not', 'Just', 'Websites'];
 
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="relative bg-[#010101] py-16 md:py-24 overflow-hidden"
+      className="bg-cream-200/50 py-24"
     >
-      {/* Background gradient mesh */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
-      </div>
-
-      <div className="relative z-10 w-[95%] max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="flex flex-col items-center lg:items-start">
-            {/* Shared anchor for image and stats */}
-            <div className="relative w-full sm:w-[70%] lg:w-[75%] max-w-[380px] mx-auto lg:mx-0 lg:ml-8 xl:ml-16">
-              {/* Main Image */}
-              <div className="about-image relative">
-                {/* Outer decorative glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent blur-2xl rounded-full opacity-50" />
-
-                {/* Premium Glass Frame */}
-                <div className="relative p-2 sm:p-3 bg-white/[0.03] rounded-[2rem] border border-white/10 backdrop-blur-md shadow-2xl shadow-black/80">
-                  <div className="relative rounded-[1.5rem] overflow-hidden bg-[#0c0c0c] ring-1 ring-inset ring-white/10" style={{ transform: 'translateZ(0)' }}>
-                    <img
-                      src="/profile.webp"
-                      alt="Qazi Farhan Ahmad — AI Web Developer and MERN Stack Expert"
-                      fetchPriority="high"
-                      decoding="async"
-                      loading="eager"
-                      className="w-full aspect-[3/4] sm:aspect-[4/4.5] object-cover"
-                      style={{ 
-                        width: '100%',
-                        height: 'auto',
-                        objectFit: 'cover'
-                      }}
-                    />
-                    <div className="about-image-overlay absolute inset-0 bg-[#010101] hidden lg:block" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Stats Cards — absolute on desktop, flex row on mobile */}
-              <div className="mt-6 lg:mt-0 flex flex-row justify-around gap-3 lg:block">
-                <div className="stat-card stat-card-1 flex-1 lg:flex-none lg:absolute lg:-top-6 lg:-right-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left z-20">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
-                    <CountUp end={stats[0].value} suffix={stats[0].suffix} />
-                  </div>
-                  <div className="text-[10px] sm:text-xs md:text-sm text-white/80 mt-1">{stats[0].label}</div>
-                </div>
-
-                <div className="stat-card stat-card-2 flex-1 lg:flex-none lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:-left-16 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left z-20">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
-                    <CountUp end={stats[1].value} suffix={stats[1].suffix} />
-                  </div>
-                  <div className="text-[10px] sm:text-xs md:text-sm text-white/80 mt-1">{stats[1].label}</div>
-                </div>
-
-                <div className="stat-card stat-card-3 flex-1 lg:flex-none lg:absolute lg:-bottom-6 lg:-right-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 text-center lg:text-left z-20">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
-                    <CountUp end={stats[2].value} suffix={stats[2].suffix} />
-                  </div>
-                  <div className="text-[10px] sm:text-xs md:text-sm text-white/80 mt-1">{stats[2].label}</div>
-                </div>
-              </div>
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Image column */}
+          <div className="flex justify-center">
+            <div className="about-polaroid bg-white p-3 pb-10 shadow-[0_8px_40px_rgba(0,0,0,0.10)] -rotate-2 rounded-sm">
+              <img
+                src="/profile.webp"
+                alt="Qazi Farhan Ahmad"
+                className="w-72 aspect-[3/4] object-cover rounded-sm"
+                loading="lazy"
+              />
+              <p className="font-hand text-center mt-3 text-charcoal-800 text-lg">
+                hi again 👋
+              </p>
             </div>
           </div>
 
-          {/* Right Column - Content */}
+          {/* Content column */}
           <div>
-            {/* Label */}
-            <div className="about-label overflow-hidden whitespace-nowrap mb-6">
-              <span className="text-sm font-medium text-white/80 uppercase tracking-widest">
-                About Me
-              </span>
-            </div>
-
-            {/* Headline */}
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-white leading-tight tracking-tight mb-6 sm:mb-8">
-              {headlineWords.map((word, index) => (
-                <span key={index} className="about-word inline-block mr-[0.25em]">
-                  {word}
-                </span>
-              ))}
+            <p className="about-label font-hand text-terra-500 text-xl mb-2">about me</p>
+            <h2 className="about-heading font-serif text-4xl font-semibold text-charcoal-900 mb-6 leading-tight">
+              A developer who builds solutions, not just websites
             </h2>
 
-            {/* Paragraphs */}
-            <div className="space-y-5">
-              <p className="about-paragraph text-base md:text-lg text-white/70 leading-relaxed">
-                I'm Qazi Farhan Ahmad — an AI-focused Full Stack Web Developer based in Pakistan, specializing in building modern, scalable, and high-performance web applications.
+            <div className="space-y-4 text-charcoal-800/70 leading-relaxed">
+              <p className="about-paragraph">
+                I'm Qazi Farhan Ahmad — an AI-focused Full Stack Web Developer based in Peshawar, Pakistan, specializing in building modern, scalable, and high-performance web applications.
               </p>
-              <p className="about-paragraph text-base md:text-lg text-white/70 leading-relaxed">
+              <p className="about-paragraph">
                 I work with React, TypeScript, Node.js, and MongoDB to create production-ready systems with clean architecture, strong security, and optimized performance.
               </p>
-              <p className="about-paragraph text-base md:text-lg text-white/70 leading-relaxed">
+              <p className="about-paragraph">
                 I don't just build websites — I build solutions that help businesses:
               </p>
               <ul className="about-paragraph space-y-2 pl-1">
-                {['Generate leads and increase conversions', 'Automate workflows with AI integrations', 'Deliver fast, reliable user experiences'].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2 text-base md:text-lg text-white/70">
-                    <span className="text-white/70 mt-1 shrink-0">▸</span>
+                {[
+                  'Generate leads and increase conversions',
+                  'Automate workflows with AI integrations',
+                  'Deliver fast, reliable user experiences',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="text-terra-500 mt-1 shrink-0">▸</span>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
-              <p className="about-paragraph text-base md:text-lg text-white/70 leading-relaxed">
+              <p className="about-paragraph">
                 Currently open to internships and freelance opportunities where I can contribute to real-world products and grow fast.
               </p>
+            </div>
+
+            {/* Stat cards */}
+            <div className="grid grid-cols-3 gap-4 mt-8">
+              {stats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="about-stat-card bg-white rounded-2xl p-4 text-center shadow-warm border border-cream-300"
+                >
+                  <div className="font-serif text-2xl font-semibold text-charcoal-900">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs text-charcoal-800/60 mt-1">{stat.label}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

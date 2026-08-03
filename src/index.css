@@ -1,31 +1,30 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 0.4%;
-    --foreground: 0 0% 100%;
-    --card: 0 0% 3%;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 3%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 8%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 70%;
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 100%;
+    --background: 40 30% 97%;
+    --foreground: 20 10% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 10% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 10% 15%;
+    --primary: 18 52% 49%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 35 20% 92%;
+    --secondary-foreground: 20 10% 15%;
+    --muted: 35 20% 92%;
+    --muted-foreground: 20 10% 45%;
+    --accent: 35 20% 92%;
+    --accent-foreground: 20 10% 15%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 0 0% 100%;
-    --radius: 0.625rem;
-    
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
+    --ring: 18 52% 49%;
+    --radius: 1rem;
+
     /* Custom Animation Easings */
     --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-expo-in: cubic-bezier(0.7, 0, 0.84, 0);
@@ -41,14 +40,13 @@
   * {
     @apply border-border;
   }
-  
+
   html {
     overflow-x: hidden;
   }
-  
+
   body {
-    @apply bg-[#010101] text-white antialiased;
-    font-family: 'Inter Tight', sans-serif;
+    @apply bg-cream-100 text-charcoal-900 font-sans antialiased;
     overflow-x: hidden;
   }
 }
@@ -57,64 +55,32 @@
   .text-balance {
     text-wrap: balance;
   }
-  
-  /* Custom scrollbar */
+
+  /* Custom scrollbar — warm tones */
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(201, 184, 154, 0.15);
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(196, 98, 58, 0.3);
     border-radius: 3px;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(196, 98, 58, 0.5);
   }
-  
-  /* Glassmorphism */
-  .glass {
-    background: rgba(1, 1, 1, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+
+  /* Warm shadow utility */
+  .shadow-warm {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   }
-  
-  /* Text gradient */
-  .text-gradient {
-    background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  /* Glow effects */
-  .glow-white {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2),
-                0 0 40px rgba(255, 255, 255, 0.1),
-                0 0 60px rgba(255, 255, 255, 0.05);
-  }
-  
-  /* Animation utilities */
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-  
-  .animate-float-delayed {
-    animation: float 5s ease-in-out infinite;
-    animation-delay: -2s;
-  }
-  
-  .animate-pulse-glow {
-    animation: pulseGlow 3s ease-in-out infinite;
-  }
-  
-  .animate-gradient-shift {
-    animation: gradientShift 15s ease infinite;
-    background-size: 200% 200%;
+
+  .shadow-warm-lg {
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
   }
 }
 
@@ -124,32 +90,6 @@
   }
   50% {
     transform: translateY(-15px);
-  }
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2),
-                0 0 40px rgba(255, 255, 255, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3),
-                0 0 60px rgba(255, 255, 255, 0.15);
-  }
-}
-
-@keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
   }
 }
 
@@ -164,134 +104,9 @@
   }
 }
 
-/* Card borders — visible on all screen sizes */
-.work-card,
-.skill-card,
-.experience-card,
-.why-card {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-@media (max-width: 767px) {
-  .work-card,
-  .skill-card,
-  .experience-card,
-  .why-card {
-    border: 1.5px solid rgba(255, 255, 255, 0.13);
-  }
-}
-
-/* Card shadows — layered 3D depth */
-.work-card,
-.skill-card,
-.experience-card,
-.why-card {
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.5),
-    0 8px 16px rgba(0, 0, 0, 0.35),
-    0 24px 48px rgba(0, 0, 0, 0.25),
-    0 48px 80px rgba(0, 0, 0, 0.15);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-/* Work card hover — elevated + glow */
-.work-card:hover {
-  box-shadow:
-    0 0 30px rgba(255, 255, 255, 0.07),
-    0 0 60px rgba(255, 255, 255, 0.03),
-    0 8px 40px rgba(0, 0, 0, 0.5),
-    0 4px 8px rgba(0, 0, 0, 0.5),
-    0 12px 24px rgba(0, 0, 0, 0.35),
-    0 32px 64px rgba(0, 0, 0, 0.25);
-}
-
-/* Skill card hover — subtle lift + glow */
-.skill-card:hover {
-  box-shadow:
-    0 0 30px rgba(255, 255, 255, 0.05),
-    0 8px 32px rgba(0, 0, 0, 0.5),
-    0 4px 8px rgba(0, 0, 0, 0.4),
-    0 12px 24px rgba(0, 0, 0, 0.3),
-    0 24px 48px rgba(0, 0, 0, 0.2);
-}
-
-/* Experience card hover — subtle lift */
-.experience-card:hover {
-  box-shadow:
-    0 0 20px rgba(255, 255, 255, 0.04),
-    0 8px 32px rgba(0, 0, 0, 0.5),
-    0 4px 8px rgba(0, 0, 0, 0.4),
-    0 12px 24px rgba(0, 0, 0, 0.3),
-    0 24px 48px rgba(0, 0, 0, 0.2);
-}
-
-@media (max-width: 767px) {
-  /* Disable hover lift/zoom on all cards */
-  .work-card:hover,
-  .skill-card:hover,
-  .experience-card:hover,
-  .why-card:hover {
-    transform: none !important;
-  }
-
-  /* Keep base shadow on hover for work cards (no change) */
-  .work-card:hover {
-    box-shadow:
-      0 2px 4px rgba(0, 0, 0, 0.5),
-      0 8px 16px rgba(0, 0, 0, 0.35),
-      0 24px 48px rgba(0, 0, 0, 0.25),
-      0 48px 80px rgba(0, 0, 0, 0.15) !important;
-  }
-
-  /* Disable hover background shift on skill/experience cards */
-  .skill-card:hover,
-  .experience-card:hover {
-    background: rgba(255, 255, 255, 0.05) !important;
-  }
-
-  /* Work card — always show shimmer sweep */
-  .shimmer-overlay {
-    animation: shimmer 1.5s infinite !important;
-  }
-
-  /* Work card — always show button as active */
-  .card-btn {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: white !important;
-  }
-
-  /* Skills — always show tags */
-  .skill-tag {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-  }
-
-  /* Skills — always show icon scale/rotate */
-  .skill-icon-box {
-    transform: scale(1.1) rotate(10deg) !important;
-  }
-
-  /* Skills — always show icon glow */
-  .skill-glow {
-    opacity: 1 !important;
-  }
-
-  /* Skills — always show corner accent lines */
-  .skill-corner div:first-child {
-    transform: translateX(0) !important;
-  }
-  .skill-corner div:last-child {
-    transform: translateY(0) !important;
-  }
-
-  /* Experience — always show subtle inner glow */
-  .experience-card > div:last-child {
-    opacity: 1 !important;
-  }
-
-  .skill-card {
-    transform: none !important;
-    transition: none !important;
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
   }
 }
 
@@ -304,15 +119,15 @@
   }
 }
 
-/* Selection color */
+/* Selection color — warm */
 ::selection {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: rgba(196, 98, 58, 0.2);
+  color: #1a1a1a;
 }
 
-/* Focus-visible indicators for keyboard navigation */
+/* Focus-visible indicators */
 *:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline: 2px solid rgba(196, 98, 58, 0.6);
   outline-offset: 2px;
 }
 
@@ -329,8 +144,8 @@ a:focus:not(:focus-visible) {
   transform: translateX(-50%);
   z-index: 10000;
   padding: 8px 16px;
-  background: white;
-  color: black;
+  background: #1a1a1a;
+  color: white;
   font-size: 14px;
   font-weight: 600;
   border-radius: 0 0 8px 8px;
