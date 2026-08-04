@@ -131,7 +131,7 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       <PageMeta />
-      <div className="min-h-screen overflow-x-hidden">
+      <div className="min-h-screen overflow-x-clip">
         <Suspense fallback={null}>
           <Navigation />
         </Suspense>
