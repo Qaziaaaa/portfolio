@@ -30,7 +30,7 @@ const Navigation = () => {
                 {link.label}
               </NavLink>
             ))}
-            <Link className="btn" to="/contact">
+            <Link className="btn" to="/services">
               Let&apos;s Talk
             </Link>
           </nav>
@@ -80,7 +80,7 @@ const Navigation = () => {
             ))}
             <Link
               className="btn"
-              to="/contact"
+              to="/services"
               onClick={() => setIsMobileMenuOpen(false)}
               style={{ marginTop: 16, alignSelf: 'flex-start', padding: '12px 24px' }}
             >
