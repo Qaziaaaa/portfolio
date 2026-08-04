@@ -45,7 +45,7 @@
 
 @layer base {
   * { @apply border-border; }
-  html { overflow-x: hidden; scroll-behavior: smooth; }
+  html { overflow-x: hidden; scroll-behavior: smooth; color-scheme: light; }
   body {
     font-family: var(--sans);
     font-weight: 300;

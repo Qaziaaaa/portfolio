@@ -1,6 +1,9 @@
 /*
   Cross-Origin-Opener-Policy: same-origin
   X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
 
 /js/*
   Cache-Control: public, max-age=31536000, immutable
@@ -19,3 +22,12 @@
 
 /
   Cache-Control: no-cache, must-revalidate
+
+/profile.webp
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/paper.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon.svg
+  Cache-Control: public, max-age=31536000, immutable

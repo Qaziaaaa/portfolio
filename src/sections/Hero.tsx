@@ -79,7 +79,7 @@ const Hero = () => {
           <div className="hero-polaroid photo-wrap" style={{ display: 'flex' }}>
             <div className="polaroid" style={{ width: '100%' }}>
               <div className="sticker s2">AI Developer ✨</div>
-              <img src="/profile.webp" alt="Qazi Farhan Ahmad" loading="eager" fetchPriority="high" />
+              <img src="/profile.webp" alt="Qazi Farhan Ahmad" width="1254" height="1254" loading="eager" fetchPriority="high" decoding="async" />
               <div className="cap">Full Stack Dev 👋</div>
             </div>
           </div>

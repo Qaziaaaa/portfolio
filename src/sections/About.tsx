@@ -44,7 +44,7 @@ const About = () => {
           {/* Polaroid */}
           <div className="about-polaroid photo-wrap">
             <div className="polaroid" style={{ transform: 'rotate(-3deg)', maxWidth: 260, width: '100%' }}>
-              <img src="/img2.webp" alt="Qazi Farhan Ahmad" loading="lazy" />
+              <img src="/img2.webp" alt="Qazi Farhan Ahmad" width="1023" height="1537" loading="lazy" decoding="async" />
               <div className="cap">hi again 👋</div>
             </div>
           </div>

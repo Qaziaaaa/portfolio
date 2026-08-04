@@ -1,11 +1,36 @@
 import path from "path"
+import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs"
 import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import { defineConfig, type Plugin } from "vite"
+
+// Inject a <link rel="preload"> for the LCP font (Averia Serif Libre 700)
+// after the build, once the hashed woff2 filename is known.
+function preloadCriticalFont(): Plugin {
+  return {
+    name: 'preload-critical-font',
+    apply: 'build',
+    closeBundle() {
+      const dist = path.resolve(__dirname, 'dist')
+      const assetsDir = path.join(dist, 'assets')
+      if (!existsSync(assetsDir)) return
+      const cssFile = readdirSync(assetsDir).find(f => /^index-.*\.css$/.test(f))
+      if (!cssFile) return
+      const css = readFileSync(path.join(assetsDir, cssFile), 'utf8')
+      const match = css.match(/url\((['"]?)(?:\.\.\/)?fonts\/(averia-serif-libre-latin-700-normal-[^'")]+\.woff2)\1\)/)
+      if (!match) return
+      const htmlPath = path.join(dist, 'index.html')
+      const html = readFileSync(htmlPath, 'utf8')
+      if (html.includes('rel="preload" as="font"')) return
+      const link = `    <link rel="preload" as="font" type="font/woff2" href="/fonts/${match[2]}" crossorigin />`
+      writeFileSync(htmlPath, html.replace('</head>', `${link}\n  </head>`))
+    },
+  }
+}
 
 // https://vite.dev/config/
 export default defineConfig({
   base: './',
-  plugins: [react()],
+  plugins: [react(), preloadCriticalFont()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

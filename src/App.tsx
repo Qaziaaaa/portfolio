@@ -1,7 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // Lazy-load all sections for optimal initial bundle size
 const Navigation = lazy(() => import('./sections/Navigation'));
@@ -20,9 +18,6 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 
 // Lazy-load the chatbot widget so it doesn't impact initial page load
 const ChatbotWidget = lazy(() => import('./components/chatbot/ChatbotWidget'));
-
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
 
 const Torn = () => <div className="torn" style={{ margin: '8px auto' }} />;
 
@@ -114,16 +109,27 @@ function PageMeta() {
 
 function App() {
   useEffect(() => {
-    gsap.config({ nullTargetWarn: false });
-    ScrollTrigger.refresh();
+    let cancelled = false;
+    let killTriggers: (() => void) | undefined;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      gsap.globalTimeline.timeScale(0);
-    }
+    Promise.all([import('gsap'), import('gsap/ScrollTrigger')])
+      .then(([{ gsap }, { ScrollTrigger }]) => {
+        if (cancelled) return;
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.config({ nullTargetWarn: false });
+        ScrollTrigger.refresh();
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+          gsap.globalTimeline.timeScale(0);
+        }
+
+        killTriggers = () => ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      });
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      cancelled = true;
+      killTriggers?.();
     };
   }, []);
 
