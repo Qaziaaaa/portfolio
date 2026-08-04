@@ -16,13 +16,12 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
   });
 }
 
-// Hide loading skeleton and show app when React is ready
-const loadingSkeleton = document.getElementById('loading-skeleton')
+// Show the app once React is ready, then fade out the boot loader
+const bootLoader = document.getElementById('boot-loader')
 const root = document.getElementById('root')
 
-if (loadingSkeleton && root) {
+if (root) {
   root.style.display = 'block'
-  loadingSkeleton.style.display = 'none'
 }
 
 createRoot(document.getElementById('root')!).render(
@@ -30,3 +29,19 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 )
+
+if (bootLoader) {
+  const fontsReady = document.fonts?.ready ?? Promise.resolve()
+  const minWait = new Promise<void>(resolve => setTimeout(resolve, 800))
+  const windowReady = document.readyState === 'complete'
+    ? Promise.resolve()
+    : new Promise<void>(resolve => window.addEventListener('load', () => resolve(), { once: true }))
+  const maxWait = new Promise<void>(resolve => setTimeout(resolve, 3500))
+
+  const hideLoader = () => {
+    bootLoader.classList.add('loader-hidden')
+    setTimeout(() => bootLoader.remove(), 600)
+  }
+
+  Promise.race([Promise.all([fontsReady, minWait, windowReady]), maxWait]).then(hideLoader)
+}

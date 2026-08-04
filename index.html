@@ -88,11 +88,21 @@
       .skip-link{position:absolute;top:-100%;left:50%;transform:translateX(-50%);z-index:10000;padding:8px 16px;background:#332E29;color:#fff;font-size:14px;font-weight:600;border-radius:0 0 8px 8px;text-decoration:none;transition:top .2s}
       .skip-link:focus{top:0}
       #root{min-height:100vh}
-      /* Loading skeleton for hero section */
-      .hero-skeleton{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:100vh;text-align:center;padding:2rem}
-      .hero-skeleton h1{font-size:clamp(2rem,5vw,4rem);font-weight:700;margin-bottom:1rem;animation:pulse 2s infinite;color:#332E29}
-      .hero-skeleton p{font-size:clamp(1rem,2.5vw,1.5rem);opacity:0.8;max-width:600px;animation:pulse 2s infinite .5s;color:#736a60}
-      @keyframes pulse{0%,100%{opacity:0.6}50%{opacity:1}}
+      /* Boot loader (scrapbook polaroid) */
+      #boot-loader{position:fixed;inset:0;z-index:9999;background-color:#FAF7F2;background-image:url('/paper.png');background-repeat:repeat;display:flex;align-items:center;justify-content:center;transition:opacity .55s ease}
+      #boot-loader.loader-hidden{opacity:0;pointer-events:none}
+      .bl-wrap{display:flex;flex-direction:column;align-items:center;gap:16px}
+      .bl-polaroid{position:relative;background:#fdfbf5;border:1px solid rgba(51,46,41,.07);border-radius:2px;padding:10px 10px 14px;box-shadow:0 9px 15px -7px rgba(51,46,41,.30),0 2px 4px rgba(51,46,41,.18);transform:rotate(-2.5deg);animation:bl-pop .5s cubic-bezier(.34,1.56,.64,1) both}
+      .bl-polaroid img{width:150px;height:200px;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block;background:#F4ECE0;border-radius:1px}
+      .bl-tape{position:absolute;top:-12px;left:50%;width:84px;height:24px;transform:translateX(-50%) rotate(-4deg);background:repeating-linear-gradient(45deg,rgba(232,183,168,.6) 0 7px,rgba(232,183,168,.36) 7px 14px);box-shadow:0 1px 2px rgba(0,0,0,.05)}
+      .bl-cap{display:block;text-align:center;font-family:'Caveat',cursive;font-size:1.35rem;color:#332E29;margin-top:6px}
+      .bl-loading{font-family:'Caveat',cursive;font-size:1.7rem;color:#C96F4C;display:inline-flex;align-items:flex-end;gap:4px;transform:rotate(-1deg)}
+      .bl-dots{width:8px;height:8px;border-radius:50%;background:#D97757;animation:bl-bounce 1s infinite ease-in-out}
+      .bl-dots:nth-of-type(2){animation-delay:.15s}
+      .bl-dots:nth-of-type(3){animation-delay:.3s}
+      .bl-tag{font-family:'Patrick Hand',cursive;font-size:.9rem;color:#736a60;margin-top:2px}
+      @keyframes bl-pop{from{opacity:0;transform:rotate(-7deg) translateY(16px) scale(.96)}to{opacity:1;transform:rotate(-2.5deg) translateY(0) scale(1)}}
+      @keyframes bl-bounce{0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-8px);opacity:1}}
     </style>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
@@ -132,10 +142,17 @@
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <!-- Loading skeleton for immediate perceived performance -->
-    <div id="loading-skeleton" class="hero-skeleton">
-      <h1>Qazi Farhan Ahmad</h1>
-      <p>AI Web Developer & MERN Stack Expert</p>
+    <!-- Boot loader: painted before any JS, faded out once React is ready -->
+    <div id="boot-loader" role="status" aria-label="Loading portfolio">
+      <div class="bl-wrap">
+        <div class="bl-polaroid">
+          <span class="bl-tape"></span>
+          <img src="/profile.webp" alt="" width="150" height="200" />
+          <span class="bl-cap">hey there ✋</span>
+        </div>
+        <span class="bl-loading">loading<span class="bl-dots"></span><span class="bl-dots"></span><span class="bl-dots"></span></span>
+        <span class="bl-tag">AI Web Developer · MERN Stack Expert</span>
+      </div>
     </div>
     <div id="root" style="display: none;"></div>
     <script type="module" src="/src/main.tsx"></script>
