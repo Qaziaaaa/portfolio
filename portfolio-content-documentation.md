@@ -290,7 +290,7 @@ Currently open to internships and freelance opportunities where I can contribute
 
 | Value | Label |
 |---|---|
-| 10+ | Projects Shipped |
+| 29+ | Projects Shipped |
 | 39+ | GitHub Repos |
 | 843+ | Contributions |
 
