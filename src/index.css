@@ -131,7 +131,7 @@
 }
 .brand .dot { color: var(--coral); }
 .nav { display: flex; gap: 24px; align-items: center; font-size: .9rem; }
-.nav a,
+.nav a.navlink,
 .nav button.navlink {
   color: var(--ink-soft);
   transition: color .2s;
