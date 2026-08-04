@@ -13,6 +13,8 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://qaziahmad.vercel.app/" />
     <meta name="google-site-verification" content="0yOn_wHcn0M7OJRj2ovZkX79hNrve0KdnoNyO0WIFKg" />
+    <meta name="theme-color" content="#FAF7F2" />
+    <link rel="manifest" href="/manifest.json" />
 
     <!-- ═══ Open Graph (Facebook, LinkedIn previews) ═══ -->
     <meta property="og:type" content="website" />
@@ -75,11 +77,8 @@
     }
     </script>
 
-    <!-- ═══ Performance: Preconnect, Preload & Fonts ═══ -->
-    <link rel="preload" as="image" href="/profile.webp" type="image/webp" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Poppins:wght@300;400;500;600&family=Caveat:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet" />
+    <!-- ═══ Performance: Preload & Preconnect ═══ -->
+    <link rel="preload" as="image" href="/profile.webp" type="image/webp" fetchpriority="high" />
     
     <!-- Critical CSS for above-the-fold content -->
     <style>
@@ -89,7 +88,7 @@
       .skip-link:focus{top:0}
       #root{min-height:100vh}
       /* Boot loader (scrapbook polaroid) */
-      #boot-loader{position:fixed;inset:0;z-index:9999;background-color:#FAF7F2;background-image:url('/paper.png');background-repeat:repeat;display:flex;align-items:center;justify-content:center;transition:opacity .55s ease}
+      #boot-loader{position:fixed;inset:0;z-index:9999;background-color:#FAF7F2;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");background-repeat:repeat;display:flex;align-items:center;justify-content:center;transition:opacity .55s ease}
       #boot-loader.loader-hidden{opacity:0;pointer-events:none}
       .bl-wrap{display:flex;flex-direction:column;align-items:center;gap:16px}
       .bl-polaroid{position:relative;background:#fdfbf5;border:1px solid rgba(51,46,41,.07);border-radius:2px;padding:10px 10px 14px;box-shadow:0 9px 15px -7px rgba(51,46,41,.30),0 2px 4px rgba(51,46,41,.18);transform:rotate(-2.5deg);animation:bl-pop .5s cubic-bezier(.34,1.56,.64,1) both}
@@ -108,7 +107,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
 
     <!-- ═══ Content Security Policy ═══ -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.groq.com https://api.jina.ai; frame-src 'self' https:; base-uri 'self'; form-action 'self';" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://api.groq.com https://api.jina.ai; frame-src 'self' https:; base-uri 'self'; form-action 'self';" />
 
     <style>
       .skip-link {

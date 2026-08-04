@@ -3,6 +3,21 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 
+// Self-hosted fonts (font-display: swap) — no render-blocking third-party CSS
+// Latin subset only; unicode-range splits cut payload for English content.
+import '@fontsource/averia-serif-libre/latin-300.css'
+import '@fontsource/averia-serif-libre/latin-400.css'
+import '@fontsource/averia-serif-libre/latin-700.css'
+import '@fontsource/poppins/latin-300.css'
+import '@fontsource/poppins/latin-400.css'
+import '@fontsource/poppins/latin-500.css'
+import '@fontsource/poppins/latin-600.css'
+import '@fontsource/caveat/latin-400.css'
+import '@fontsource/caveat/latin-500.css'
+import '@fontsource/caveat/latin-600.css'
+import '@fontsource/caveat/latin-700.css'
+import '@fontsource/patrick-hand/latin-400.css'
+
 // Register service worker for performance optimization
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {

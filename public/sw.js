@@ -1,8 +1,8 @@
-const CACHE_NAME = 'portfolio-v1';
-const STATIC_CACHE = 'static-v1';
-const DYNAMIC_CACHE = 'dynamic-v1';
+const CACHE_VERSION = 'portfolio-v2';
+const STATIC_CACHE = `static-${CACHE_VERSION}`;
+const DYNAMIC_CACHE = `dynamic-${CACHE_VERSION}`;
 
-const STATIC_ASSETS = [
+const APP_SHELL = [
   '/',
   '/index.html',
   '/profile.webp',
@@ -10,77 +10,74 @@ const STATIC_ASSETS = [
   '/manifest.json'
 ];
 
-// Install event - cache static assets
+// Install event - cache the app shell
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(STATIC_CACHE)
-      .then((cache) => {
-        return cache.addAll(STATIC_ASSETS);
-      })
+      .then((cache) => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting())
   );
 });
 
-// Activate event - clean up old caches
+// Activate event - take control immediately and clean up old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    caches.keys()
+      .then((cacheNames) =>
+        Promise.all(
+          cacheNames
+            .filter((name) => !name.startsWith(STATIC_CACHE) && !name.startsWith(DYNAMIC_CACHE))
+            .map((name) => caches.delete(name))
+        )
+      )
+      .then(() => self.clients.claim())
   );
 });
 
-// Fetch event - serve from cache with network fallback
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Skip non-GET requests and external URLs
+  // Only handle same-origin GET requests
   if (request.method !== 'GET' || url.origin !== self.location.origin) {
     return;
   }
 
-  // Cache-first strategy for static assets
-  if (STATIC_ASSETS.some(asset => url.pathname === asset) || 
-      url.pathname.match(/\.(css|js|woff2?|png|jpg|jpeg|gif|webp|svg|ico)$/)) {
-    event.respondWith(
-      caches.match(request)
-        .then((response) => {
-          return response || fetch(request)
-            .then((fetchResponse) => {
-              // Cache successful responses
-              if (fetchResponse.status === 200) {
-                const responseClone = fetchResponse.clone();
-                caches.open(STATIC_CACHE)
-                  .then((cache) => cache.put(request, responseClone));
-              }
-              return fetchResponse;
-            });
-        })
-    );
-  }
-  // Network-first strategy for dynamic content
-  else {
+  // Navigation requests: network-first, fall back to cached app shell (offline support)
+  if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
-        .then((fetchResponse) => {
-          // Cache successful responses
-          if (fetchResponse.status === 200) {
-            const responseClone = fetchResponse.clone();
-            caches.open(DYNAMIC_CACHE)
-              .then((cache) => cache.put(request, responseClone));
+        .then((response) => {
+          if (response.status === 200) {
+            const clone = response.clone();
+            caches.open(DYNAMIC_CACHE).then((cache) => cache.put(request, clone));
           }
-          return fetchResponse;
+          return response;
         })
-        .catch(() => {
-          // Fallback to cache if network fails
-          return caches.match(request);
+        .catch(async () => {
+          const cached = await caches.match(request);
+          return cached || caches.match('/index.html') || caches.match('/');
         })
     );
+    return;
+  }
+
+  // Static assets (hashed build outputs + public files): stale-while-revalidate
+  if (url.pathname.match(/\.(css|js|woff2?|png|jpg|jpeg|gif|webp|svg|ico)$/)) {
+    event.respondWith(
+      caches.open(STATIC_CACHE).then(async (cache) => {
+        const cached = await cache.match(request);
+        const network = fetch(request)
+          .then((response) => {
+            if (response.status === 200) {
+              cache.put(request, response.clone());
+            }
+            return response;
+          })
+          .catch(() => cached);
+        return cached || network;
+      })
+    );
+    return;
   }
 });

@@ -80,6 +80,38 @@ function ScrollToTop() {
   return null;
 }
 
+const ROUTE_META: Record<string, { title: string; description: string }> = {
+  '/': {
+    title: 'Qazi Farhan Ahmad | AI Web Developer & MERN Stack Expert',
+    description: 'Qazi Farhan Ahmad is an AI Web Developer and MERN Stack Expert specializing in high-performance websites, AI-powered web applications, and scalable digital products.',
+  },
+  '/projects': {
+    title: 'Projects | Qazi Farhan Ahmad',
+    description: 'Explore 36+ web projects by Qazi Farhan Ahmad — frontend, full-stack, and AI-powered applications built with the MERN stack.',
+  },
+  '/services': {
+    title: 'Services & Hire | Qazi Farhan Ahmad',
+    description: 'Web development and AI integration services by Qazi Farhan Ahmad — custom websites, MERN apps, AI features, and consulting.',
+  },
+  '/contact': {
+    title: 'Contact | Qazi Farhan Ahmad',
+    description: 'Get in touch with Qazi Farhan Ahmad for freelance projects, internships, or full-time opportunities.',
+  },
+};
+
+function PageMeta() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const meta = ROUTE_META[pathname]
+      ?? (pathname.startsWith('/projects/') ? ROUTE_META['/projects'] : ROUTE_META['/']);
+    document.title = meta.title;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', meta.description);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   useEffect(() => {
     gsap.config({ nullTargetWarn: false });
@@ -98,6 +130,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <PageMeta />
       <div className="min-h-screen overflow-x-hidden">
         <Suspense fallback={null}>
           <Navigation />
