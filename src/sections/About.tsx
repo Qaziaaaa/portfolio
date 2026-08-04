@@ -6,8 +6,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
   { value: '10+',  label: 'Projects Shipped' },
-  { value: '25+',  label: 'GitHub Repos'    },
-  { value: '299+', label: 'Contributions'   },
+  { value: '39+',  label: 'GitHub Repos'    },
+  { value: '843+', label: 'Contributions'   },
 ];
 
 const bullets = [

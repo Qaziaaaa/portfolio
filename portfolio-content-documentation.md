@@ -137,7 +137,7 @@ default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-
 |---|---|
 | `https://qaziahmad.vercel.app/` | Canonical, OG, Twitter, schema.org, sitemap |
 | `https://www.linkedin.com/in/qazi-farhan-ahmad/` | Contact CTA, Footer, schema.org `sameAs` |
-| `https://github.com/Qaziaaaa` | Contact section ("25 repos · 299 contributions"), Footer, schema.org `sameAs` |
+| `https://github.com/Qaziaaaa` | Contact section ("39 repos · 843 contributions"), Footer, schema.org `sameAs` |
 | `https://wa.me/923141935787` | Testimonials CTA, Contact "WhatsApp Me" |
 | `https://wa.me/03141935787` | Footer WhatsApp |
 | `mailto:qazithekingston@gmail.com` | schema.org email, KB contact |
@@ -291,8 +291,8 @@ Currently open to internships and freelance opportunities where I can contribute
 | Value | Label |
 |---|---|
 | 10+ | Projects Shipped |
-| 25+ | GitHub Repos |
-| 299+ | Contributions |
+| 39+ | GitHub Repos |
+| 843+ | Contributions |
 
 **Image:** `/profile.webp`, alt: `Qazi Farhan Ahmad — AI Web Developer and MERN Stack Expert`, aspect ratio 3/4, with decorative glow + glass frame (`bg-white/[0.03] rounded-[2rem] border border-white/10 backdrop-blur-md`).
 
@@ -403,7 +403,7 @@ I'm open to internships, freelance projects, and collaboration opportunities. If
 
 **GitHub Profile:**
 ```
-github.com/Qaziaaaa · 25 repos · 299 contributions
+github.com/Qaziaaaa · 39 repos · 843 contributions
 ```
 Link: `https://github.com/Qaziaaaa` — `Github` icon, hover underline animation
 
@@ -553,7 +553,7 @@ Qazi Farhan Ahmad — AI Web Developer & MERN Stack Expert · Peshawar, Pakistan
 
 **Online Profiles:**
 > Portfolio: `qaziahmad.vercel.app`  
-> GitHub: `github.com/Qaziaaaa` (25 repos, 299 contributions)  
+> GitHub: `github.com/Qaziaaaa` (39 repos, 843 contributions)  
 > LinkedIn: `linkedin.com/in/qazi-farhan-ahmad`  
 > Location: Peshawar, Pakistan (remote worldwide)
 
