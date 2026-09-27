@@ -64,7 +64,7 @@ const ProjectDetail = () => {
             </a>
           ) : (
             <span className="note" style={{ margin: 0 }}>
-              No live demo yet — the code is below 🚧
+              No live demo yet — the code is below.
             </span>
           )}
           {project.github && (

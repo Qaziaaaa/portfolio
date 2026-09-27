@@ -77,8 +77,8 @@ function ScrollToTop() {
 
 const ROUTE_META: Record<string, { title: string; description: string }> = {
   '/': {
-    title: 'Qazi Farhan Ahmad | AI Web Developer & MERN Stack Expert',
-    description: 'Qazi Farhan Ahmad is an AI Web Developer and MERN Stack Expert specializing in high-performance websites, AI-powered web applications, and scalable digital products.',
+    title: 'Qazi Farhan Ahmad | Team Lead & Full-Stack Engineer',
+    description: 'Qazi Farhan Ahmad is a Team Lead & Full-Stack Engineer specializing in MERN stack, AI-powered web applications, and scalable digital products.',
   },
   '/projects': {
     title: 'Projects | Qazi Farhan Ahmad',

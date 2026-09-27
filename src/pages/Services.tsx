@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Doodle from '../components/Doodle';
 
 const services = [
   { e: '🛒', t: 'MERN Full-Stack Apps', d: 'Production-grade e-commerce, SaaS, and dashboards with auth, payments, admin panels, and real security.' },
@@ -39,7 +40,10 @@ const Services = () => {
           </div>
 
           <div className="center">
-            <span className="avail">✅ <b>Open to work</b> — freelance · internship · full-time</span>
+            <span className="avail">
+              <Doodle emoji="✅" size={17} />
+              <b>Open to work</b> — freelance · internship · full-time
+            </span>
           </div>
 
           <div className="cta-row" style={{ justifyContent: 'center', marginTop: 18, marginBottom: 8 }}>
@@ -77,7 +81,7 @@ const Services = () => {
           <div className="grid3">
             {services.map(service => (
               <div className="fcard" key={service.t}>
-                <span className="ic">{service.e}</span>
+                <span className="ic"><Doodle emoji={service.e} /></span>
                 <h3>{service.t}</h3>
                 <p>{service.d}</p>
               </div>
@@ -131,7 +135,7 @@ const Services = () => {
 
       <section style={{ padding: '44px 0' }}>
         <div className="wrap">
-          <div className="closing tape">
+          <div className="closing">
             <span className="big">open to work</span>
             <h2>Have a project in mind?</h2>
             <p>

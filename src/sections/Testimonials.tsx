@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Doodle from '../components/Doodle';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -73,9 +74,9 @@ const WhyWorkWithMe = () => {
         <div className="grid3">
           {reasons.map((reason, i) => (
             <div key={i} className="why-card fcard">
-              <span className="ic">{reason.emoji}</span>
+              <span className="ic"><Doodle emoji={reason.emoji} /></span>
               <h3>{reason.title}</h3>
-              <p style={{ margin: 0 }}>{reason.description}</p>
+              <p>{reason.description}</p>
             </div>
           ))}
         </div>

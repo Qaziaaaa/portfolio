@@ -3,8 +3,8 @@ import type { KnowledgeChunk } from '../types';
 export const projectsChunks: KnowledgeChunk[] = [
   {
     text: `NOVA — Premium E-Commerce Platform
-Live at: ecommerce-store-one-ochre.vercel.app | Code on GitHub: github.com/Qaziaaaa/ecommerce-system
-Stack: React 19, TypeScript, Node.js, Express, MongoDB Atlas, Stripe, Zustand, TanStack Query, Tailwind CSS, Cloudinary
+Live at: nova-ecomm.vercel.app | Code on GitHub: github.com/Qaziaaaa/ecommerce-system
+Stack: React 19, TypeScript, Node.js, Express, MongoDB Atlas, Stripe, Zustand, TanStack Query, Tailwind CSS
 Key Features:
 • Passwordless OTP authentication (no passwords stored, JWT in HttpOnly cookies)
 • Stripe credit card and Cash on Delivery checkout with payment intents and webhooks
@@ -17,61 +17,46 @@ Key Features:
     metadata: { topic: 'projects', source: 'project-nova-ecommerce' },
   },
   {
-    text: `xTRAI — AI Automation and Optimization Platform
-Live at: agencyxai.netlify.app | Code on GitHub: github.com/Qaziaaaa/AI-Agency-app
-Stack: React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, shadcn/ui, Radix UI, TanStack Query
+    text: `MyDocChat — RAG Chatbot
+Live at: mydocchat.vercel.app | Code on GitHub: github.com/Qaziaaaa/RAG-chatbot
+Stack: React, TypeScript, Groq LLaMA 3.1, Jina AI, Supabase, Express, MongoDB
 Key Features:
-• AI-powered automation workflows that save time and reduce errors
-• AI-powered insights and predictive analytics with real-time data
-• Glass morphism design with backdrop blur effects and smooth scroll-triggered animations
-• Multi-page app with React Router: Homepage, About, Blog, Contact
-• Form management with React Hook Form and Zod validation
-• Fully responsive mobile-first design`,
-    metadata: { topic: 'projects', source: 'project-xtrai-ai' },
+• Upload files and get intelligent streaming answers via RAG
+• Groq LLaMA 3.1 for real-time inference
+• Jina AI embeddings for semantic search and context awareness
+• Full MERN stack with Express API and MongoDB`,
+    metadata: { topic: 'projects', source: 'project-rag-chatbot' },
   },
   {
-    text: `OLIPOP Creative — AI-Enhanced Product Experience
-Live at: oliipop.netlify.app | Code on GitHub: github.com/Qaziaaaa/Olipop-animated-site
-Stack: Next.js 15 (App Router, Turbopack), React 19, TypeScript, Tailwind CSS, Framer Motion, Google Genkit AI, Firebase
+    text: `Liquid Reveal — Reusable Animated Reveal Component
+Code on GitHub: github.com/Qaziaaaa/liquid-reveal
+Stack: React, TypeScript, GSAP, npm
 Key Features:
-• AI-powered features using Google Genkit AI for intelligent user interactions
-• Immersive parallax scrolling and flavor-specific carousels with Framer Motion
-• Fluid state transitions and smooth animations throughout
-• Firebase backend integration`,
-    metadata: { topic: 'projects', source: 'project-olipop' },
+• Published to npm as a reusable package
+• Zero-dependency GSAP-powered animations
+• SSR-compatible with full TypeScript types
+• Handles GSAP setup, cleanup, and responsive animation config out of the box`,
+    metadata: { topic: 'projects', source: 'project-liquid-reveal' },
   },
   {
-    text: `HIKI — Full-Stack Hiking Guide App
-Live at: hiking-app-puce.vercel.app | Code on GitHub: github.com/Qaziaaaa
-Stack: React, Node.js, Express, MongoDB, Cloudinary
+    text: `SMIT Bootcamp LMS — Student Portal
+Code on GitHub: github.com/Qaziaaaa/SMIT-Bootcamp-LMS
+Stack: TypeScript, React, Node.js, Express, MongoDB
 Key Features:
-• User authentication and authorization
-• Trail discovery and management
-• Admin dashboard for content management
-• Blog system for hiking guides and tips
-• Cloudinary integration for image uploads`,
-    metadata: { topic: 'projects', source: 'project-hiki' },
-  },
-  {
-    text: `QAZI-X — Cinematic Personal Portfolio
-Live at: qazixcode.netlify.app | Code on GitHub: github.com/Qaziaaaa/Cinematic-Personal-Portfolio
-Stack: Next.js, React 19, TypeScript, Tailwind CSS, Framer Motion
-Key Features:
-• Cinematic scroll-driven animations and smooth page transitions
-• Futuristic cyberpunk OS-inspired design
-• Fully responsive layout across all devices`,
-    metadata: { topic: 'projects', source: 'project-portfolio' },
+• Student attendance tracking and management
+• Assignment submission and grading system
+• Role-based access for admins and students`,
+    metadata: { topic: 'projects', source: 'project-smit-lms' },
   },
   {
     text: `Current Portfolio (this website)
 Live at: qaziahmad.vercel.app | Code on GitHub: github.com/Qaziaaaa/portfolio
-Stack: React 19, TypeScript, Vite, Tailwind CSS, GSAP, shadcn/ui, Vercel
+Stack: React 19, TypeScript, Vite, Tailwind CSS, GSAP, Groq API, Jina AI
 Key Features:
 • RAG AI chatbot powered by Jina AI embeddings and Groq LLaMA 3.1
 • GSAP ScrollTrigger animations throughout all sections
-• Horizontal scroll work section with live project previews
 • 3D perspective tilt cards on hover
-• Particle canvas animation in hero`,
+• Clean Anthropic-inspired design with full project showcase`,
     metadata: { topic: 'projects', source: 'project-this-portfolio' },
   },
 ];

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { projects, displayTitle, type ProjectCategory } from '../data/projects';
+import Doodle from '../components/Doodle';
 
 type Filter = 'all' | ProjectCategory;
 
@@ -48,7 +49,7 @@ const Projects = () => {
 
         <p className="gcount">
           {visible.length} {visible.length === 1 ? 'project' : 'projects'}
-          {filter === 'all' ? ' in the library' : ` in ${categoryLabel[filter].toLowerCase()}`} — more shipped regularly ✨
+          {filter === 'all' ? ' in the library' : ` in ${categoryLabel[filter].toLowerCase()}`} — more shipped regularly.
         </p>
 
         <div className="glib">
@@ -59,9 +60,9 @@ const Projects = () => {
               className="gcard"
               aria-label={`View ${displayTitle(project.title)}`}
             >
-              <span className="ic" style={{ fontSize: '1.6rem', marginBottom: 10 }}>{project.emoji}</span>
+              <span className="ic"><Doodle emoji={project.emoji} /></span>
               <h3>{displayTitle(project.title)}</h3>
-              <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', marginBottom: 14, flex: 1 }}>{project.description}</p>
+              <p>{project.description}</p>
               <div className="gtags">
                 {project.tech.slice(0, 3).map((tag, i) => (
                   <span key={i} className="gtag tool">{tag}</span>

@@ -1,30 +1,52 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Doodle from '../components/Doodle';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
-    title: 'Full Stack Developer',
-    company: 'Freelance & Open Source',
-    period: '2023 – Present',
-    description: 'Built and deployed full-stack web applications including e-commerce platforms with Stripe payments, OTP authentication, real-time inventory, and admin dashboards. Focused on scalable architecture, security-first development, and clean TypeScript code.',
+    title: 'Full-Stack Engineer & Team Lead',
+    company: 'Saylani Tech Labs',
+    period: 'Jul 2026 – Present',
+    description: 'Leading team collaboration, task distribution, and development workflow. Building and integrating full-stack features across frontend and backend. Contributing to system architecture, technical decisions, and problem-solving.',
+    emoji: '💼',
+  },
+  {
+    title: 'MERN Stack Team Lead',
+    company: 'Ads Results 24/7',
+    period: 'May 2026 – Present',
+    description: 'Leading a small MERN stack team on live client deliverables. Owning sprint scope and code review, shipping features on schedule. Remote role based in Lahore.',
+    emoji: '🚀',
+  },
+  {
+    title: 'Core Team Member',
+    company: 'Computing Students Society (CSS UOP)',
+    period: 'Feb 2026 – Present',
+    description: 'Built and shipped the CSS Society UOP Portal (cssuop.org) as part of a student dev team — frontend ownership from wireframe to deployment.',
+    emoji: '🎓',
+  },
+  {
+    title: 'Freelance Web Developer',
+    company: 'Digital Dream Web and Graphic',
+    period: 'Jan 2025 – Present',
+    description: 'Delivering client websites end-to-end on the React/MERN stack and integrating AI-based features into builds. Remote work.',
     emoji: '💻',
   },
   {
     title: 'BS Software Engineering',
     company: 'University of Peshawar',
-    period: '2023 – Present',
-    description: '4th Semester — building a strong foundation in software engineering principles, data structures, algorithms, and system design. Applying academic knowledge directly to real-world projects and open source contributions.',
-    emoji: '🎓',
+    period: '2024 – 2028',
+    description: 'Building a strong foundation in software engineering principles, data structures, algorithms, and system design.',
+    emoji: '📖',
   },
   {
-    title: 'Self-Taught Frontend Developer',
-    company: 'Independent Learning',
-    period: '2022 – 2023',
-    description: 'Mastered React, TypeScript, and modern frontend tooling through hands-on project building. Developed a strong eye for design, animation, and responsive layouts.',
-    emoji: '🚀',
+    title: 'MERN Stack Development',
+    company: 'Saylani Mass IT Training (SMIT)',
+    period: 'Dec 2024 – Apr 2026',
+    description: '15-Month intensive Web & Mobile App Development course. Graduated with hands-on MERN stack expertise.',
+    emoji: '🏅',
   },
 ];
 
@@ -56,21 +78,12 @@ const Experience = () => {
 
         <div className="grid3">
           {experiences.map((exp, i) => (
-            <div key={i} className="exp-card fcard" style={{ borderTop: '4px solid var(--coral)' }}>
-              <span className="ic">{exp.emoji}</span>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 6, marginBottom: 6 }}>
-                <h3 style={{ margin: 0 }}>{exp.title}</h3>
-                <span style={{
-                  fontFamily: 'var(--print)', fontSize: '.82rem',
-                  color: 'var(--terra)', background: 'var(--paper)',
-                  border: '1px solid var(--line)', borderRadius: 20, padding: '3px 12px',
-                  whiteSpace: 'nowrap',
-                }}>
-                  {exp.period}
-                </span>
-              </div>
-              <p style={{ fontFamily: 'var(--print)', color: 'var(--terra)', fontSize: '.9rem', marginBottom: 10 }}>{exp.company}</p>
-              <p style={{ margin: 0 }}>{exp.description}</p>
+            <div key={i} className="exp-card fcard">
+              <span className="ic"><Doodle emoji={exp.emoji} /></span>
+              <span className="exp-period">{exp.period}</span>
+              <h3>{exp.title}</h3>
+              <p className="exp-company">{exp.company}</p>
+              <p>{exp.description}</p>
             </div>
           ))}
         </div>

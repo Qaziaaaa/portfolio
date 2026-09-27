@@ -2,6 +2,7 @@ import { useEffect, useRef, memo, type KeyboardEvent } from 'react';
 import { X, Trash2, Send } from 'lucide-react';
 import { MessageBubble } from './MessageBubble';
 import { TypingIndicator } from './TypingIndicator';
+import Doodle from '../Doodle';
 import type { ChatMessage, InitStatus } from '../../lib/chatbot/types';
 
 interface Props {
@@ -86,11 +87,8 @@ export const ChatPanel = memo(function ChatPanel({
       {/* ── Header ── */}
       <header className="chat-head shrink-0">
         <div className="flex items-center gap-3 min-w-0">
-          <div className="relative shrink-0">
+          <div className="shrink-0">
             <div className="chat-avatar">Q</div>
-            {status === 'ready' && (
-              <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-sage border-2 border-cream-card" />
-            )}
           </div>
           <div className="min-w-0">
             <p className="chat-who">Qazi&apos;s assistant</p>
@@ -102,7 +100,7 @@ export const ChatPanel = memo(function ChatPanel({
           <button
             onClick={onClearHistory}
             disabled={messages.length === 0}
-            className="p-2 rounded-lg text-ink-soft/60 hover:text-ink hover:bg-cream-paper transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+            className="p-2 rounded-lg text-white/45 hover:text-white hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
             aria-label="Clear chat"
             title="Clear chat"
           >
@@ -110,7 +108,7 @@ export const ChatPanel = memo(function ChatPanel({
           </button>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg text-ink-soft/60 hover:text-ink hover:bg-cream-paper transition-all"
+            className="p-2 rounded-lg text-white/45 hover:text-white hover:bg-white/10 transition-all"
             aria-label="Close"
           >
             <X className="w-3.5 h-3.5" />
@@ -127,7 +125,7 @@ export const ChatPanel = memo(function ChatPanel({
         {/* Loading */}
         {status === 'loading' && (
           <div className="flex flex-col items-center justify-center h-full gap-3">
-            <div className="w-9 h-9 rounded-full border-[3px] border-terra-500/15 border-t-terra-500 animate-spin" />
+            <div className="w-9 h-9 rounded-full border-[3px] border-coral/15 border-t-coral animate-spin" />
             <p className="chat-sub">warming up my notebook…</p>
           </div>
         )}
@@ -145,11 +143,12 @@ export const ChatPanel = memo(function ChatPanel({
 
         {/* Empty state */}
         {status === 'ready' && messages.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-full gap-4 px-2">
-            <div className="chat-polaroid">
-              <p className="hi">hi, I&apos;m Qazi&apos;s assistant!</p>
-            </div>
-            <p className="chat-hint text-center">tap a question below, or write your own</p>
+          <div className="flex flex-col items-center justify-center h-full gap-5 px-2">
+            <span className="chat-greet-ic" aria-hidden="true">
+              <Doodle name="chat" size={64} />
+            </span>
+            <p className="hi">Hi, I&apos;m Qazi&apos;s assistant.</p>
+            <p className="chat-hint text-center -mt-2">tap a question below, or write your own</p>
             <div className="flex flex-col gap-2 w-full">
               {SUGGESTIONS.map((s) => (
                 <button
@@ -203,7 +202,7 @@ export const ChatPanel = memo(function ChatPanel({
             <button
               onClick={handleSubmit}
               disabled={!canSend}
-              className="w-10 h-10 rounded-full bg-terra-500 text-white flex items-center justify-center shrink-0 hover:bg-terra-400 disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:scale-105 active:scale-95 mb-0.5"
+              className="w-10 h-10 rounded-full bg-coral text-white flex items-center justify-center shrink-0 hover:bg-coral-dark disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:scale-105 active:scale-95 mb-0.5"
               aria-label="Send"
             >
               <Send className="w-4 h-4" />

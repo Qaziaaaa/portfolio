@@ -30,7 +30,7 @@ const Contact = () => {
   return (
     <section id="contact" ref={sectionRef}>
       <div className="wrap">
-        <div className="closing tape contact-content">
+        <div className="closing contact-content">
           <span className="big">come say hi</span>
           <h2>Let&apos;s build something great.</h2>
           <p>
@@ -58,7 +58,7 @@ const Contact = () => {
 
           <a
             href="mailto:qazithekingston@gmail.com"
-            style={{ fontFamily: 'var(--print)', color: 'var(--terra)', fontSize: '1rem' }}
+            className="mail"
           >
             qazithekingston@gmail.com
           </a>

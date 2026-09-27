@@ -3,9 +3,9 @@ import { gsap } from 'gsap';
 import { FileDown } from 'lucide-react';
 
 const stats = [
-  { value: '29+', label: 'Projects Shipped' },
-  { value: '39+',  label: 'GitHub Repos'    },
-  { value: '843+', label: 'Contributions'   },
+  { value: '25+', label: 'Apps Shipped' },
+  { value: '45',  label: 'GitHub Repos' },
+  { value: '13',  label: 'Stars Earned' },
 ];
 
 const Hero = () => {
@@ -20,7 +20,7 @@ const Hero = () => {
         .fromTo('.hero-ctas',    { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5, ease: 'expo.out' }, '-=.2')
         .fromTo('.hero-note',    { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .45, ease: 'expo.out' }, '-=.2')
         .fromTo('.hero-stats',   { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .4, ease: 'expo.out' }, '-=.2')
-        .fromTo('.hero-polaroid',{ opacity: 0, rotate: 0, y: 24 }, { opacity: 1, rotate: 3.5, y: 0, duration: .9, ease: 'expo.out' }, '-=.8');
+        .fromTo('.hero-photo',{ opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .9, ease: 'expo.out' }, '-=.8');
     });
     return () => mm.revert();
   }, []);
@@ -75,12 +75,10 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right — Polaroid */}
-          <div className="hero-polaroid photo-wrap" style={{ display: 'flex' }}>
-            <div className="polaroid" style={{ width: '100%' }}>
-              <div className="sticker s2">AI Developer ✨</div>
+          {/* Right — Photo */}
+          <div className="hero-photo" style={{ display: 'flex' }}>
+            <div className="photo-frame">
               <img src="/profile.webp" alt="Qazi Farhan Ahmad" width="1254" height="1254" loading="eager" fetchPriority="high" decoding="async" />
-              <div className="cap">Full Stack Dev 👋</div>
             </div>
           </div>
         </div>

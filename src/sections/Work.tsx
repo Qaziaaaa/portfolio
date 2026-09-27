@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Doodle from '../components/Doodle';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -101,9 +102,9 @@ const Work = () => {
               className="gcard"
               aria-label={`View ${project.title}`}
             >
-              <span className="ic" style={{ fontSize: '1.6rem', marginBottom: 10 }}>{project.emoji}</span>
+              <span className="ic"><Doodle emoji={project.emoji} /></span>
               <h3>{project.title}</h3>
-              <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', marginBottom: 14, flex: 1 }}>{project.description}</p>
+              <p>{project.description}</p>
               <div className="gtags">
                 {project.tags.map((tag, i) => (
                   <span key={i} className="gtag tool">{tag}</span>

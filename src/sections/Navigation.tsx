@@ -25,8 +25,8 @@ const Navigation = () => {
     <>
       <header className="topbar">
         <div className="wrap">
-          <Link className="brand" to="/">
-            Qazi Farhan<span className="dot">.</span>
+          <Link className="brand" to="/" aria-label="Qazi Farhan">
+            QAZ\ FARHAN
           </Link>
 
           <nav className="nav">

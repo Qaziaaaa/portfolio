@@ -6,13 +6,13 @@ export const contactChunks: KnowledgeChunk[] = [
 - Email: qazithekingston@gmail.com
 - WhatsApp: +92 314 1935787
 - Phone: +92 314 1935787
-He is open to internships, freelance projects, full-time roles, and collaborations. Feel free to reach out directly via email or WhatsApp.`,
+He is available for team lead roles, full-stack engineering positions, and freelance projects. Feel free to reach out directly via email or WhatsApp.`,
     metadata: { topic: 'contact', source: 'contact-details' },
   },
   {
     text: `Qazi Farhan Ahmad's online profiles:
 - Portfolio: qaziahmad.vercel.app
-- GitHub: github.com/Qaziaaaa (39 repositories, 843 contributions in the last year)
+- GitHub: github.com/Qaziaaaa (45 repositories, 13 stars)
 - LinkedIn: linkedin.com/in/qazi-farhan-ahmad
 - Location: Peshawar, Pakistan (open to remote work worldwide)`,
     metadata: { topic: 'contact', source: 'contact-profiles' },

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Doodle from '../components/Doodle';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,37 +17,37 @@ const skills: Skill[] = [
     emoji: '🎨',
     title: 'Frontend Development',
     description: 'Building responsive, performant UIs with modern React patterns and TypeScript.',
-    technologies: ['React 19', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Zustand', 'TanStack Query'],
+    technologies: ['React 19', 'Next.js', 'TypeScript', 'Tailwind CSS', 'shadcn/ui', 'GSAP', 'Framer Motion', 'HTML5'],
   },
   {
     emoji: '⚙️',
     title: 'Backend Development',
     description: 'Secure, scalable REST APIs with JWT auth, rate limiting, and caching.',
-    technologies: ['Node.js', 'Express.js', 'REST APIs', 'JWT Auth', 'Rate Limiting', 'Caching'],
+    technologies: ['Node.js', 'Express.js', 'REST APIs', 'JWT Auth', 'Prisma', 'Redis'],
   },
   {
     emoji: '🗄️',
     title: 'Database & Payments',
-    description: 'Data modeling, query optimization, and Stripe payment integration.',
-    technologies: ['MongoDB Atlas', 'Mongoose', 'PostgreSQL', 'Stripe', 'Webhooks'],
+    description: 'Data modeling, query optimization, and payment integration.',
+    technologies: ['MongoDB', 'PostgreSQL', 'Firebase', 'Stripe', 'Webhooks'],
   },
   {
     emoji: '🤖',
     title: 'AI Integrations',
     description: 'Building AI-powered chatbots, automation systems, and smart API integrations.',
-    technologies: ['RAG Chatbots', 'Groq LLM', 'Jina AI', 'Genkit AI', 'OpenAI API', 'Automation'],
+    technologies: ['Groq LLaMA 3.1', 'Jina AI', 'Google Gemini', 'OpenAI', 'Vercel AI SDK', 'Scikit-learn'],
   },
   {
     emoji: '🔒',
     title: 'Performance & Security',
-    description: 'Core Web Vitals, code splitting, CSRF protection, and circuit breakers.',
-    technologies: ['Core Web Vitals', 'Code Splitting', 'CSRF', 'bcrypt', 'Input Validation'],
+    description: 'Core Web Vitals, code splitting, CSRF protection, and input validation.',
+    technologies: ['Core Web Vitals', 'Code Splitting', 'CSRF', 'bcrypt', 'Input Validation', 'Git', 'Figma'],
   },
   {
     emoji: '☁️',
     title: 'DevOps & Deployment',
-    description: 'CI/CD pipelines, cloud deployment, and environment management.',
-    technologies: ['Vercel', 'Render', 'Netlify', 'Cloudinary', 'Docker', 'Git'],
+    description: 'CI/CD pipelines, cloud deployment, and containerization.',
+    technologies: ['Vercel', 'Render', 'Netlify', 'Docker', 'GitHub Actions', 'Python'],
   },
 ];
 
@@ -90,10 +91,10 @@ const Skills = () => {
         <div className="grid3">
           {skills.map((skill, index) => (
             <div key={index} className="skill-card fcard">
-              <span className="ic">{skill.emoji}</span>
+              <span className="ic"><Doodle emoji={skill.emoji} /></span>
               <h3>{skill.title}</h3>
-              <p style={{ marginBottom: 14 }}>{skill.description}</p>
-              <div className="gtags" style={{ marginTop: 'auto' }}>
+              <p>{skill.description}</p>
+              <div className="gtags">
                 {skill.technologies.map((tech, i) => (
                   <span key={i} className="gtag topic">{tech}</span>
                 ))}

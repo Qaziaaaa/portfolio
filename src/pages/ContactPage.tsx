@@ -1,3 +1,5 @@
+import Doodle from '../components/Doodle';
+
 interface Interest {
   e: string;
   t: string;
@@ -35,12 +37,12 @@ const ContactPage = () => {
         </div>
 
         <div className="contact-grid">
-          <div className="contactbox tape">
+          <div className="contactbox">
             <h3>I&apos;d love to hear about</h3>
             <div className="inq">
               {interests.map(item => (
                 <div className="row" key={item.t}>
-                  <span className="e">{item.e}</span>
+                  <span className="e"><Doodle emoji={item.e} /></span>
                   <div>
                     <b>{item.t}</b>
                     <br />
@@ -51,7 +53,7 @@ const ContactPage = () => {
             </div>
           </div>
 
-          <div className="contactbox tape sage">
+          <div className="contactbox">
             <h3>Come find me</h3>
             <div className="linklist">
               {findme.map(item => (
@@ -61,7 +63,7 @@ const ContactPage = () => {
                   target={item.href.startsWith('http') ? '_blank' : undefined}
                   rel="noopener noreferrer"
                 >
-                  <span className="e">{item.e}</span>
+                  <span className="e"><Doodle emoji={item.e} /></span>
                   <div>
                     <b>{item.t}</b>
                     <span className="l">{item.label}</span>
@@ -73,7 +75,7 @@ const ContactPage = () => {
         </div>
 
         <div className="note" style={{ marginTop: 28 }}>
-          Usually a reply within a few days ☕
+          Usually a reply within a few days.
         </div>
       </div>
     </section>

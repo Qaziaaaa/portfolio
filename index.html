@@ -4,16 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
     <!-- ═══ Primary SEO ═══ -->
-    <title>Qazi Farhan Ahmad | AI Web Developer & MERN Stack Expert</title>
-    <meta name="title" content="Qazi Farhan Ahmad | AI Web Developer & MERN Stack Expert" />
-    <meta name="description" content="Qazi Farhan Ahmad is an AI Web Developer and MERN Stack Expert specializing in high-performance websites, AI-powered web applications, and scalable digital products. Based in Peshawar, Pakistan — open to internships, freelance, and full-time roles." />
+    <title>Qazi Farhan Ahmad | Team Lead & Full-Stack Engineer</title>
+    <meta name="title" content="Qazi Farhan Ahmad | Team Lead & Full-Stack Engineer" />
+    <meta name="description" content="Qazi Farhan Ahmad is a Team Lead & Full-Stack Engineer @ Saylani Tech Labs, specializing in MERN stack, AI-powered web applications, and scalable digital products. Based in Peshawar, Pakistan." />
     <meta name="keywords" content="Qazi Farhan Ahmad, Qazi Farhan, Qazi Ahmad, Full Stack Developer, MERN Stack Developer, AI Developer, React Developer, Node.js Developer, Web Developer Pakistan, Peshawar Developer, Portfolio" />
     <meta name="author" content="Qazi Farhan Ahmad" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://qaziahmad.vercel.app/" />
     <meta name="google-site-verification" content="0yOn_wHcn0M7OJRj2ovZkX79hNrve0KdnoNyO0WIFKg" />
-    <meta name="theme-color" content="#FAF7F2" />
+    <meta name="theme-color" content="#faf9f5" />
     <link rel="manifest" href="/manifest.json" />
 
     <!-- ═══ Open Graph (Facebook, LinkedIn previews) ═══ -->
@@ -41,8 +43,8 @@
       "alternateName": ["Qazi Farhan", "Qazi Ahmad"],
       "url": "https://qaziahmad.vercel.app/",
       "image": "https://qaziahmad.vercel.app/profile.webp",
-      "jobTitle": "Full Stack Developer",
-      "description": "Qazi Farhan Ahmad is a Full Stack Developer and Software Engineering student at the University of Peshawar, Pakistan. He specializes in MERN stack, AI-powered web applications, and scalable digital products.",
+      "jobTitle": "Team Lead & Full-Stack Engineer",
+      "description": "Qazi Farhan Ahmad is a Team Lead & Full-Stack Engineer @ Saylani Tech Labs and BS Software Engineering student at the University of Peshawar, Pakistan. He specializes in MERN stack, AI-powered web applications, and scalable digital products.",
       "email": "qazithekingston@gmail.com",
       "telephone": "+92-314-1935787",
       "address": {
@@ -83,61 +85,31 @@
     <!-- Critical CSS for above-the-fold content -->
     <style>
       /* Critical CSS for immediate rendering */
-      body{margin:0;background:#FAF7F2;color:#332E29;font-family:system-ui,-apple-system,sans-serif;overflow-x:hidden;overflow-x:clip}
-      .skip-link{position:absolute;top:-100%;left:50%;transform:translateX(-50%);z-index:10000;padding:8px 16px;background:#332E29;color:#fff;font-size:14px;font-weight:600;border-radius:0 0 8px 8px;text-decoration:none;transition:top .2s}
+      body{margin:0;background:#faf9f5;color:#222222;font-family:"Open Sans",system-ui,-apple-system,sans-serif;overflow-x:hidden;overflow-x:clip}
+      .skip-link{position:absolute;top:-100%;left:50%;transform:translateX(-50%);z-index:10000;padding:8px 16px;background:#141413;color:#fff;font-size:14px;font-weight:600;border-radius:0 0 8px 8px;text-decoration:none;transition:top .2s}
       .skip-link:focus{top:0}
       #root{min-height:100vh}
-      /* Boot loader (scrapbook polaroid) */
-      #boot-loader{position:fixed;inset:0;z-index:9999;background-color:#FAF7F2;background-image:url('/paper.png');background-repeat:repeat;display:flex;align-items:center;justify-content:center;transition:opacity .55s ease}
+      /* Boot loader */
+      #boot-loader{position:fixed;inset:0;z-index:9999;background-color:#faf9f5;display:flex;align-items:center;justify-content:center;transition:opacity .55s ease}
       #boot-loader.loader-hidden{opacity:0;pointer-events:none}
-      .bl-wrap{display:flex;flex-direction:column;align-items:center;gap:16px}
-      .bl-polaroid{position:relative;background:#fdfbf5;border:1px solid rgba(51,46,41,.07);border-radius:2px;padding:10px 10px 14px;box-shadow:0 9px 15px -7px rgba(51,46,41,.30),0 2px 4px rgba(51,46,41,.18);transform:rotate(-2.5deg);animation:bl-pop .5s cubic-bezier(.34,1.56,.64,1) both}
-      .bl-polaroid img{width:150px;height:200px;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block;background:#F4ECE0;border-radius:1px}
-      .bl-tape{position:absolute;top:-12px;left:50%;width:84px;height:24px;transform:translateX(-50%) rotate(-4deg);background:repeating-linear-gradient(45deg,rgba(232,183,168,.6) 0 7px,rgba(232,183,168,.36) 7px 14px);box-shadow:0 1px 2px rgba(0,0,0,.05)}
-      .bl-cap{display:block;text-align:center;font-family:'Caveat',cursive;font-size:1.35rem;color:#332E29;margin-top:6px}
-      .bl-loading{font-family:'Caveat',cursive;font-size:1.7rem;color:#C96F4C;display:inline-flex;align-items:flex-end;gap:4px;transform:rotate(-1deg)}
-      .bl-dots{width:8px;height:8px;border-radius:50%;background:#D97757;animation:bl-bounce 1s infinite ease-in-out}
+      .bl-wrap{display:flex;flex-direction:column;align-items:center;gap:18px}
+      .bl-polaroid{position:relative;background:transparent;border:none;border-radius:0;padding:0;box-shadow:none;animation:bl-pop .5s cubic-bezier(.34,1.56,.64,1) both}
+      .bl-polaroid img{width:112px;height:112px;aspect-ratio:1;object-fit:cover;object-position:center top;display:block;background:#f0eee6;border:1px solid #e5e2d9;border-radius:16px}
+      .bl-cap{display:block;text-align:center;font-family:Georgia,"Times New Roman",serif;font-size:1.05rem;color:#222;margin-top:12px;font-weight:400;letter-spacing:-.02em}
+      .bl-loading{font-family:Georgia,"Times New Roman",serif;font-size:1.35rem;color:#222;display:inline-flex;align-items:flex-end;gap:4px}
+      .bl-dots{width:7px;height:7px;border-radius:50%;background:#141413;animation:bl-bounce 1s infinite ease-in-out}
       .bl-dots:nth-of-type(2){animation-delay:.15s}
       .bl-dots:nth-of-type(3){animation-delay:.3s}
-      .bl-tag{font-family:'Patrick Hand',cursive;font-size:.9rem;color:#736a60;margin-top:2px}
-      @keyframes bl-pop{from{opacity:0;transform:rotate(-7deg) translateY(16px) scale(.96)}to{opacity:1;transform:rotate(-2.5deg) translateY(0) scale(1)}}
+      .bl-tag{font-family:"Open Sans",system-ui,sans-serif;font-size:.82rem;color:#7c7968;margin-top:2px;letter-spacing:.3px}
+      @keyframes bl-pop{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
       @keyframes bl-bounce{0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-8px);opacity:1}}
     </style>
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
 
     <!-- ═══ Content Security Policy ═══ -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://api.groq.com https://api.jina.ai; frame-src 'self' https:; base-uri 'self'; form-action 'self';" />
-
-    <style>
-      .skip-link {
-        position: absolute;
-        top: -100%;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10000;
-        padding: 8px 16px;
-        background: white;
-        color: black;
-        font-size: 14px;
-        font-weight: 600;
-        border-radius: 0 0 8px 8px;
-        text-decoration: none;
-        transition: top 0.2s;
-      }
-      .skip-link:focus {
-        top: 0;
-      }
-      
-      /* Font display fallback to prevent FOIT */
-      @font-face {
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: local('Inter'), local('Inter-Regular');
-      }
-    </style>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data: https://assets.claude.ai https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.groq.com https://api.jina.ai; frame-src 'self' https:; base-uri 'self'; form-action 'self';" />
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -145,12 +117,11 @@
     <div id="boot-loader" role="status" aria-label="Loading portfolio">
       <div class="bl-wrap">
         <div class="bl-polaroid">
-          <span class="bl-tape"></span>
-          <img src="/profile.webp" alt="" width="150" height="200" />
-          <span class="bl-cap">hey there ✋</span>
+          <img src="/profile.webp" alt="" width="112" height="112" />
+          <span class="bl-cap">Qazi Farhan Ahmad</span>
         </div>
         <span class="bl-loading">loading<span class="bl-dots"></span><span class="bl-dots"></span><span class="bl-dots"></span></span>
-        <span class="bl-tag">AI Web Developer · MERN Stack Expert</span>
+        <span class="bl-tag">Team Lead · Full-Stack Engineer</span>
       </div>
     </div>
     <div id="root" style="display: none;"></div>

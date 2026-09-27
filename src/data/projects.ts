@@ -31,7 +31,7 @@ export const projects: Project[] = [
     highlights: [
       'RAG-powered AI chatbot for visitor Q&A via Groq + Jina AI',
       'GSAP scroll-triggered animations',
-      'Warm scrapbook design with full project showcase',
+      'Clean Anthropic-inspired design with full project showcase',
     ],
   },
   {
@@ -293,6 +293,38 @@ export const projects: Project[] = [
 
   // ===================== FULL-STACK (12) =====================
   {
+    slug: 'smit-bootcamp-lms',
+    title: 'SMIT Bootcamp LMS',
+    category: 'fullstack',
+    description: 'Student portal for managing Saylani Mass IT Training bootcamp cohorts — attendance tracking, assignment management, and student progress monitoring.',
+    role: 'Built the full-stack student management system with role-based access for admins and students.',
+    tech: ['TypeScript', 'React', 'Node.js', 'Express', 'MongoDB'],
+    github: 'https://github.com/Qaziaaaa/SMIT-Bootcamp-LMS',
+    live: '',
+    emoji: '📚',
+    highlights: [
+      'Student attendance tracking and management',
+      'Assignment submission and grading system',
+      'Role-based access for admins and students',
+    ],
+  },
+  {
+    slug: 'liquid-reveal',
+    title: 'Liquid Reveal',
+    category: 'frontend',
+    description: 'Reusable npm package providing a performant animated reveal component for React — handles GSAP setup, cleanup, and responsive animation config out of the box.',
+    role: 'Built and published the npm package with zero-dependency GSAP animations, TypeScript types, and SSR support.',
+    tech: ['React', 'TypeScript', 'GSAP', 'npm'],
+    github: 'https://github.com/Qaziaaaa/liquid-reveal',
+    live: '',
+    emoji: '💧',
+    highlights: [
+      'Published to npm as a reusable package',
+      'Zero-dependency GSAP-powered animations',
+      'SSR-compatible with full TypeScript types',
+    ],
+  },
+  {
     slug: 'nova-ecommerce',
     title: 'NOVA E-Commerce Platform',
     category: 'fullstack',
@@ -518,6 +550,22 @@ export const projects: Project[] = [
   },
 
   // ===================== AI (7) =====================
+  {
+    slug: 'canva-integration',
+    title: 'Canva Developer Integration',
+    category: 'ai',
+    description: 'Full Canva Connect API integration — design import, export, and manipulation workflow using OAuth 2.0, webhooks, and type-safe SDK patterns.',
+    role: 'Implemented the OAuth 2.0 flow, design import/export pipeline, and webhook handling for real-time collaboration.',
+    tech: ['TypeScript', 'REST API', 'OAuth 2.0', 'Webhooks'],
+    github: 'https://github.com/Qaziaaaa/Canva-developer-integration',
+    live: '',
+    emoji: '🎨',
+    highlights: [
+      'OAuth 2.0 authentication flow for Canva Connect API',
+      'Design import and export pipeline',
+      'Webhook handling for real-time collaboration events',
+    ],
+  },
   {
     slug: 'rag-chatbot-ai',
     title: 'MyDocChat — RAG Chatbot',

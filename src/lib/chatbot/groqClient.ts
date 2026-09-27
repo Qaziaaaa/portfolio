@@ -4,7 +4,7 @@
  */
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'llama-3.1-8b-instant';
+const GROQ_MODEL = 'qwen/qwen3.8-27b';
 const MAX_TOKENS = 300;
 const MAX_HISTORY_MESSAGES = 8;
 
