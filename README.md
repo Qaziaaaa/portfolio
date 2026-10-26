@@ -8,7 +8,7 @@
 
 ## What Makes This Portfolio Different
 
-- **RAG AI Chatbot** — Visitors can ask anything about Qazi's skills, projects, and availability. Powered by Jina AI embeddings + Groq LLaMA 3.1, fully client-side with Vercel serverless proxies.
+- **LangChain AI Agent** — Visitors can ask anything about Qazi's skills, projects, and availability. A server-side Python agent (LangChain tool loop) with RAG over 18 knowledge chunks — Jina AI embeddings, Groq inference, structured JSON responses. No API keys ship in the browser.
 - **GSAP Animations** — Cinematic scroll-triggered animations, parallax, and 3D perspective transforms.
 - **Live Project Previews** — Horizontal scroll section with real iframe previews of each project.
 - **"Why Work With Me" Section** — Honest value propositions replacing fake testimonials.
@@ -24,8 +24,47 @@
 | Frontend | React 19, TypeScript, Vite 7, Tailwind CSS v3 |
 | UI | shadcn/ui, Radix UI, Lucide React |
 | Animations | GSAP 3 + ScrollTrigger |
-| AI Chatbot | Jina AI embeddings, Groq LLaMA 3.1, in-memory vector store |
-| Deployment | Vercel (frontend + serverless API routes) |
+| AI Agent | LangChain 1.x, LangGraph, FastAPI, Jina AI embeddings, Groq |
+| Deployment | Vercel (static frontend + Python function) |
+
+---
+
+## AI Agent Architecture
+
+```
+browser ──POST /api/agent──► FastAPI (app.py, Vercel Python runtime)
+                                │
+                                ▼
+                    create_agent() tool loop            agent/graph.py
+                    ├─ search_knowledge  ─┐
+                    ├─ list_projects     ─┤ RAG: 18 chunks → Jina embeddings
+                    ├─ get_contact       ─┤ → InMemoryVectorStore (top-3,
+                    └─ get_availability  ─┘   similarity ≥ 0.3)
+                                │
+                                ▼
+                    ToolStrategy(AgentResponse)         agent/schemas.py
+                    intent · blocks[] · sources[]       text | bullets |
+                    trace[] · suggestions[]             project_card |
+                                │                       contact_card
+                                ▼
+                    guardrail: grounded intent without tool evidence
+                    → deterministic fallback response
+                                │
+                                ▼
+frontend renders blocks as native components (cards, bullets,
+links) — never parses markdown; follow-up chips come from
+response.suggestions
+```
+
+| File | Role |
+|---|---|
+| `app.py` | FastAPI entrypoint — `POST /api/agent`, health checks |
+| `agent/graph.py` | Agent construction, system prompt, normalization, guardrail |
+| `agent/tools.py` | The four tools the model can call each turn |
+| `agent/rag.py` | Jina embeddings + LangChain `InMemoryVectorStore` |
+| `agent/knowledge/*.md` | 18 knowledge chunks (`## source-id` sections) |
+| `agent/schemas.py` | Pydantic `AgentResponse` + block union |
+| `tests/test_agent.py` | Offline pytest suite (fake model, no network) |
 
 ---
 
@@ -44,15 +83,35 @@
 ## Getting Started
 
 ```bash
+# Frontend
 npm install
-cp .env.example .env   # Add your API keys
 npm run dev
+
+# AI agent (Python 3.12+, separate terminal)
+pip install -r requirements.txt
+uvicorn app:app --port 8000
 ```
 
-**Required environment variables:**
+The Vite dev server proxies `/api/agent` → `http://127.0.0.1:8000`.
+
+**Environment variables** (`.env`, server-side only — never bundled into the frontend):
+
 ```env
-VITE_JINA_API_KEY=your_jina_api_key_here   # Free at jina.ai
-VITE_GROQ_API_KEY=your_groq_api_key_here   # Free at console.groq.com
+GROQ_API_KEY=your_groq_api_key_here      # free at console.groq.com
+JINA_API_KEY=your_jina_api_key_here      # free at jina.ai
+
+# optional LangSmith tracing
+LANGSMITH_API_KEY=
+LANGSMITH_PROJECT=portfolio-agent
+```
+
+On Vercel, set the same variables in **Project → Settings → Environment Variables**.
+
+**Tests:**
+
+```bash
+python3 -m pytest tests/ -q    # offline agent suite (fake model, no network)
+npm run build                  # type-check + production build
 ```
 
 ---

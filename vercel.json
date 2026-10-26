@@ -1,6 +1,11 @@
 {
-  "rewrites": [
-    { "source": "/api/:path*", "destination": "/api/:path*" },
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "fastapi",
+  "buildCommand": "npm ci && npm run build",
+  "functions": {
+    "app.py": {
+      "excludeFiles": "{node_modules/**,dist/**,public/**,src/**,.git/**,.github/**,tests/**}",
+      "maxDuration": 60
+    }
+  }
 }

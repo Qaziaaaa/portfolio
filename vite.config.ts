@@ -67,15 +67,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api/jina': {
-        target: 'https://api.jina.ai',
+      // Python LangChain agent (run locally: uvicorn app:app --port 8000)
+      '/api/agent': {
+        target: 'http://127.0.0.1:8000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/jina/, ''),
-      },
-      '/api/groq': {
-        target: 'https://api.groq.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/groq/, ''),
       },
     },
   },

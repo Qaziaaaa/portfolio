@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, lazy, Suspense } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { MessageSquare, X } from 'lucide-react';
 import { useChatbot } from './useChatbot';
 
@@ -9,21 +9,18 @@ const ChatPanel = lazy(() =>
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const initializedRef = useRef(false);
 
-  const { status, messages, isStreaming, sendMessage, clearHistory, initializeIfNeeded } =
-    useChatbot();
+  const { messages, isBusy, sendMessage, clearHistory, warm } = useChatbot();
 
-  // Pre-warm the assistant in the background so opening the chat is instant.
-  // Runs during browser idle (fallback: a short delay) instead of on first click.
+  // Warm the agent in the background (server cold start) during browser idle.
   useEffect(() => {
-    const warm = () => initializeIfNeeded();
+    const warmCall = () => warm();
     const hasIdleCallback = typeof window !== 'undefined' && 'requestIdleCallback' in window;
     const id = hasIdleCallback
       ? (window as unknown as {
           requestIdleCallback(cb: () => void, opts?: { timeout: number }): number;
-        }).requestIdleCallback(warm, { timeout: 2500 })
-      : window.setTimeout(warm, 1200);
+        }).requestIdleCallback(warmCall, { timeout: 2500 })
+      : window.setTimeout(warmCall, 1200);
 
     return () => {
       if (hasIdleCallback) {
@@ -32,19 +29,12 @@ export default function ChatbotWidget() {
         window.clearTimeout(id);
       }
     };
-  }, [initializeIfNeeded]);
-
-  useEffect(() => {
-    if (isOpen && !initializedRef.current) {
-      initializedRef.current = true;
-      initializeIfNeeded();
-    }
-  }, [isOpen, initializeIfNeeded]);
+  }, [warm]);
 
   const handleToggle = useCallback(() => setIsOpen((p) => !p), []);
   const handleClose = useCallback(() => setIsOpen(false), []);
-  // Hovering the toggle also kicks off initialization (idempotent).
-  const handleWarmHover = useCallback(() => initializeIfNeeded(), [initializeIfNeeded]);
+  // Hovering the toggle also warms the agent (idempotent).
+  const handleWarmHover = useCallback(() => warm(), [warm]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -88,8 +78,7 @@ export default function ChatbotWidget() {
           <Suspense fallback={null}>
             <ChatPanel
               messages={messages}
-              status={status}
-              isStreaming={isStreaming}
+              isBusy={isBusy}
               onSendMessage={sendMessage}
               onClearHistory={clearHistory}
               onClose={handleClose}

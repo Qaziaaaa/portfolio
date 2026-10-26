@@ -1,43 +1,23 @@
 /**
- * Shared TypeScript types for the RAG portfolio chatbot.
+ * Shared TypeScript types for the portfolio chatbot.
  */
-
-/** A discrete, semantically meaningful segment of text from the knowledge base. */
-export interface KnowledgeChunk {
-  text: string;
-  metadata: {
-    /** Topic area: "bio" | "skills" | "experience" | "projects" | "contact" */
-    topic: string;
-    /** Unique source identifier, e.g. "experience-senior-mern" */
-    source: string;
-  };
-}
-
-/** An entry in the in-memory vector store: chunk text + metadata + embedding vector. */
-export interface VectorEntry {
-  chunk: string;
-  metadata: Record<string, string>;
-  /** 1024-dimensional float array produced by jina-embeddings-v3 */
-  embedding: number[];
-}
-
-/**
- * Lifecycle status of the chatbot initializer.
- * - idle: not yet started
- * - loading: embedding in progress
- * - ready: vector store populated, chatbot operational
- * - error: Jina AI API call failed
- * - misconfigured: one or more required env vars are missing
- */
-export type InitStatus = 'idle' | 'loading' | 'ready' | 'error' | 'misconfigured';
+import type { Block } from './agentClient';
 
 /** A single message in the conversation history. */
 export interface ChatMessage {
   /** Unique identifier — generated via crypto.randomUUID() */
   id: string;
   role: 'user' | 'assistant';
-  /** Full message text; grows incrementally during streaming for assistant messages. */
+  /** Plain text content (also what gets sent back as history). */
   content: string;
   /** Unix timestamp in milliseconds (Date.now()) */
   timestamp: number;
+  /** Structured blocks returned by the agent (assistant messages only). */
+  blocks?: Block[];
+  /** Follow-up questions suggested by the agent (assistant messages only). */
+  suggestions?: string[];
+  /** Knowledge topics/tools that informed the answer. */
+  sources?: string[];
+  /** Tool-loop steps, e.g. "searched knowledge base". */
+  trace?: string[];
 }

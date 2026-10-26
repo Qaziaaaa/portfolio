@@ -1,8 +1,5 @@
-import type { KnowledgeChunk } from '../types';
-
-export const projectsChunks: KnowledgeChunk[] = [
-  {
-    text: `NOVA — Premium E-Commerce Platform
+## project-nova-ecommerce
+NOVA — Premium E-Commerce Platform
 Live at: nova-ecomm.vercel.app | Code on GitHub: github.com/Qaziaaaa/ecommerce-system
 Stack: React 19, TypeScript, Node.js, Express, MongoDB Atlas, Stripe, Zustand, TanStack Query, Tailwind CSS
 Key Features:
@@ -13,50 +10,43 @@ Key Features:
 • Live order tracking with 30-second polling
 • Circuit breakers for Stripe, Cloudinary, and email services
 • Admin panel with product management, order management, user management, and revenue analytics
-• CSRF protection, rate limiting, Helmet security headers, Zod input validation`,
-    metadata: { topic: 'projects', source: 'project-nova-ecommerce' },
-  },
-  {
-    text: `MyDocChat — RAG Chatbot
+• CSRF protection, rate limiting, Helmet security headers, Zod input validation
+
+## project-rag-chatbot
+MyDocChat — RAG Chatbot
 Live at: mydocchat.vercel.app | Code on GitHub: github.com/Qaziaaaa/RAG-chatbot
 Stack: React, TypeScript, Groq LLaMA 3.1, Jina AI, Supabase, Express, MongoDB
 Key Features:
 • Upload files and get intelligent streaming answers via RAG
 • Groq LLaMA 3.1 for real-time inference
 • Jina AI embeddings for semantic search and context awareness
-• Full MERN stack with Express API and MongoDB`,
-    metadata: { topic: 'projects', source: 'project-rag-chatbot' },
-  },
-  {
-    text: `Liquid Reveal — Reusable Animated Reveal Component
+• Full MERN stack with Express API and MongoDB
+
+## project-liquid-reveal
+Liquid Reveal — Reusable Animated Reveal Component
 Code on GitHub: github.com/Qaziaaaa/liquid-reveal
 Stack: React, TypeScript, GSAP, npm
 Key Features:
 • Published to npm as a reusable package
 • Zero-dependency GSAP-powered animations
 • SSR-compatible with full TypeScript types
-• Handles GSAP setup, cleanup, and responsive animation config out of the box`,
-    metadata: { topic: 'projects', source: 'project-liquid-reveal' },
-  },
-  {
-    text: `SMIT Bootcamp LMS — Student Portal
+• Handles GSAP setup, cleanup, and responsive animation config out of the box
+
+## project-smit-lms
+SMIT Bootcamp LMS — Student Portal
 Code on GitHub: github.com/Qaziaaaa/SMIT-Bootcamp-LMS
 Stack: TypeScript, React, Node.js, Express, MongoDB
 Key Features:
 • Student attendance tracking and management
 • Assignment submission and grading system
-• Role-based access for admins and students`,
-    metadata: { topic: 'projects', source: 'project-smit-lms' },
-  },
-  {
-    text: `Current Portfolio (this website)
+• Role-based access for admins and students
+
+## project-this-portfolio
+Current Portfolio (this website)
 Live at: qaziahmad.vercel.app | Code on GitHub: github.com/Qaziaaaa/portfolio
 Stack: React 19, TypeScript, Vite, Tailwind CSS, GSAP, Groq API, Jina AI
 Key Features:
 • RAG AI chatbot powered by Jina AI embeddings and Groq LLaMA 3.1
 • GSAP ScrollTrigger animations throughout all sections
 • 3D perspective tilt cards on hover
-• Clean Anthropic-inspired design with full project showcase`,
-    metadata: { topic: 'projects', source: 'project-this-portfolio' },
-  },
-];
+• Clean Anthropic-inspired design with full project showcase

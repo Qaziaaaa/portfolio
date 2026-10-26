@@ -1,43 +1,30 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { initialize, MisconfiguredError } from '../../lib/chatbot/initializer';
-import { retrieve } from '../../lib/chatbot/retriever';
-import { buildSystemPrompt, streamCompletion } from '../../lib/chatbot/groqClient';
-import type { ChatMessage, InitStatus } from '../../lib/chatbot/types';
-import type { HistoryMessage } from '../../lib/chatbot/groqClient';
+import {
+  askAgent,
+  blocksToPlainText,
+  pingAgent,
+  AgentError,
+  type HistoryTurn,
+} from '../../lib/chatbot/agentClient';
+import type { ChatMessage } from '../../lib/chatbot/types';
 
 const MAX_MESSAGES = 40;
 
 export function useChatbot() {
-  const [status, setStatus] = useState<InitStatus>('idle');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [isStreaming, setIsStreaming] = useState(false);
+  const [isBusy, setIsBusy] = useState(false);
 
-  const initAttempted = useRef(false);
+  const busyRef = useRef(false);
   // Keep a ref to messages so sendMessage doesn't need it as a dependency
   const messagesRef = useRef<ChatMessage[]>([]);
-  useEffect(() => { messagesRef.current = messages; }, [messages]);
-
-  const initializeIfNeeded = useCallback(async () => {
-    if (initAttempted.current) return;
-    initAttempted.current = true;
-    setStatus('loading');
-    try {
-      await initialize();
-      setStatus('ready');
-    } catch (err) {
-      if (err instanceof MisconfiguredError) {
-        console.error('[Chatbot] Misconfigured:', err.message);
-        setStatus('misconfigured');
-      } else {
-        console.error('[Chatbot] Init error:', err);
-        setStatus('error');
-      }
-    }
-  }, []);
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
 
   const sendMessage = useCallback(async (text: string) => {
     const trimmed = text.trim();
-    if (!trimmed) return;
+    if (!trimmed || busyRef.current) return;
+    busyRef.current = true;
 
     const userMsg: ChatMessage = {
       id: crypto.randomUUID(),
@@ -54,57 +41,58 @@ export function useChatbot() {
       timestamp: Date.now(),
     };
 
+    // History from ref (avoids stale closure) — plain text of prior turns
+    const history: HistoryTurn[] = messagesRef.current
+      .filter((m) => m.content.trim() !== '')
+      .map((m) => ({ role: m.role, content: m.content }));
+
     setMessages((prev) => {
       const next = [...prev, userMsg, assistantMsg];
       return next.length > MAX_MESSAGES ? next.slice(-MAX_MESSAGES) : next;
     });
-    setIsStreaming(true);
+    setIsBusy(true);
 
     try {
-      const { chunks } = await retrieve(trimmed);
-      const systemPrompt = buildSystemPrompt(chunks);
-
-      // Build history from ref (avoids stale closure)
-      const history: HistoryMessage[] = messagesRef.current
-        .filter((m) => m.content.trim() !== '')
-        .map((m) => ({ role: m.role, content: m.content }));
-
-      await streamCompletion(
-        systemPrompt,
-        history,
-        trimmed,
-        (token) => {
-          setMessages((prev) =>
-            prev.map((m) => m.id === assistantId ? { ...m, content: m.content + token } : m)
-          );
-        },
-        () => { setIsStreaming(false); },
-        (err) => {
-          console.error('[Chatbot] Stream error:', err.message);
-          setMessages((prev) =>
-            prev.map((m) =>
-              m.id === assistantId
-                ? { ...m, content: "Sorry, I'm having trouble connecting. Please try again." }
-                : m
-            )
-          );
-          setIsStreaming(false);
-        }
-      );
-    } catch (err) {
-      console.error('[Chatbot] sendMessage error:', err);
+      const response = await askAgent(trimmed, history);
+      const content = blocksToPlainText(response.blocks);
       setMessages((prev) =>
         prev.map((m) =>
           m.id === assistantId
-            ? { ...m, content: "Sorry, I'm having trouble connecting. Please try again." }
+            ? {
+                ...m,
+                content,
+                blocks: response.blocks,
+                suggestions: response.suggestions,
+                sources: response.sources,
+                trace: response.trace,
+              }
             : m
         )
       );
-      setIsStreaming(false);
+    } catch (err) {
+      console.error('[Chatbot] agent error:', err);
+      const status = err instanceof AgentError ? err.status : undefined;
+      const content =
+        status === 429
+          ? "Hit Groq's rate limit — wait about 30 seconds, then send that again."
+          : "Sorry, the agent hit a snag — please try again in a moment.";
+      setMessages((prev) =>
+        prev.map((m) =>
+          m.id === assistantId
+            ? {
+                ...m,
+                content,
+              }
+            : m
+        )
+      );
+    } finally {
+      busyRef.current = false;
+      setIsBusy(false);
     }
   }, []);
 
   const clearHistory = useCallback(() => setMessages([]), []);
 
-  return { status, messages, isStreaming, sendMessage, clearHistory, initializeIfNeeded };
+  return { messages, isBusy, sendMessage, clearHistory, warm: pingAgent };
 }

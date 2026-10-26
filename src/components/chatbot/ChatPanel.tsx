@@ -3,12 +3,11 @@ import { X, Trash2, Send } from 'lucide-react';
 import { MessageBubble } from './MessageBubble';
 import { TypingIndicator } from './TypingIndicator';
 import Doodle from '../Doodle';
-import type { ChatMessage, InitStatus } from '../../lib/chatbot/types';
+import type { ChatMessage } from '../../lib/chatbot/types';
 
 interface Props {
   messages: ChatMessage[];
-  status: InitStatus;
-  isStreaming: boolean;
+  isBusy: boolean;
   onSendMessage: (text: string) => void;
   onClearHistory: () => void;
   onClose: () => void;
@@ -23,7 +22,7 @@ const SUGGESTIONS = [
 ];
 
 export const ChatPanel = memo(function ChatPanel({
-  messages, status, isStreaming,
+  messages, isBusy,
   onSendMessage, onClearHistory, onClose,
   inputValue, onInputChange,
 }: Props) {
@@ -39,12 +38,12 @@ export const ChatPanel = memo(function ChatPanel({
     if (nearBottom) bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [messages]);
 
-  // Focus input when ready
+  // Focus input on mount
   useEffect(() => {
-    if (status === 'ready') setTimeout(() => inputRef.current?.focus(), 80);
-  }, [status]);
+    setTimeout(() => inputRef.current?.focus(), 80);
+  }, []);
 
-  const canSend = !isStreaming && status === 'ready' && inputValue.trim().length > 0;
+  const canSend = !isBusy && inputValue.trim().length > 0;
 
   const handleSubmit = () => {
     if (!canSend) return;
@@ -65,14 +64,19 @@ export const ChatPanel = memo(function ChatPanel({
     e.target.style.height = Math.min(e.target.scrollHeight, 100) + 'px';
   };
 
-  const lastMsg = messages[messages.length - 1];
-  const showTyping = isStreaming && lastMsg?.role === 'assistant' && lastMsg.content === '';
+  const handleSuggestion = (text: string) => {
+    if (isBusy) return;
+    onSendMessage(text);
+    onInputChange('');
+    if (inputRef.current) inputRef.current.style.height = 'auto';
+  };
 
-  const sub = status === 'loading'
-    ? 'warming up my notebook…'
-    : status === 'ready'
-      ? 'ask me anything about Qazi'
-      : 'hmm, I ran out of paper';
+  const lastMsg = messages[messages.length - 1];
+  const showTyping = isBusy && lastMsg?.role === 'assistant' && lastMsg.content === '';
+
+  const followUps = !isBusy && lastMsg?.role === 'assistant'
+    ? (lastMsg.suggestions ?? [])
+    : [];
 
   return (
     <div
@@ -92,7 +96,7 @@ export const ChatPanel = memo(function ChatPanel({
           </div>
           <div className="min-w-0">
             <p className="chat-who">Qazi&apos;s assistant</p>
-            <p className="chat-sub mt-1">{sub}</p>
+            <p className="chat-sub mt-1">ask me anything about Qazi</p>
           </div>
         </div>
 
@@ -122,27 +126,8 @@ export const ChatPanel = memo(function ChatPanel({
         className="flex-1 overflow-y-auto px-4 py-5 space-y-3 overscroll-contain"
         style={{ scrollbarWidth: 'none' }}
       >
-        {/* Loading */}
-        {status === 'loading' && (
-          <div className="flex flex-col items-center justify-center h-full gap-3">
-            <div className="w-9 h-9 rounded-full border-[3px] border-coral/15 border-t-coral animate-spin" />
-            <p className="chat-sub">warming up my notebook…</p>
-          </div>
-        )}
-
-        {/* Error */}
-        {(status === 'misconfigured' || status === 'error') && (
-          <div className="flex flex-col items-center justify-center h-full px-6">
-            <div className="chat-note-err">
-              {status === 'misconfigured'
-                ? 'I’m missing my API keys — add them to the .env file and reload.'
-                : 'I tripped over my crayons. Please try again in a moment.'}
-            </div>
-          </div>
-        )}
-
         {/* Empty state */}
-        {status === 'ready' && messages.length === 0 && (
+        {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full gap-5 px-2">
             <span className="chat-greet-ic" aria-hidden="true">
               <Doodle name="chat" size={64} />
@@ -153,10 +138,7 @@ export const ChatPanel = memo(function ChatPanel({
               {SUGGESTIONS.map((s) => (
                 <button
                   key={s}
-                  onClick={() => {
-                    onInputChange(s);
-                    setTimeout(() => inputRef.current?.focus(), 0);
-                  }}
+                  onClick={() => handleSuggestion(s)}
                   className="chat-chip"
                 >
                   {s}
@@ -167,14 +149,23 @@ export const ChatPanel = memo(function ChatPanel({
         )}
 
         {/* Messages */}
-        {status === 'ready' && messages.length > 0 && (
+        {messages.length > 0 && (
           <>
             {messages.map((msg) =>
-              msg.role === 'assistant' && msg.content === '' && isStreaming
+              msg.role === 'assistant' && msg.content === '' && isBusy
                 ? null
                 : <MessageBubble key={msg.id} message={msg} />
             )}
             {showTyping && <TypingIndicator />}
+            {followUps.length > 0 && (
+              <div className="flex flex-col gap-2 pt-1">
+                {followUps.map((s) => (
+                  <button key={s} onClick={() => handleSuggestion(s)} className="chat-chip">
+                    {s}
+                  </button>
+                ))}
+              </div>
+            )}
           </>
         )}
 
@@ -182,37 +173,35 @@ export const ChatPanel = memo(function ChatPanel({
       </div>
 
       {/* ── Input ── */}
-      {(status === 'ready' || status === 'loading') && (
-        <div className="px-4 pb-4 pt-2 shrink-0">
-          <div className="flex items-end gap-2">
-            <div className="chat-inputwrap flex-1">
-              <textarea
-                ref={inputRef}
-                value={inputValue}
-                onChange={handleInput}
-                onKeyDown={handleKeyDown}
-                placeholder="Ask anything about Qazi…"
-                disabled={status !== 'ready'}
-                rows={1}
-                className="w-full resize-none bg-transparent text-[13px] text-ink placeholder-ink-soft/40 focus:outline-none disabled:opacity-40 leading-relaxed"
-                style={{ maxHeight: '100px', minHeight: '20px' }}
-                aria-label="Message"
-              />
-            </div>
-            <button
-              onClick={handleSubmit}
-              disabled={!canSend}
-              className="w-10 h-10 rounded-full bg-coral text-white flex items-center justify-center shrink-0 hover:bg-coral-dark disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:scale-105 active:scale-95 mb-0.5"
-              aria-label="Send"
-            >
-              <Send className="w-4 h-4" />
-            </button>
+      <div className="px-4 pb-4 pt-2 shrink-0">
+        <div className="flex items-end gap-2">
+          <div className="chat-inputwrap flex-1">
+            <textarea
+              ref={inputRef}
+              value={inputValue}
+              onChange={handleInput}
+              onKeyDown={handleKeyDown}
+              placeholder="Ask anything about Qazi…"
+              disabled={isBusy}
+              rows={1}
+              className="w-full resize-none bg-transparent text-[13px] text-ink placeholder-ink-soft/40 focus:outline-none disabled:opacity-40 leading-relaxed"
+              style={{ maxHeight: '100px', minHeight: '20px' }}
+              aria-label="Message"
+            />
           </div>
-          <p className="chat-time text-center mt-2">
-            enter to send · shift+enter for a new line
-          </p>
+          <button
+            onClick={handleSubmit}
+            disabled={!canSend}
+            className="w-10 h-10 rounded-full bg-coral text-white flex items-center justify-center shrink-0 hover:bg-coral-dark disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:scale-105 active:scale-95 mb-0.5"
+            aria-label="Send"
+          >
+            <Send className="w-4 h-4" />
+          </button>
         </div>
-      )}
+        <p className="chat-time text-center mt-2">
+          enter to send · shift+enter for a new line
+        </p>
+      </div>
     </div>
   );
 });
