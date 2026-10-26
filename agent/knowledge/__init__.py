@@ -1,15 +1,16 @@
 """Knowledge base loader.
 
 Each markdown file holds one topic; each ``## source-id`` section is one
-knowledge chunk (18 total, migrated 1:1 from the original TypeScript
-knowledge files).
+knowledge chunk. Five hand-written topics (migrated 1:1 from the original
+TypeScript knowledge files) plus ``catalog.md`` — the generated per-project
+catalogue of all 39 site projects.
 """
 
 import re
 from pathlib import Path
 
 KNOWLEDGE_DIR = Path(__file__).parent
-TOPICS = ("bio", "skills", "experience", "projects", "contact")
+TOPICS = ("bio", "skills", "experience", "projects", "contact", "catalog")
 
 _SECTION_RE = re.compile(r"^##\s+(\S+)\s*$\n?", re.MULTILINE)
 

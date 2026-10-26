@@ -10,7 +10,7 @@ from pathlib import Path
 import httpx
 import pytest
 from fastapi.testclient import TestClient
-from groq import RateLimitError
+from groq import BadRequestError, RateLimitError
 from langchain_core.messages import ToolMessage
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -29,11 +29,11 @@ from agent.tools import get_availability, get_contact, list_projects  # noqa: E4
 
 # ── knowledge base ──────────────────────────────────────────────────────────
 
-def test_knowledge_base_has_18_chunks():
+def test_knowledge_base_has_57_chunks():
     chunks = load_chunks()
-    assert len(chunks) == 18
+    assert len(chunks) == 57  # 18 hand-written + 39 generated project chunks
     assert {c["topic"] for c in chunks} == {
-        "bio", "skills", "experience", "projects", "contact",
+        "bio", "skills", "experience", "projects", "contact", "catalog",
     }
     sources = [c["source"] for c in chunks]
     assert len(sources) == len(set(sources)), "source ids must be unique"
@@ -44,11 +44,23 @@ def test_every_chunk_has_body_text():
         assert len(chunk["text"]) > 40, chunk["source"]
 
 
+def test_catalog_covers_every_site_project():
+    from agent.catalog import ALL_PROJECTS
+
+    assert len(ALL_PROJECTS) == 39
+    catalog_chunks = [c for c in load_chunks() if c["topic"] == "catalog"]
+    assert len(catalog_chunks) == len(ALL_PROJECTS)
+
+
 # ── tools ───────────────────────────────────────────────────────────────────
 
 def test_list_projects_filters_by_stack_keyword():
-    only_stripe = json.loads(list_projects.invoke({"stack": "stripe"}))
-    assert [p["title"] for p in only_stripe] == ["NOVA E-Commerce Platform"]
+    stripe = json.loads(list_projects.invoke({"stack": "stripe"}))
+    assert stripe[0]["title"] == "NOVA E-Commerce Platform"
+    assert all(
+        "stripe" in p["title"].lower() or any("stripe" in t.lower() for t in p["stack"])
+        for p in stripe
+    )
 
     npm = json.loads(list_projects.invoke({"stack": "npm"}))
     assert [p["title"] for p in npm] == ["Liquid Reveal"]
@@ -62,7 +74,8 @@ def test_list_projects_respects_limit():
 
 def test_list_projects_returns_all_by_default():
     items = json.loads(list_projects.invoke({}))
-    assert len(items) == len(FEATURED_PROJECTS)
+    assert len(items) == 5  # default cap; featured projects come first
+    assert len(json.loads(list_projects.invoke({"limit": 50}))) == 8  # hard cap
 
 
 def test_get_contact_and_availability():
@@ -209,6 +222,136 @@ def test_run_agent_rejects_missing_structured_response(monkeypatch):
     monkeypatch.setattr(graph, "get_agent", lambda: FakeAgent(response=None))
     with pytest.raises(graph.AgentUpstreamError):
         graph.run_agent("hello?")
+
+
+# ── structured-output resilience (salvage / corrective / transient) ─────────
+
+class SequenceAgent:
+    """Fake whose invoke() walks a script of steps (last step repeats)."""
+
+    def __init__(self, *steps):
+        self.steps = list(steps)
+        self.calls = 0
+
+    def invoke(self, _payload):
+        step = self.steps[min(self.calls, len(self.steps) - 1)]
+        self.calls += 1
+        if isinstance(step, Exception):
+            raise step
+        return step
+
+
+def _result(response=None, messages=None):
+    return {"messages": messages or [], "structured_response": response}
+
+
+def _tool_use_failed(failed_generation: object):
+    error = {"code": "tool_use_failed", "failed_generation": failed_generation}
+    request = httpx.Request("POST", "https://api.groq.com/openai/v1/chat/completions")
+    return BadRequestError(
+        "Error code: 400",
+        response=httpx.Response(400, request=request, json={"error": error}),
+        body={"error": error},
+    )
+
+
+class _Fake500(Exception):
+    status_code = 500
+
+
+def test_salvage_uses_valid_failed_generation(monkeypatch):
+    payload = _grounded(trace=["searched knowledge base"]).model_dump()
+    agent = SequenceAgent(_tool_use_failed(json.dumps(payload)))
+    monkeypatch.setattr(graph, "get_agent", lambda: agent)
+
+    resp = graph.run_agent("who is Qazi?")
+    assert resp.intent == "bio"
+    assert resp.blocks[0].type == "text"
+    assert resp.sources == ["knowledge base"]
+    assert agent.calls == 1  # salvaged without a second invoke
+
+
+def test_salvage_unwraps_arguments_and_content_key(monkeypatch):
+    payload = {
+        "name": "agent_response",
+        "arguments": {
+            "intent": "bio",
+            "content": [{"type": "text", "content": "Qazi is an engineer."}],
+            "trace": ["searched knowledge base"],
+            "suggestions": ["a", "b"],
+        },
+    }
+    agent = SequenceAgent(_tool_use_failed(json.dumps(payload)))
+    monkeypatch.setattr(graph, "get_agent", lambda: agent)
+
+    resp = graph.run_agent("who is Qazi?")
+    assert resp.intent == "bio"
+    assert resp.blocks[0].content == "Qazi is an engineer."
+    assert resp.sources == ["knowledge base"]
+
+
+def test_unsalvageable_400_triggers_corrective_reinvoke(monkeypatch):
+    agent = SequenceAgent(
+        _tool_use_failed("definitely not json"),
+        _result(
+            _grounded(trace=["listed projects"]),
+            messages=[_evidence("list_projects")],
+        ),
+    )
+    monkeypatch.setattr(graph, "get_agent", lambda: agent)
+
+    resp = graph.run_agent("what has he built?")
+    assert resp.intent == "bio"
+    assert resp.sources == ["projects"]
+    assert agent.calls == 2
+
+
+def test_persistent_tool_use_failed_raises_upstream(monkeypatch):
+    agent = SequenceAgent(_tool_use_failed("nope"), _tool_use_failed("nope"))
+    monkeypatch.setattr(graph, "get_agent", lambda: agent)
+    with pytest.raises(graph.AgentUpstreamError):
+        graph.run_agent("who is Qazi?")
+
+
+def test_transient_5xx_retried_once(monkeypatch):
+    monkeypatch.setattr(graph, "TRANSIENT_BACKOFF", 0)
+    agent = SequenceAgent(
+        _Fake500("upstream hiccup"),
+        _result(_grounded(trace=["searched knowledge base"]), messages=[_evidence()]),
+    )
+    monkeypatch.setattr(graph, "get_agent", lambda: agent)
+
+    resp = graph.run_agent("who is Qazi?")
+    assert resp.sources == ["knowledge base"]
+    assert agent.calls == 2
+
+
+def test_guardrail_corrective_turn_grounded_answer(monkeypatch):
+    agent = SequenceAgent(
+        _result(_grounded(trace=[], sources=[])),  # grounded intent, no tools
+        _result(
+            _grounded(trace=["searched knowledge base"]),
+            messages=[_evidence()],
+        ),
+    )
+    monkeypatch.setattr(graph, "get_agent", lambda: agent)
+
+    resp = graph.run_agent("what's his background?")
+    assert resp.intent == "bio"
+    assert resp.sources == ["knowledge base"]
+    assert agent.calls == 2
+
+
+def test_guardrail_turn_failure_falls_back(monkeypatch):
+    agent = SequenceAgent(
+        _result(_grounded(trace=[], sources=[])),
+        RuntimeError("model exploded mid-guardrail"),
+    )
+    monkeypatch.setattr(graph, "get_agent", lambda: agent)
+
+    resp = graph.run_agent("what's his background?")
+    assert resp.intent == "fallback"
+    assert any(b.type == "contact_card" for b in resp.blocks)
 
 # ── HTTP API ────────────────────────────────────────────────────────────────
 

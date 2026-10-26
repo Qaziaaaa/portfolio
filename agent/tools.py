@@ -5,12 +5,44 @@ import json
 from langchain_core.tools import tool
 
 from agent import rag
+from agent.catalog import ALL_PROJECTS
 from agent.data import AVAILABILITY, CONTACT, FEATURED_PROJECTS
+
+_FEATURED_TITLES = {p["title"] for p in FEATURED_PROJECTS}
+_PROJECT_ITEMS: list[dict] | None = None
+
+
+def _project_items() -> list[dict]:
+    """Featured projects first, then the rest of the site catalogue.
+
+    Deduplicated by title (the site data intentionally repeats a few titles
+    across categories — first occurrence wins).
+    """
+    global _PROJECT_ITEMS
+    if _PROJECT_ITEMS is None:
+        seen = set(_FEATURED_TITLES)
+        rest = []
+        for p in ALL_PROJECTS:
+            if p["title"] in seen:
+                continue
+            seen.add(p["title"])
+            rest.append(
+                {
+                    "title": p["title"],
+                    "emoji": p["emoji"],
+                    "stack": p["tech"],
+                    "live": p["live"],
+                    "repo": p["github"],
+                    "summary": p["description"],
+                }
+            )
+        _PROJECT_ITEMS = FEATURED_PROJECTS + rest
+    return _PROJECT_ITEMS
 
 
 @tool
 def search_knowledge(query: str) -> str:
-    """Semantic search over Qazi's portfolio knowledge base (bio, skills, experience, projects, contact). Use this for any question about who he is, what he knows, what he's done, or what he's built."""
+    """Semantic search over Qazi's portfolio knowledge base (bio, skills, experience, all 39 projects, contact). Use this for any question about who he is, what he knows, what he's done, or what he's built."""
     hits = rag.search(query)
     if not hits:
         return "No relevant context found in the knowledge base."
@@ -21,8 +53,8 @@ def search_knowledge(query: str) -> str:
 
 @tool
 def list_projects(stack: str = "", limit: int = 5) -> str:
-    """List Qazi's featured projects as JSON. Optional `stack` filters by a tech keyword (e.g. 'react', 'node', 'ai', 'typescript'). Returns title, emoji, stack, live URL and repo URL for each match."""
-    items = FEATURED_PROJECTS
+    """List Qazi's projects as JSON — featured projects first, drawn from the full catalogue of 39 site projects. Optional `stack` filters by a tech keyword (e.g. 'react', 'node', 'ai', 'stripe'). Returns title, emoji, stack, live URL, repo URL and a one-line summary for each match."""
+    items = _project_items()
     if stack:
         needle = stack.lower()
         items = [
@@ -31,7 +63,8 @@ def list_projects(stack: str = "", limit: int = 5) -> str:
             if needle in p["title"].lower()
             or any(needle in t.lower() for t in p["stack"])
         ]
-    return json.dumps(items[: max(limit, 1)], ensure_ascii=False)
+    cap = max(1, min(limit, 8))
+    return json.dumps(items[:cap], ensure_ascii=False)
 
 
 @tool
