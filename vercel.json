@@ -4,7 +4,7 @@
   "buildCommand": "npm ci && npm run build",
   "functions": {
     "app.py": {
-      "excludeFiles": "{node_modules/**,dist/**,public/**,src/**,.git/**,.github/**,tests/**}",
+      "excludeFiles": "{node_modules/**,public/**,src/**,.git/**,.github/**,tests/**}",
       "maxDuration": 60
     }
   }
