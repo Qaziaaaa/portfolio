@@ -58,9 +58,7 @@ const Navigation = () => {
 
       {open && (
         <div className="mobile-menu">
-          <div className="mobile-menu-backdrop" onClick={close} />
           <div className="mobile-menu-panel">
-            <p className="mobile-menu-label">navigation</p>
             {navLinks.map(link => (
               <NavLink
                 key={link.to}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { projects, displayTitle, type ProjectCategory } from '../data/projects';
 import Doodle from '../components/Doodle';
@@ -20,6 +20,29 @@ const categoryLabel: Record<ProjectCategory, string> = {
 
 const Projects = () => {
   const [filter, setFilter] = useState<Filter>('all');
+  const chipsRef = useRef<HTMLDivElement>(null);
+  const [thumb, setThumb] = useState({ x: 0, w: 0 });
+
+  const measure = () => {
+    const chips = chipsRef.current;
+    if (!chips) return;
+    const idx = filters.findIndex(f => f.key === filter);
+    const btn = chips.querySelectorAll<HTMLElement>('.chip')[idx];
+    if (!btn) return;
+    const cr = chips.getBoundingClientRect();
+    const br = btn.getBoundingClientRect();
+    setThumb({ x: br.left - cr.left - 4, w: br.width });
+  };
+
+  useLayoutEffect(() => { measure(); }, [filter]);
+
+  useLayoutEffect(() => {
+    measure();
+    window.addEventListener('resize', measure);
+    document.fonts?.ready.then(measure);
+    return () => window.removeEventListener('resize', measure);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const visible = filter === 'all' ? projects : projects.filter(p => p.category === filter);
 
@@ -34,7 +57,11 @@ const Projects = () => {
 
         <div className="filters">
           <span className="flabel">filter by type</span>
-          <div className="chips">
+          <div className="chips" ref={chipsRef}>
+            <span
+              className="chips-thumb"
+              style={{ transform: `translateX(${thumb.x}px)`, width: thumb.w }}
+            />
             {filters.map(f => (
               <button
                 key={f.key}

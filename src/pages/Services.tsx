@@ -121,11 +121,28 @@ const Services = () => {
           </div>
 
           <div className="faq">
-            {faqs.map(faq => (
-              <details key={faq.q}>
-                <summary>{faq.q}</summary>
-                <p>{faq.a}</p>
-              </details>
+            {faqs.map((faq, i) => (
+              <div className="faq-container" key={faq.q}>
+                <input type="checkbox" className="faq-input" id={`faq-${i}`} name="open-faqs" />
+                <span className="custom checkbox" />
+                <label className="faq-label" htmlFor={`faq-${i}`}>
+                  <div className="faq-title">{faq.q}</div>
+                  <span className="faq-icon">
+                    <svg className="icon-more" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="12" y1="5" x2="12" y2="19" />
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    <svg className="icon-less" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                  </span>
+                </label>
+                <article className="faq-content">
+                  <div className="faq-post">
+                    <p>{faq.a}</p>
+                  </div>
+                </article>
+              </div>
             ))}
           </div>
         </div>
