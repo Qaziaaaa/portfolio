@@ -43,7 +43,14 @@ def _project_items() -> list[dict]:
 @tool
 def search_knowledge(query: str) -> str:
     """Semantic search over Qazi's portfolio knowledge base (bio, skills, experience, all 39 projects, contact). Use this for any question about who he is, what he knows, what he's done, or what he's built."""
-    hits = rag.search(query)
+    try:
+        hits = rag.search(query)
+    except Exception as exc:  # never let retrieval crash the agent loop
+        print(f"[tool] search_knowledge failed: {type(exc).__name__}: {exc}", flush=True)
+        return (
+            "The knowledge base is temporarily unavailable. Answer only from "
+            "other tools, or say the fact cannot be verified right now."
+        )
     if not hits:
         return "No relevant context found in the knowledge base."
     return "\n\n---\n\n".join(

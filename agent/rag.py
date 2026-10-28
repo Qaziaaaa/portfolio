@@ -1,11 +1,16 @@
 """Server-side RAG: Jina embeddings + LangChain InMemoryVectorStore.
 
 The store is built lazily on first use and reused across warm invocations
-(18 chunks — one batched embedding call per cold start).
+(57 chunks — one batched embedding call per cold start). If Jina is
+unreachable or the key is rejected, search falls back to local keyword
+scoring over the same chunks so grounded answers keep working.
 """
 
+import math
 import os
+import re
 import threading
+from collections import Counter
 
 import httpx
 
@@ -15,6 +20,14 @@ JINA_URL = "https://api.jina.ai/v1/embeddings"
 JINA_MODEL = "jina-embeddings-v3"
 DEFAULT_TOP_K = 3
 DEFAULT_THRESHOLD = 0.3
+KEYWORD_THRESHOLD = 0.1
+
+_STOPWORDS = frozenset(
+    "the a an and or of to in for with on is are was were be been what which "
+    "who whom whose when where why how do does did can could should would "
+    "tell about his her she he they them this that these those there here "
+    "qazi farhan ahmad you your i we our me my".split()
+)
 
 
 def _jina_key() -> str:
@@ -48,6 +61,14 @@ class JinaEmbeddings:
 
 _store = None
 _store_lock = threading.Lock()
+_chunks_cache: list[dict] | None = None
+
+
+def _chunks() -> list[dict]:
+    global _chunks_cache
+    if _chunks_cache is None:
+        _chunks_cache = load_chunks()
+    return _chunks_cache
 
 
 def get_store():
@@ -59,7 +80,7 @@ def get_store():
         if _store is None:
             from langchain_core.vectorstores import InMemoryVectorStore
 
-            chunks = load_chunks()
+            chunks = _chunks()
             store = InMemoryVectorStore(JinaEmbeddings())
             store.add_texts(
                 texts=[c["text"] for c in chunks],
@@ -71,13 +92,68 @@ def get_store():
     return _store
 
 
+def _tokens(text: str) -> list[str]:
+    return [
+        token
+        for token in re.findall(r"[a-z0-9+#.]+", text.lower())
+        if len(token) > 2 and token not in _STOPWORDS
+    ]
+
+
+def _keyword_search(
+    query: str,
+    k: int,
+    threshold: float,
+) -> list[dict]:
+    """Cosine-over-token-counts fallback used when embeddings are unavailable."""
+    query_counts = Counter(_tokens(query))
+    if not query_counts:
+        return []
+
+    scored: list[tuple[float, dict]] = []
+    for chunk in _chunks():
+        counts = Counter(_tokens(chunk["text"]))
+        if not counts:
+            continue
+        overlap = sum((query_counts & counts).values())
+        if not overlap:
+            continue
+        score = overlap / math.sqrt(
+            sum(query_counts.values()) * sum(counts.values())
+        )
+        if score < threshold:
+            continue
+        scored.append((score, chunk))
+    scored.sort(key=lambda pair: pair[0], reverse=True)
+    return [
+        {
+            "text": chunk["text"],
+            "topic": chunk["topic"],
+            "source": chunk["source"],
+            "score": round(score, 3),
+        }
+        for score, chunk in scored[:k]
+    ]
+
+
 def search(
     query: str,
     k: int = DEFAULT_TOP_K,
     threshold: float = DEFAULT_THRESHOLD,
 ) -> list[dict]:
-    """Top-K chunks for the query, filtered by cosine-similarity threshold."""
-    results = get_store().similarity_search_with_score(query, k=k)
+    """Top-K chunks for the query, filtered by cosine-similarity threshold.
+
+    Falls back to local keyword scoring (no network) whenever the embedding
+    service errors, so a Jina outage or bad key never breaks the agent.
+    """
+    try:
+        results = get_store().similarity_search_with_score(query, k=k)
+    except Exception as exc:
+        print(
+            f"[rag] embeddings unavailable ({type(exc).__name__}) → keyword fallback",
+            flush=True,
+        )
+        return _keyword_search(query, k, KEYWORD_THRESHOLD)
     hits = []
     for doc, score in results:
         score = float(score)

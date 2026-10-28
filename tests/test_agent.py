@@ -401,3 +401,48 @@ def test_agent_endpoint_maps_upstream_error_to_502(monkeypatch):
     client = TestClient(app_module.app)
     res = client.post("/api/agent", json={"message": "hi"})
     assert res.status_code == 502
+
+
+# ── RAG resilience (a Jina outage must not crash the agent loop) ───────────
+
+def test_keyword_fallback_when_embeddings_down(monkeypatch):
+    import agent.rag as rag
+
+    def _boom(_texts):
+        raise httpx.HTTPStatusError(
+            "jina down",
+            request=httpx.Request("POST", "https://api.jina.ai/v1/embeddings"),
+            response=httpx.Response(401),
+        )
+
+    monkeypatch.setattr(rag, "_store", None)
+    monkeypatch.setattr(rag, "_embed", _boom)
+    hits = rag.search("what is his university degree")
+    assert hits, "keyword fallback should still retrieve education content"
+    assert all(h["text"] and h["source"] for h in hits)
+
+
+def test_keyword_fallback_relevant_for_stack_query(monkeypatch):
+    import agent.rag as rag
+
+    def _boom(_texts):
+        raise RuntimeError("network down")
+
+    monkeypatch.setattr(rag, "_store", None)
+    monkeypatch.setattr(rag, "_embed", _boom)
+    hits = rag.search("react typescript mongodb projects")
+    assert hits
+    assert any("react" in h["text"].lower() for h in hits)
+
+
+def test_search_knowledge_tool_never_raises(monkeypatch):
+    import agent.rag as rag
+    from agent.tools import search_knowledge
+
+    def _down(_query, **_kwargs):
+        raise RuntimeError("rag down")
+
+    monkeypatch.setattr(rag, "search", _down)
+    out = search_knowledge.invoke({"query": "who is he"})
+    assert isinstance(out, str)
+    assert "temporarily unavailable" in out
